@@ -1,9 +1,9 @@
 version: 2.1
+filters:
+  branches:
+    only: staging/qa
 jobs:
   build:
-    branches:
-      only:
-        - staging/qa
     working_directory: ~/repo
     docker:
       - image: circleci/node:10.16.3
