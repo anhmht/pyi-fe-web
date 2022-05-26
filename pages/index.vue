@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Button> Trss</Button>
+    <Button> Test</Button>
     <Tutorial />
   </div>
 </template>
