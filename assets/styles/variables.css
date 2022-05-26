@@ -1,0 +1,37 @@
+@custom-media --viewport-mobile (max-width: 480px);
+@custom-media --viewport-desktop (min-width: 481px);
+@custom-media --viewport-page-container (max-width: 1156px);
+
+:root {
+  /* Colors
+   * ======================================================================== */
+
+  /**
+   * Primary
+   */
+
+  /* Layouts
+   * ======================================================================== */
+  --space: 16px; /* 16px */
+  --space-4x: calc(var(--space) * 4); /* 64px */
+  --space-3x5: calc(var(--space) * 3.5); /* 56px */
+  --space-3x: calc(var(--space) * 3); /* 48px */
+  --space-2x5: calc(var(--space) * 2.5); /* 40px */
+  --space-2x: calc(var(--space) * 2); /* 32px */
+  --space-1o2: calc(var(--space) / 2); /* 8px */
+  --space-1o4: calc(var(--space) / 4); /* 4px */
+  --space-3o4: calc(var(--space) * 3 / 4); /* 12px */
+  --space-1x5: calc(var(--space) * 1.5); /* 24px */
+
+  /**
+   * Z-index
+   */
+
+  --z-index-sticky-footer: 10;
+  --z-index-drag-indicator: 20;
+  --z-index-global-header-menu: 30; /* Override common-ui custom property */
+  --z-index-sticky-header: 40;
+  --z-index-modal: 50;
+  --z-index-loading-overlay: 60;
+  --z-index-snackbar: 70;
+}

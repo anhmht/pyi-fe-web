@@ -41,7 +41,6 @@ Layouts are a great help when you want to change the look and feel of your Nuxt 
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
 
-
 ### `pages`
 
 This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
@@ -67,3 +66,21 @@ More information about the usage of this directory in [the documentation](https:
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+
+## SSL on local development
+
+Create private and public key in `.ssl` in the project root
+
+```sh
+# create `.ssl` dir in project root
+$ mkdir .ssl
+
+# create a private key
+$ sudo openssl genrsa -out .ssl/localhost.key 2048
+
+# create a public key
+$ sudo openssl req -new -x509 -key .ssl/localhost.key -out .ssl/localhost.crt -days 3650 -subj /CN=localhost
+
+# add public key to Keychains
+$ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain .ssl/localhost.crt
+```
