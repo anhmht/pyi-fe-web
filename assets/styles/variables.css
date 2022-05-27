@@ -1,14 +1,25 @@
-@custom-media --viewport-mobile (max-width: 480px);
-@custom-media --viewport-desktop (min-width: 481px);
-@custom-media --viewport-page-container (max-width: 1156px);
+@custom-media --viewport-1600 (max-width: 1600px);
+@custom-media --viewport-1440 (max-width: 1440px);
+@custom-media --viewport-1280 (max-width: 1280px);
+@custom-media --viewport-1199 (max-width: 1199px);
+@custom-media --viewport-1024 (max-width: 1024px);
+@custom-media --viewport-991 (max-width: 991px);
+@custom-media --viewport-959 (max-width: 959px);
+@custom-media --viewport-880 (max-width: 880px);
+@custom-media --viewport-768 (max-width: 768px);
+@custom-media --viewport-767 (max-width: 767px);
+@custom-media --viewport-539 (max-width: 539px);
+@custom-media --viewport-480 (max-width: 480px);
+@custom-media --viewport-479 (max-width: 479px);
+@custom-media --viewport-400 (max-width: 400px);
 
 :root {
   /* Colors
    * ======================================================================== */
 
-  /**
-   * Primary
-   */
+  --color-primary-text: #1e1e27;
+  --color-secondary-text: #b5aec4;
+  --color-link: #232530;
 
   /* Layouts
    * ======================================================================== */
@@ -34,4 +45,10 @@
   --z-index-modal: 50;
   --z-index-loading-overlay: 60;
   --z-index-snackbar: 70;
+
+  /*
+  * transition
+  */
+
+  --transition-300: all 300ms ease;
 }

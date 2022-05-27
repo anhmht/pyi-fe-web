@@ -42,7 +42,11 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['element-ui/lib/theme-chalk/index.css', '~/assets/styles/main.css'],
+  css: [
+    'element-ui/lib/theme-chalk/index.css',
+    'font-awesome/css/font-awesome.min.css',
+    '~/assets/styles/main.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/element-ui'],
@@ -53,7 +57,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    '@nuxt/postcss8'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -90,6 +95,12 @@ export default {
           'nesting-rules': true,
           'custom-media-queries': true
         }
+      },
+      plugins: {
+        'postcss-import': {},
+        'tailwindcss/nesting': {},
+        tailwindcss: {},
+        autoprefixer: {}
       }
     }
   },
