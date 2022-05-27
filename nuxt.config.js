@@ -97,6 +97,7 @@ export default {
         }
       },
       plugins: {
+        'postcss-custom-properties': false,
         'postcss-import': {},
         'tailwindcss/nesting': {},
         tailwindcss: {},
