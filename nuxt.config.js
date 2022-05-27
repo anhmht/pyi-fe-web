@@ -57,7 +57,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    '@nuxt/postcss8'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -92,14 +93,15 @@ export default {
         // https://github.com/csstools/postcss-preset-env#features
         features: {
           'nesting-rules': true,
-          'custom-media-queries': true
+          'custom-media-queries': true,
+          stage: 1
         }
       },
       plugins: {
         'postcss-custom-properties': false,
         'postcss-import': {},
         'tailwindcss/nesting': {},
-        tailwindcss: {},
+        tailwindcss: path.resolve(__dirname, './tailwind.config.js'),
         autoprefixer: {}
       }
     }
