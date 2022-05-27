@@ -13,7 +13,7 @@ jobs:
       - run: node --version
       - run:
           name: update-npm
-          command: 'npm install -g npm@5'
+          command: 'npm install -g npm@latest'
       - run:
           name: clear npm cached
           command: npm cache clean --force
