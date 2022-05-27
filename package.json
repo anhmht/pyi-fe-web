@@ -25,6 +25,7 @@
     "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
     "autoprefixer": "^10.4.7",
+    "graceful-fs": "^4.2.10",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.0.24"
   },
