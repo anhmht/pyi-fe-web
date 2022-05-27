@@ -10,6 +10,9 @@ jobs:
           name: update-npm
           command: 'sudo npm install -g npm@5'
       - run:
+          name: Set NPM registry config
+          command: npm cache clean --force
+      - run:
           name: install-packages
           command: npm ci
       - run:
