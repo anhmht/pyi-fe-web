@@ -3,14 +3,19 @@ orbs:
   node: circleci/node@5.0.2
 jobs:
   build:
+    docker:
+      - image: 'cimg/base:stable'
     working_directory: ~/repo
     steps:
       - checkout
+      - node/install:
+          node-version: '16.13'
+      - run: node --version
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@5'
       - run:
-          name: Set NPM registry config
+          name: clear npm cached
           command: npm cache clean --force
       - run:
           name: install-packages
