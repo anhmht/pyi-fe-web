@@ -15,6 +15,7 @@
                 :key="item.uuid"
                 :name="item.name"
                 :data="item.subMenus"
+                :class="$style.subMenu"
               />
             </ul>
           </div>
@@ -58,5 +59,8 @@ export default Vue.extend({
 .right {
   display: flex;
   justify-content: flex-end;
+  .subMenu + .subMenu {
+    border-left: solid 1px #33333b;
+  }
 }
 </style>
