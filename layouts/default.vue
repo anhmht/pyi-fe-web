@@ -2,7 +2,7 @@
   <div :class="$style.root">
     <Header />
     <main>
-      <nuxt />
+      <nuxt-child />
     </main>
   </div>
 </template>
@@ -29,6 +29,12 @@ export default Vue.extend({
   margin-right: auto;
   margin-left: auto;
 }
+.navbar_menu {
+  display: block;
+}
+.hamburger_container {
+  display: none;
+}
 /******************************
 
 [Table of Contents]
@@ -49,57 +55,63 @@ export default Vue.extend({
 
 ******************************/
 
-@media only screen and (--viewport-1600) {
+@media only screen and (max-width: 1600px) {
 }
 
 /************
 2. 1440px
 ************/
 
-@media only screen and (--viewport-1440) {
+@media only screen and (max-width: 1440px) {
 }
 
 /************
 3. 1380px
 ************/
 
-@media only screen and (--viewport-1380) {
+@media only screen and (max-width: 1380px) {
 }
 
 /************
 3. 1280px
 ************/
 
-@media only screen and (--viewport-1280) {
+@media only screen and (max-width: 1280px) {
 }
 
 /************
 4. 1199px
 ************/
 
-@media only screen and (--viewport-1199) {
+@media only screen and (max-width: 1199px) {
 }
 
 /************
 5. 1024px
 ************/
 
-@media only screen and (--viewport-1024) {
+@media only screen and (max-width: 1024px) {
+  .top_nav {
+    display: none;
+  }
+  .navbar_menu {
+    display: none;
+  }
+  .hamburger_container {
+    display: block;
+  }
 }
 
 /************
 6. 991px
 ************/
 
-@media only screen and (--viewport-991) {
+@media only screen and (max-width: 991px) {
   h1 {
     font-size: 48px;
   }
   h2 {
     font-size: 36px;
-  }
-  .top_nav {
-    display: none;
   }
 }
 
@@ -107,28 +119,28 @@ export default Vue.extend({
 7. 959px
 ************/
 
-@media only screen and (--viewport-959) {
+@media only screen and (max-width: 959px) {
 }
 
 /************
 8. 880px
 ************/
 
-@media only screen and (--viewport-880) {
+@media only screen and (max-width: 880px) {
 }
 
 /************
 9. 768px
 ************/
 
-@media only screen and (--viewport-768) {
+@media only screen and (max-width: 768px) {
 }
 
 /************
 10. 767px
 ************/
 
-@media only screen and (--viewport-767) {
+@media only screen and (max-width: 767px) {
   h1 {
     font-size: 36px;
   }
@@ -144,34 +156,34 @@ export default Vue.extend({
 11. 575px
 ************/
 
-@media only screen and (--viewport-575) {
+@media only screen and (max-width: 575px) {
 }
 
 /************
 11. 539px
 ************/
 
-@media only screen and (--viewport-539) {
+@media only screen and (max-width: 539px) {
 }
 
 /************
 12. 480px
 ************/
 
-@media only screen and (--viewport-480) {
+@media only screen and (max-width: 480px) {
 }
 
 /************
 13. 479px
 ************/
 
-@media only screen and (--viewport-479) {
+@media only screen and (max-width: 479px) {
 }
 
 /************
 14. 400px
 ************/
 
-@media only screen and (--viewport-400) {
+@media only screen and (max-width: 400px) {
 }
 </style>

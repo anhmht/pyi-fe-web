@@ -1,13 +1,44 @@
 <template>
   <div :class="$style.root">
-    <div class="container"></div>
+    <div class="container">
+      <el-row>
+        <el-col :lg="24">
+          <div :class="$style.logo">
+            <img src="~/assets/images/logo.png" width="80" />
+          </div>
+          <div :class="$style.nav">
+            <MainNavMenu class="navbar_menu" :data="mainMenus" />
+            <MainNavUser />
+            <div class="hamburger_container" :class="$style.hamburger">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import MainNavMenu from '~/components/layout/default/header/MainNavMenu.vue'
+import MainNavUser from '~/components/layout/default/header/MainNavUser.vue'
+import { MainMenu } from '~/model/layout/header'
+import { mainMenus } from '~/mock/data/MainMenu'
 
-export default Vue.extend({})
+export default Vue.extend({
+  components: {
+    MainNavMenu,
+    MainNavUser
+  },
+  data(): {
+    mainMenus: MainMenu[]
+  } {
+    return {
+      mainMenus: mainMenus
+    }
+  }
+})
 </script>
 
 <style lang="postcss" module>
@@ -15,5 +46,27 @@ export default Vue.extend({})
   width: 100%;
   background: #ffffff;
   box-shadow: 0 0 16px rgb(0 0 0 / 15%);
+  position: relative;
+  .logo {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .nav {
+    height: 100px;
+    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+  }
+  .hamburger {
+    margin-left: var(--space-2x);
+    i {
+      font-size: 2.4rem;
+      color: var(-color-primary-text);
+    }
+  }
 }
 </style>
