@@ -1,0 +1,48 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.0.2
+jobs:
+  build:
+    docker:
+      - image: 'cimg/base:stable'
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - node/install:
+          node-version: '16.13'
+      - run: node --version
+      - run:
+          name: update-npm
+          command: 'npm install -g npm@latest'
+      - run:
+          name: clear npm cached
+          command: npm cache clean --force
+      - run:
+          name: install-packages
+          command: npm ci
+      - run:
+          name: build-project
+          command: npm run generate:gh-pages
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install gh-pages --save-dev
+            git config user.email $GITHUB_EMAIL
+            git config user.name $GITHUB_USERNAME
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: './node_modules/.bin/gh-pages --dotfiles --message "[skip ci] Updates" -d dist'
+      - store_artifacts:
+          path: test-results.xml
+          prefix: tests
+      - store_test_results:
+          path: test-results.xml
+
+workflows:
+  version: 2
+  build-and-publish:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: staging/qa

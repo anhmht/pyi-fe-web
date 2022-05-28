@@ -1,0 +1,54 @@
+@custom-media --viewport-1600 (max-width: 1600px);
+@custom-media --viewport-1440 (max-width: 1440px);
+@custom-media --viewport-1280 (max-width: 1280px);
+@custom-media --viewport-1199 (max-width: 1199px);
+@custom-media --viewport-1024 (max-width: 1024px);
+@custom-media --viewport-991 (max-width: 991px);
+@custom-media --viewport-959 (max-width: 959px);
+@custom-media --viewport-880 (max-width: 880px);
+@custom-media --viewport-768 (max-width: 768px);
+@custom-media --viewport-767 (max-width: 767px);
+@custom-media --viewport-539 (max-width: 539px);
+@custom-media --viewport-480 (max-width: 480px);
+@custom-media --viewport-479 (max-width: 479px);
+@custom-media --viewport-400 (max-width: 400px);
+
+:root {
+  /* Colors
+   * ======================================================================== */
+
+  --color-primary-text: #1e1e27;
+  --color-secondary-text: #b5aec4;
+  --color-link: #232530;
+
+  /* Layouts
+   * ======================================================================== */
+  --space: 16px; /* 16px */
+  --space-4x: calc(var(--space) * 4); /* 64px */
+  --space-3x5: calc(var(--space) * 3.5); /* 56px */
+  --space-3x: calc(var(--space) * 3); /* 48px */
+  --space-2x5: calc(var(--space) * 2.5); /* 40px */
+  --space-2x: calc(var(--space) * 2); /* 32px */
+  --space-1o2: calc(var(--space) / 2); /* 8px */
+  --space-1o4: calc(var(--space) / 4); /* 4px */
+  --space-3o4: calc(var(--space) * 3 / 4); /* 12px */
+  --space-1x5: calc(var(--space) * 1.5); /* 24px */
+
+  /**
+   * Z-index
+   */
+
+  --z-index-sticky-footer: 10;
+  --z-index-drag-indicator: 20;
+  --z-index-global-header-menu: 30; /* Override common-ui custom property */
+  --z-index-sticky-header: 40;
+  --z-index-modal: 50;
+  --z-index-loading-overlay: 60;
+  --z-index-snackbar: 70;
+
+  /*
+  * transition
+  */
+
+  --transition-300: all 300ms ease;
+}
