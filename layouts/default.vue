@@ -4,14 +4,16 @@
     <main>
       <nuxt-child />
     </main>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Footer from '~/components/layout/default/Footer.vue'
 import Header from '~/components/layout/default/Header.vue'
 export default Vue.extend({
-  components: { Header }
+  components: { Header, Footer }
 })
 </script>
 
@@ -33,6 +35,10 @@ export default Vue.extend({
   display: block;
 }
 .hamburger_container {
+  display: none;
+}
+.drawer {
+  width: 40% !important;
   display: none;
 }
 /******************************
@@ -100,6 +106,9 @@ export default Vue.extend({
   .hamburger_container {
     display: block;
   }
+  .drawer {
+    display: block;
+  }
 }
 
 /************
@@ -149,6 +158,9 @@ export default Vue.extend({
   }
   h6 {
     font-size: 12px;
+  }
+  .drawer {
+    width: 100% !important;
   }
 }
 

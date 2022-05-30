@@ -9,12 +9,17 @@
           <div :class="$style.nav">
             <MainNavMenu class="navbar_menu" :data="mainMenus" />
             <MainNavUser />
-            <div class="hamburger_container" :class="$style.hamburger">
+            <div
+              class="hamburger_container"
+              :class="$style.hamburger"
+              @click="drawer = true"
+            >
               <i class="fa fa-bars" aria-hidden="true"></i>
             </div>
           </div>
         </el-col>
       </el-row>
+      <DrawerMainMenu :visible.sync="drawer" />
     </div>
   </div>
 </template>
@@ -23,21 +28,26 @@
 import Vue from 'vue'
 import MainNavMenu from '~/components/layout/default/header/MainNavMenu.vue'
 import MainNavUser from '~/components/layout/default/header/MainNavUser.vue'
+import DrawerMainMenu from '~/components/layout/default/header/DrawerMainMenu.vue'
 import { MainMenu } from '~/model/layout/header'
 import { mainMenus } from '~/mock/data/MainMenu'
 
 export default Vue.extend({
   components: {
     MainNavMenu,
-    MainNavUser
+    MainNavUser,
+    DrawerMainMenu
   },
   data(): {
     mainMenus: MainMenu[]
+    drawer: boolean
   } {
     return {
-      mainMenus: mainMenus
+      mainMenus: mainMenus,
+      drawer: false
     }
-  }
+  },
+  methods: {}
 })
 </script>
 
@@ -63,9 +73,14 @@ export default Vue.extend({
   }
   .hamburger {
     margin-left: var(--space-2x);
+    cursor: pointer;
     i {
       font-size: 2.4rem;
       color: var(-color-primary-text);
+      transition: var(--transition-300);
+    }
+    &:hover {
+      color: var(--color-secondary-text);
     }
   }
 }
