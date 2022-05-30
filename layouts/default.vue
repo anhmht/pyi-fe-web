@@ -4,14 +4,16 @@
     <main>
       <nuxt-child />
     </main>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Footer from '~/components/layout/default/Footer.vue'
 import Header from '~/components/layout/default/Header.vue'
 export default Vue.extend({
-  components: { Header }
+  components: { Header, Footer }
 })
 </script>
 
