@@ -7,7 +7,7 @@
   --color-link: #232530;
   --color-bg-secondary: #eceff6;
   --color-error: #fe4c50;
-  --color-primary: #02bd99;
+  --color-primary: #ffc700;
 
   /* Layouts
    * ======================================================================== */
@@ -39,4 +39,11 @@
   */
 
   --transition-300: all 300ms ease;
+  --transition-500: all 500ms ease;
+
+  /*
+  * border-radius
+  */
+
+  --radius-5: 0.5rem;
 }

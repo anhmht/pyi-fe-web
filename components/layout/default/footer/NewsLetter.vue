@@ -16,7 +16,7 @@
               <el-form-item
                 :class="$style.input"
                 inline-message
-                prop="name"
+                prop="email"
                 :rules="[
                   {
                     required: true,
@@ -33,7 +33,6 @@
                 <el-input
                   placeholder="Your Email"
                   v-model="form.email"
-                  @keyup.enter.prevent="submitForm"
                 ></el-input>
               </el-form-item>
               <el-form-item>
