@@ -114,6 +114,9 @@ export default Vue.extend({})
         margin-left: var(--space-1x5);
       }
     }
+  }
+
+  @media only screen and (max-width: 991px) {
     .info {
       margin-top: 0 !important;
     }

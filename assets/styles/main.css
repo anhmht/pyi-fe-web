@@ -12,7 +12,10 @@ html {
   font-size: 10px;
   color: var(--color-primary-text);
 }
-
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+}
 h4 {
   font-size: 2.4rem;
 }
