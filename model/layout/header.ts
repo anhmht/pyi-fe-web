@@ -10,3 +10,9 @@ export interface TopMenu {
   name?: string
   subMenus: SubMenu[]
 }
+
+export interface MainMenu {
+  uuid: string
+  name: string
+  url: string
+}

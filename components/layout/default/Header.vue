@@ -1,15 +1,17 @@
 <template>
   <div :class="$style.root">
     <TopNav />
+    <MainNav />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import TopNav from '~/components/layout/default/header/TopNav.vue'
+import MainNav from '~/components/layout/default/header/MainNav.vue'
 
 export default Vue.extend({
-  components: { TopNav }
+  components: { TopNav, MainNav }
 })
 </script>
 
