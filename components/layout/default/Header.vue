@@ -17,7 +17,7 @@ export default Vue.extend({
 
 <style lang="postcss" module>
 .root {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;

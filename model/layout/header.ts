@@ -1,7 +1,7 @@
 export interface SubMenu {
   id: string
   name: string
-  link: string
+  link: string | Object
   icon?: string
   action?: string
 }

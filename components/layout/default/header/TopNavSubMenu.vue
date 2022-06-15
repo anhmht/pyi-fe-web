@@ -6,10 +6,14 @@
     </a>
     <ul :class="$style.selection">
       <li v-for="item in subMenus" :key="item.name">
-        <a :class="$style.link" href="#" @click="handleClick(item)">
+        <nuxt-link
+          :class="$style.link"
+          :to="item.link"
+          @click="handleClick(item)"
+        >
           <i v-if="item.icon" :class="item.icon" aria-hidden="true"></i>
           {{ item.name }}
-        </a>
+        </nuxt-link>
       </li>
     </ul>
   </li>
