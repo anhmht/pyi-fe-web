@@ -2,8 +2,8 @@
   <div :class="[$style.overlayContainer, active && $style.active]">
     <div :class="$style.overlay">
       <div :class="$style.overlayLeft">
-        <h1>Welcome Back!</h1>
-        <h4>Please login with your personal info</h4>
+        <h1>Hello, Friend!</h1>
+        <h4>Do not have an account yet?</h4>
         <el-button
           id="signIn"
           type="primary"
@@ -13,8 +13,8 @@
         >
       </div>
       <div :class="$style.overlayRight">
-        <h1>Hello, Friend!</h1>
-        <h4>Please enter your personal details</h4>
+        <h1>Welcome Back!</h1>
+        <h4>Please login with your personal info</h4>
         <el-button
           id="signUp"
           type="primary"

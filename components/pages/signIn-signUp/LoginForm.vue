@@ -45,6 +45,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { LoginRequestDTO } from '~/model/auth/auth'
 
 export default Vue.extend({
   data(): {
@@ -89,6 +90,16 @@ export default Vue.extend({
       const vm = this as any
       vm.$refs.form.validate((valid: boolean) => {
         if (valid) {
+          try {
+            const payload: LoginRequestDTO = {
+              email: this.form.email,
+              password: this.form.password
+            }
+            const data = vm.$authService.signIn(payload)
+            console.log(data)
+          } catch (error) {
+            console.log(error)
+          }
         } else {
           console.log('error submit!!')
           return false

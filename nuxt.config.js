@@ -51,9 +51,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/api-service',
     '~/plugins/element-ui',
-    { src: '~/plugins/scroll-animation', mode: 'client' },
-    { src: '~/plugins/axios-config', mode: 'client' }
+    '~/plugins/axios-config',
+    { src: '~/plugins/scroll-animation', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -64,7 +65,8 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxt/postcss8',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

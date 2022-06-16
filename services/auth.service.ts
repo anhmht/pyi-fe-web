@@ -16,7 +16,7 @@ export interface AuthService {
   signIn: (payload: LoginRequestDTO) => Promise<loginResponseDTO>
 }
 
-export const authService = (context: Context) => {
+export const authService = (context: Context): AuthService => {
   return {
     signIn: (payload: LoginRequestDTO) => signIn(context, payload),
   }
