@@ -6,9 +6,6 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     working_directory: ~/repo
-    environment:
-      BASE_AUTH_URL: $BASE_AUTH_URL
-      BASE_URL: $BASE_URL
     steps:
       - checkout
       - node/install:
@@ -17,8 +14,8 @@ jobs:
           name: 'echo an env var that is part of our project'
           command: |
             touch .env
-            echo "BASE_AUTH_URL=$BASE_AUTH_URL" > .env
-            echo "BASE_URL=$BASE_URL" > .env
+            echo "BASE_AUTH_URL=$BASE_AUTH_URL" >> .env
+            echo "BASE_URL=$BASE_URL" >> .env
       - run: node --version
       - run:
           name: update-npm
