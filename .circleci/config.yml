@@ -13,6 +13,7 @@ jobs:
       - checkout
       - node/install:
           node-version: '16.13'
+      - run: echo $BASE_AUTH_URL
       - run: node --version
       - run:
           name: update-npm
