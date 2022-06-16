@@ -4,7 +4,9 @@
       <el-row>
         <el-col :lg="24">
           <div :class="$style.logo">
-            <img src="~/assets/images/logo.png" width="80" />
+            <nuxt-link to="/">
+              <img src="~/assets/images/logo.png" width="80" />
+            </nuxt-link>
           </div>
           <div :class="$style.nav">
             <MainNavMenu class="navbar_menu" :data="mainMenus" />

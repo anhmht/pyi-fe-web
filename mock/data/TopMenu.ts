@@ -64,13 +64,13 @@ export const topMenus: TopMenu[] = [
         id: 'sign-in',
         name: 'Sign in',
         icon: 'fa fa-sign-in',
-        link: '#'
+        link: { path: '/signin-signup', hash: '#sign-in' }
       },
       {
         id: 'register',
         name: 'Register',
         icon: 'fa fa-user-plus',
-        link: '#'
+        link: { path: '/signin-signup', hash: '#sign-up' }
       },
     ]
   }

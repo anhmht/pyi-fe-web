@@ -11,6 +11,7 @@ const animatedScrollObserver = new IntersectionObserver((entries) => {
 
 export const animate = {
   bind(el) {
+    if (typeof window === 'undefined') return
     el.classList.add('before-enter')
     animatedScrollObserver.observe(el)
   }
