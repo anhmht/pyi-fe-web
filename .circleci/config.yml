@@ -13,8 +13,10 @@ jobs:
       - checkout
       - node/install:
           node-version: '16.13'
-      - run: echo $BASE_AUTH_URL
-      - run: echo $BASE_URL
+      - run:
+          name: 'echo an env var that is part of our project'
+          command: |
+            echo $BASE_AUTH_URL BASE_AUTH_URL
       - run: node --version
       - run:
           name: update-npm
