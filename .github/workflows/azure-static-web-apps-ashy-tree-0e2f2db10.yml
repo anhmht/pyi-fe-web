@@ -21,8 +21,8 @@ jobs:
       - name: Echo env var that is part of our project
         run: |
           touch .env
-          echo "BASE_AUTH_URL=${{ secrets.BASE_AUTH_URL }}" >> .env
-          echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
+          echo "BASE_AUTH_URL=${BASE_AUTH_URL}" >> .env
+          echo "BASE_URL=${BASE_URL}" >> .env
         env:
           BASE_AUTH_URL: ${{ secrets.BASE_AUTH_URL }}
           BASE_URL: ${{ secrets.BASE_URL }}
