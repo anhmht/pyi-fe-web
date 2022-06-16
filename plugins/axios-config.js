@@ -8,9 +8,11 @@ export default function ({ $axios, redirect }, inject) {
     baseURL: process.env.BASE_URL
   })
 
-  const token = localStorage.getItem('access_token')
-  if (token) {
-    api.setHeader.setToken(token, 'Bearer')
+  if (process.client) {
+    const token = localStorage.getItem('access_token')
+    if (token) {
+      api.setHeader.setToken(token, 'Bearer')
+    }
   }
 
   api.onError(async (error) => {
@@ -19,12 +21,16 @@ export default function ({ $axios, redirect }, inject) {
       redirect('/not-authorize')
     } else if (code === 406) {
       try {
-        const authData = await auth.post(uri.REFRESH_TOKEN, {
-          refresh_token: localStorage.getItem('refresh_token')
-        })
-        localStorage.setItem('access_token', authData.access_token)
-        localStorage.setItem('refresh_token', authData.refresh_token)
-        api.setHeader.setToken(authData.access_token, 'Bearer')
+        if (process.client) {
+          const authData = await auth.post(uri.REFRESH_TOKEN, {
+            refresh_token: localStorage.getItem('refresh_token')
+          })
+          localStorage.setItem('access_token', authData.access_token)
+          localStorage.setItem('refresh_token', authData.refresh_token)
+          api.setHeader.setToken(authData.access_token, 'Bearer')
+        } else {
+          redirect('/login')
+        }
       } catch (error) {
         redirect('/login')
       }
