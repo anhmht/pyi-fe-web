@@ -1,9 +1,9 @@
 <template>
   <ul :class="$style.root">
     <li :class="$style.navMenu" v-for="item in data" :key="item.uuid">
-      <a href="#" :class="$style.menu">
+      <nuxt-link :to="item.url" :class="$style.menu">
         {{ item.name }}
-      </a>
+      </nuxt-link>
     </li>
   </ul>
 </template>

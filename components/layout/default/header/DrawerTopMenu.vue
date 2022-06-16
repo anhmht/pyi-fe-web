@@ -9,13 +9,18 @@
       :class="$style.subMenu"
       @click="handleClick(item)"
     >
-      <i
-        v-if="item.icon"
-        :class="[item.icon, $style.icon]"
-        aria-hidden="true"
-      ></i
-      >{{ item.name }}</el-menu-item
-    >
+      <nuxt-link v-if="name" :to="item.link">
+        <i
+          v-if="item.icon"
+          :class="[item.icon, $style.icon]"
+          aria-hidden="true"
+        ></i
+        >{{ item.name }}
+      </nuxt-link>
+      <a v-else href="#">
+        {{ item.name }}
+      </a>
+    </el-menu-item>
   </el-submenu>
 </template>
 

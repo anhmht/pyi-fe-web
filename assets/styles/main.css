@@ -19,3 +19,33 @@ h1 {
 h4 {
   font-size: 2.4rem;
 }
+
+a {
+  font-size: 1.4rem;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.el-form-item__label {
+  line-height: unset;
+}
+.el-form--label-top .el-form-item__label {
+  padding: 0 0 4px;
+}
+.el-form-item.is-required:not(.is-no-asterisk)
+  .el-form-item__label-wrap
+  > .el-form-item__label:before,
+.el-form-item.is-required:not(.is-no-asterisk) > .el-form-item__label:before {
+  content: '';
+}

@@ -4,7 +4,7 @@ export const mainMenus: MainMenu[] = [
   {
     uuid: '1',
     name: 'Home',
-    url: '/index'
+    url: '/'
   },
   {
     uuid: '2',
