@@ -38,18 +38,24 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.png' }]
+    link: [{ rel: 'icon', type: 'image/png', href: '/logo.png' }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    'element-ui/lib/theme-chalk/index.css',
+    // 'element-ui/lib/theme-chalk/index.css',
+    '~/assets/styles/index.css',
     'font-awesome/css/font-awesome.min.css',
     '~/assets/styles/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/element-ui', '@/plugins/scroll-animation'],
+  plugins: [
+    '~/plugins/api-service',
+    '~/plugins/element-ui',
+    '~/plugins/axios-config',
+    { src: '~/plugins/scroll-animation', mode: 'client' }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -58,7 +64,9 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    '@nuxt/postcss8'
+    '@nuxt/postcss8',
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -98,7 +106,7 @@ export default {
         }
       },
       plugins: {
-        'postcss-custom-properties': false,
+        'postcss-mixins': {},
         'postcss-import': {},
         'tailwindcss/nesting': {},
         tailwindcss: path.resolve(__dirname, './tailwind.config.js'),

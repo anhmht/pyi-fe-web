@@ -4,31 +4,31 @@ export const mainMenus: MainMenu[] = [
   {
     uuid: '1',
     name: 'Home',
-    url: '/index'
+    url: '/'
   },
   {
     uuid: '2',
     name: 'Men',
-    url: '/index'
+    url: '/'
   },
   {
     uuid: '3',
     name: 'Women',
-    url: '/index'
+    url: '/'
   },
   {
     uuid: '4',
     name: 'Jewelry',
-    url: '/index'
+    url: '/'
   },
   {
     uuid: '5',
     name: 'Drinkware',
-    url: '/index'
+    url: '/'
   },
   {
     uuid: '6',
     name: 'Custom Product',
-    url: '/index'
+    url: '/'
   },
 ]

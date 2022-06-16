@@ -8,10 +8,11 @@
       >
         <ProductItem
           v-scroll-animate
-          v-for="product in products"
+          v-for="(product, index) in products"
           :key="product.id"
           :data="product"
           :class="$style.product"
+          :style="{ '--index': index }"
         />
       </div>
     </div>
@@ -53,6 +54,7 @@ export default Vue.extend({
   :global(.enter) {
     opacity: 1;
     transform: translateX(0px);
+    transition-delay: calc(50ms * var(--index));
   }
 }
 </style>
