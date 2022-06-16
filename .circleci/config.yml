@@ -16,7 +16,9 @@ jobs:
       - run:
           name: 'echo an env var that is part of our project'
           command: |
-            echo $BASE_AUTH_URL BASE_AUTH_URL
+            touch .env
+            echo "BASE_AUTH_URL=$BASE_AUTH_URL" > .env
+            echo "BASE_URL=$BASE_URL" > .env
       - run: node --version
       - run:
           name: update-npm
