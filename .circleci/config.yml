@@ -6,6 +6,9 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     working_directory: ~/repo
+    environment:
+      BASE_AUTH_URL: $BASE_AUTH_URL
+      BASE_URL: $BASE_URL
     steps:
       - checkout
       - node/install:
