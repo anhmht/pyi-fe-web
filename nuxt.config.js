@@ -54,6 +54,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     // 'element-ui/lib/theme-chalk/index.css',
+    'swiper/swiper-bundle.min.css',
     '~/assets/styles/index.css',
     'font-awesome/css/font-awesome.min.css',
     '~/assets/styles/main.css'
@@ -64,6 +65,7 @@ export default {
     '~/plugins/api-service',
     '~/plugins/element-ui',
     '~/plugins/axios-config',
+    '~/plugins/media-query',
     { src: '~/plugins/scroll-animation', mode: 'client' }
   ],
 
@@ -84,7 +86,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/^element-ui/],
+    transpile: [/^element-ui/, /^swiper/, 'dom7', 'ssr-window'],
 
     loaders: {
       cssModules: {

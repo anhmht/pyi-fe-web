@@ -11,7 +11,7 @@
           </div>
         </el-col>
         <el-col :lg="12" :class="$style.col">
-          <div :class="$style.content">
+          <div v-scroll-animate :class="$style.content">
             <div :class="$style.title">
               <h2>Deal Of The Week</h2>
             </div>
@@ -181,6 +181,15 @@ export default Vue.extend({
     .unit {
       font-size: 1.4rem;
     }
+  }
+  :global(.before-enter) {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.5s ease-out;
+  }
+  :global(.enter) {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
 </style>
