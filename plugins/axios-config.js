@@ -18,7 +18,7 @@ export default function ({ $axios, redirect }, inject) {
   api.onError(async (error) => {
     const code = parseInt(error.response && error.response.status)
     if (code === 401) {
-      redirect('/not-authorize')
+      redirect('/not-permitted')
     } else if (code === 406) {
       try {
         if (process.client) {
@@ -29,22 +29,20 @@ export default function ({ $axios, redirect }, inject) {
           localStorage.setItem('refresh_token', authData.refresh_token)
           api.setHeader.setToken(authData.access_token, 'Bearer')
         } else {
-          redirect('/login')
+          redirect('/signin-signup')
         }
       } catch (error) {
-        redirect('/login')
+        redirect('/signin-signup')
       }
     } else {
-      redirect('/error')
+      redirect('/internal-error')
     }
   })
 
   auth.onError(async (error) => {
     const code = parseInt(error.response && error.response.status)
     if (code >= 500) {
-      redirect('/error')
-    } else {
-      redirect('/')
+      redirect('/internal-error')
     }
   })
 

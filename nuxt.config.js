@@ -12,6 +12,16 @@ const routerBase =
 export default {
   target: 'static',
 
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'Not Found',
+        path: '*',
+        component: resolve(__dirname, 'pages/error/not-found.vue')
+      })
+    }
+  },
+
   /*
    ** SSL on local development (checkout README.md for instructions)
    */

@@ -116,9 +116,6 @@ export default Vue.extend({
 ************/
 
 @media only screen and (max-width: 991px) {
-  h1 {
-    font-size: 48px;
-  }
   h2 {
     font-size: 36px;
   }
@@ -150,9 +147,6 @@ export default Vue.extend({
 ************/
 
 @media only screen and (max-width: 767px) {
-  h1 {
-    font-size: 36px;
-  }
   h2 {
     font-size: 24px;
   }
