@@ -6,7 +6,7 @@
           <img src="~/assets/images/contact.png" alt="contact" />
         </el-col>
         <el-col :span="12" :class="$style.content">
-          <div>
+          <div v-scroll-animate>
             <h1>Get in touch</h1>
             <p>
               Donec rutrum congue leo eget malesuada. Proin eget tortor risus.
@@ -56,6 +56,15 @@ export default Vue.extend({})
     &:hover {
       opacity: 0.7;
     }
+  }
+  :global(.before-enter) {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 1s ease-out;
+  }
+  :global(.enter) {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
 </style>

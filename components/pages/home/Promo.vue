@@ -6,7 +6,7 @@
           <div
             class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:static"
           >
-            <div class="sm:max-w-lg">
+            <div v-scroll-animate class="sm:max-w-lg">
               <h1
                 class="text-4xl font font-extrabold tracking-tight text-gray-900 sm:text-6xl"
               >
@@ -95,7 +95,10 @@
                   </div>
                 </div>
 
-                <el-button :class="$style.submitBtn" type="primary"
+                <el-button
+                  v-scroll-animate
+                  :class="$style.submitBtn"
+                  type="primary"
                   >Shop collection</el-button
                 >
               </div>
@@ -147,6 +150,15 @@ export default Vue.extend({})
     @media only screen and (min-width: 767px) {
       padding-top: 16rem;
     }
+  }
+  :global(.before-enter) {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: all 1s ease-out;
+  }
+  :global(.enter) {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
 </style>

@@ -5,14 +5,16 @@
       <nuxt-child />
     </main>
     <Footer />
-    <back-to-top bottom="50px" right="50px">
-      <el-button
-        :class="$style.backToTop"
-        type="primary"
-        icon="el-icon-arrow-up"
-        circle
-      ></el-button>
-    </back-to-top>
+    <client-only>
+      <back-to-top bottom="50px" right="50px">
+        <el-button
+          :class="$style.backToTop"
+          type="primary"
+          icon="el-icon-arrow-up"
+          circle
+        ></el-button>
+      </back-to-top>
+    </client-only>
   </div>
 </template>
 

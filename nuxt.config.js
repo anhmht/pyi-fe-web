@@ -86,7 +86,13 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/^element-ui/, /^swiper/, 'dom7', 'ssr-window'],
+    transpile: [
+      /^element-ui/,
+      /^swiper/,
+      /vue-backtotop/,
+      'dom7',
+      'ssr-window'
+    ],
 
     loaders: {
       cssModules: {

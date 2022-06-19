@@ -2,7 +2,7 @@
   <div :class="$style.root">
     <div class="container">
       <h1 v-scroll-animate>Recent Publications</h1>
-      <p class="text-gray-500">
+      <p v-scroll-animate class="text-gray-500">
         Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
         Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
         cubilia Curae; Donec velit neque, auctor sit amet aliquam vel,
@@ -10,7 +10,13 @@
       </p>
       <div :class="$style.blogs">
         <el-row :gutter="24">
-          <el-col :md="8" v-for="item in data" :key="item.id">
+          <el-col
+            :md="8"
+            v-scroll-animate
+            v-for="(item, index) in data"
+            :key="item.id"
+            :style="{ '--index': index }"
+          >
             <div :class="$style.blog">
               <img src="~/assets/images/incentive.png" />
               <div :class="$style.category">{{ item.category }}</div>
@@ -77,6 +83,16 @@ export default Vue.extend({
     &:hover {
       opacity: 0.7;
     }
+  }
+  :global(.before-enter) {
+    opacity: 0;
+    transform: translateY(-100px);
+    transition: all 1s ease-out;
+  }
+  :global(.enter) {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: calc(100ms * var(--index));
   }
 }
 </style>
