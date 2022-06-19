@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/error/not-permitted", {data:[{}],fetch:{},mutations:void 0});
