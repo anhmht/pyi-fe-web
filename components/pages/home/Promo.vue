@@ -115,7 +115,7 @@ export default Vue.extend({})
 
 <style lang="postcss" module>
 .root {
-  margin-top: var(--space-2x);
+  margin-top: var(--space-4x);
   .promo {
     position: relative;
     overflow: hidden;

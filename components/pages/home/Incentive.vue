@@ -15,7 +15,7 @@
         </el-col>
         <el-col :md="12">
           <div :class="$style.image">
-            <img src="~/assets/images/incentive.png" />
+            <img src="~/assets/images/incentive.png" alt="Our service" />
           </div>
         </el-col>
       </el-row>
@@ -86,7 +86,7 @@ export default Vue.extend({})
     h2 {
       font-size: 1.6rem;
       font-weight: 500;
-      margin: 8px 0;
+      margin: var(--space-1o2) 0;
     }
     p {
       font-size: 1.5rem;
