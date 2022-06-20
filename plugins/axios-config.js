@@ -1,6 +1,7 @@
 import uri from '~/constant/index'
+import { Mutations } from '~/store'
 
-export default function ({ $axios, redirect }, inject) {
+export default function ({ $axios, redirect, store }, inject) {
   const auth = $axios.create({
     baseURL: process.env.BASE_AUTH_URL
   })
@@ -10,8 +11,12 @@ export default function ({ $axios, redirect }, inject) {
 
   if (process.client) {
     const token = localStorage.getItem('access_token')
+    const user = localStorage.getItem('user')
     if (token) {
       api.setToken(token, 'Bearer')
+    }
+    if (user) {
+      store.commit(Mutations.TYPE.SET_CURRENT_USER, JSON.parse(user))
     }
   }
 

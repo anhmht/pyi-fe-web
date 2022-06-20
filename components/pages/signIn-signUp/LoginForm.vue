@@ -57,6 +57,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { LoginRequestDTO } from '~/model/auth/auth'
+import { Mutations } from '~/store'
 
 export default Vue.extend({
   data(): {
@@ -73,7 +74,7 @@ export default Vue.extend({
         email: '',
         password: ''
       },
-      rememberMe: false,
+      rememberMe: true,
       isLoading: false,
       rules: {
         email: [
@@ -117,13 +118,17 @@ export default Vue.extend({
             const { data } = await vm.$authService.signIn(payload)
             this.$notify.success({
               title: 'Login Successful',
-              message: 'Welcome user '
+              message: `Welcome user ${data.email}`
             })
             if (this.rememberMe) {
               localStorage.setItem('access_token', data.access_token)
               localStorage.setItem('refresh_token', data.refresh_token)
+              localStorage.setItem('user', JSON.stringify(data))
             }
+            //Set current user
             vm.$api.setToken(data.access_token, 'Bearer')
+            this.$store.commit(Mutations.TYPE.SET_CURRENT_USER, data)
+
             this.$router.back()
             this.isLoading = false
           } catch (error) {

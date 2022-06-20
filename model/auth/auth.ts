@@ -9,7 +9,9 @@ export interface loginResponseDTO {
 }
 
 export interface User {
-  id: string
-  name: string
+  user_id: string
+  username: string
   email: string
+  role: string
+  address: string
 }

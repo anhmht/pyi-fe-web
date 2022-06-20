@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { MutationTree } from 'vuex'
+import { User } from '~/model/auth/auth'
 import { RootState } from './state'
 
 // -----------------------------------------------------------------------------
@@ -16,6 +17,7 @@ export namespace Mutations {
   // ---------------------------------------------------------------------------
 
   export const TYPE = {
+    SET_CURRENT_USER: 'setCurrentUser',
   } as const
 
   // ---------------------------------------------------------------------------
@@ -36,5 +38,11 @@ export namespace Mutations {
 // -----------------------------------------------------------------------------
 
 export default {
+  [Mutations.TYPE.SET_CURRENT_USER]: (
+    state: RootState,
+    payload: User
+  ): void => {
+    state.currentUser = payload
+  },
 
 } as MutationTree<RootState>
