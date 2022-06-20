@@ -1,7 +1,10 @@
 import { REFRESH_TOKEN } from '~/constant/auth'
 import { Mutations } from '~/store'
 
-export default function ({ $axios, redirect, store }, inject) {
+export default function (
+  { $axios, redirect, store, error: nuxtError },
+  inject
+) {
   const auth = $axios.create({
     baseURL: process.env.BASE_AUTH_URL
   })
@@ -40,7 +43,12 @@ export default function ({ $axios, redirect, store }, inject) {
         redirect('/signin-signup')
       }
     } else {
-      redirect('/internal-error')
+      return Promise.reject(
+        nuxtError({
+          statusCode: code,
+          message: error.response && error.response.data.message
+        })
+      )
     }
   })
 

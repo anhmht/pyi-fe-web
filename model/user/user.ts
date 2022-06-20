@@ -15,3 +15,9 @@ export interface RegisterRequestDTO {
 export interface RegisterResponse {
 
 }
+
+
+export interface ResetPassRequestDTO {
+  new_password: string
+  secret: string
+}

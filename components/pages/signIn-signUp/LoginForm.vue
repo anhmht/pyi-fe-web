@@ -17,7 +17,7 @@
       </el-form-item>
       <div :class="$style.forgotPass">
         <el-checkbox label="Remember me" v-model="rememberMe"></el-checkbox>
-        <nuxt-link to="/">Forgot your password?</nuxt-link>
+        <nuxt-link to="/forgot-password">Forgot your password?</nuxt-link>
       </div>
       <el-form-item :class="$style.submit">
         <el-button
