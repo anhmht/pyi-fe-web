@@ -38,6 +38,7 @@ export default Vue.extend({
     background: var(--color-secondary-text);
     font-size: 3rem;
     border: none;
+    box-shadow: 1px 1px 6px #00000029;
     &:hover {
       opacity: 0.7;
     }

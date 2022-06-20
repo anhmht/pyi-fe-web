@@ -11,7 +11,7 @@ export default function ({ $axios, redirect }, inject) {
   if (process.client) {
     const token = localStorage.getItem('access_token')
     if (token) {
-      api.setHeader.setToken(token, 'Bearer')
+      api.setToken(token, 'Bearer')
     }
   }
 
@@ -27,7 +27,7 @@ export default function ({ $axios, redirect }, inject) {
           })
           localStorage.setItem('access_token', authData.access_token)
           localStorage.setItem('refresh_token', authData.refresh_token)
-          api.setHeader.setToken(authData.access_token, 'Bearer')
+          api.setToken(authData.access_token, 'Bearer')
         } else {
           redirect('/signin-signup')
         }

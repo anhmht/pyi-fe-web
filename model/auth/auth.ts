@@ -7,3 +7,9 @@ export interface loginResponseDTO {
   accessToken: string
   refreshToken: string
 }
+
+export interface User {
+  id: string
+  name: string
+  email: string
+}

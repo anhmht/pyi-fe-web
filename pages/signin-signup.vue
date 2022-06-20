@@ -26,6 +26,7 @@ import RegisterForm from '~/components/pages/signIn-signUp/RegisterForm.vue'
 export default Vue.extend({
   components: { Overlay, LoginForm, RegisterForm },
   name: 'SignInSignUpPage',
+  middleware: 'require-log-out',
   data(): {
     signUp: Boolean
   } {

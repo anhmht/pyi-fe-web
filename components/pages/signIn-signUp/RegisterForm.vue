@@ -27,9 +27,13 @@
         >
       </el-form-item>
     </el-form>
-    <el-divider v-if="isMobile" :class="$style.divider"
-      >Already have an account?</el-divider
-    >
+    <el-divider class="divider"></el-divider>
+    <div :class="$style.policy">
+      By creating an account you agree to our
+      <nuxt-link to="/term">Terms of Service</nuxt-link> and
+      <nuxt-link to="/privacy">Privacy Policy</nuxt-link>
+    </div>
+    <el-divider v-if="isMobile">Already have an account?</el-divider>
     <el-button
       v-if="isMobile"
       :class="$style.submitBtn"
@@ -136,12 +140,27 @@ export default Vue.extend({
       opacity: 0.7;
     }
   }
+  .policy {
+    font-size: 1.3rem;
+    text-align: center;
+    color: var(--color-form-text);
+    a {
+      color: var(--color-primary);
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
   :global(.el-divider--horizontal) {
     margin: var(--space-2x5) 0;
   }
 
   :global(.el-divider__text) {
     color: var(--color-form-text);
+    text-align: center;
+  }
+  :global(.divider) {
+    margin: var(--space) 0;
   }
 }
 </style>

@@ -24,6 +24,7 @@
           :class="$style.submitBtn"
           type="primary"
           @click.prevent="submitForm"
+          v-loading.fullscreen.lock="isLoading"
           >Sign in</el-button
         >
       </el-form-item>
@@ -61,6 +62,7 @@ export default Vue.extend({
   data(): {
     form: { email: string; password: string }
     rememberMe: boolean
+    isLoading: boolean
     rules: {
       email: Object[]
       password: Object[]
@@ -72,6 +74,7 @@ export default Vue.extend({
         password: ''
       },
       rememberMe: false,
+      isLoading: false,
       rules: {
         email: [
           {
@@ -103,17 +106,33 @@ export default Vue.extend({
   methods: {
     submitForm() {
       const vm = this as any
-      vm.$refs.form.validate((valid: boolean) => {
+      vm.$refs.form.validate(async (valid: boolean) => {
         if (valid) {
+          this.isLoading = true
           try {
             const payload: LoginRequestDTO = {
               email: this.form.email,
               password: this.form.password
             }
-            const data = vm.$authService.signIn(payload)
-            console.log(data)
+            const { data } = await vm.$authService.signIn(payload)
+            this.$notify.success({
+              title: 'Login Successful',
+              message: 'Welcome user '
+            })
+            if (this.rememberMe) {
+              localStorage.setItem('access_token', data.access_token)
+              localStorage.setItem('refresh_token', data.refresh_token)
+            }
+            vm.$api.setToken(data.access_token, 'Bearer')
+            this.$router.back()
+            this.isLoading = false
           } catch (error) {
             console.log(error)
+            this.$notify.error({
+              title: 'Error',
+              message: 'Invalid email or password'
+            })
+            this.isLoading = false
           }
         } else {
           console.log('error submit!!')
@@ -155,6 +174,7 @@ export default Vue.extend({
 
   :global(.el-divider__text) {
     color: var(--color-form-text);
+    text-align: center;
   }
 
   .social {
