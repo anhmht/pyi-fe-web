@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { MutationTree } from 'vuex'
-import { User } from '~/model/auth/auth'
+import { User } from '~/model/user/user'
 import { RootState } from './state'
 
 // -----------------------------------------------------------------------------

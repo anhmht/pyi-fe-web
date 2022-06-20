@@ -1,4 +1,4 @@
-import { User } from "~/model/auth/auth"
+import { User } from "~/model/user/user"
 
 // -----------------------------------------------------------------------------
 //

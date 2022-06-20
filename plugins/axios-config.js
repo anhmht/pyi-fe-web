@@ -1,4 +1,4 @@
-import uri from '~/constant/index'
+import { REFRESH_TOKEN } from '~/constant/auth'
 import { Mutations } from '~/store'
 
 export default function ({ $axios, redirect, store }, inject) {
@@ -27,7 +27,7 @@ export default function ({ $axios, redirect, store }, inject) {
     } else if (code === 406) {
       try {
         if (process.client) {
-          const authData = await auth.post(uri.REFRESH_TOKEN, {
+          const authData = await auth.post(REFRESH_TOKEN, {
             refresh_token: localStorage.getItem('refresh_token')
           })
           localStorage.setItem('access_token', authData.access_token)

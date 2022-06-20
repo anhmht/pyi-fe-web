@@ -12,11 +12,12 @@ const signIn = async ({ app }: Context, payload: LoginRequestDTO): Promise<login
   }
 }
 
-const signOut = ({ store }: Context) => {
+const signOut = ({ store, app }: Context) => {
   localStorage.removeItem('user')
   localStorage.removeItem('access_token')
   localStorage.removeItem('refresh_token')
   store.commit(Mutations.TYPE.SET_CURRENT_USER, undefined)
+  app.$api.setToken(false)
 }
 export interface AuthService {
   signIn: (payload: LoginRequestDTO) => Promise<loginResponseDTO>

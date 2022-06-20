@@ -26,7 +26,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { loggedInSubMenu } from '~/mock/data/TopMenu'
-import { User } from '~/model/auth/auth'
+import { User } from '~/model/user/user'
 import { SubMenu } from '~/model/layout/header'
 import { RootState } from '~/store/state'
 export default Vue.extend({
