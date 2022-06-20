@@ -40,6 +40,16 @@
         <i aria-hidden="true" class="fa fa-google"></i>
       </div>
     </div>
+    <el-divider v-if="isMobile" :class="$style.divider"
+      >Don't have an account?</el-divider
+    >
+    <el-button
+      v-if="isMobile"
+      :class="$style.submitBtn"
+      type="primary"
+      @click.prevent="$emit('change')"
+      >Create an account</el-button
+    >
   </div>
 </template>
 
@@ -83,6 +93,11 @@ export default Vue.extend({
           }
         ]
       }
+    }
+  },
+  computed: {
+    isMobile(): boolean {
+      return this.$mq === 'mobile'
     }
   },
   methods: {

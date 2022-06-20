@@ -1,9 +1,18 @@
 <template>
   <div class="container">
-    <div :class="[$style.container, signUp && $style.signUpActive]">
-      <Overlay :active.sync="signUp" />
-      <RegisterForm :class="[$style.form, $style.signUp]" />
-      <LoginForm :class="[$style.form, $style.signIn]" />
+    <div
+      :class="[$style.container, signUp && $style.signUpActive]"
+      :style="{ minHeight: isMobile ? '750px' : '630px' }"
+    >
+      <Overlay v-if="!isMobile" :active.sync="signUp" />
+      <RegisterForm
+        :class="[$style.form, $style.signUp, isMobile && $style.mobile]"
+        @change="signUp = !signUp"
+      />
+      <LoginForm
+        :class="[$style.form, $style.signIn, isMobile && $style.mobile]"
+        @change="signUp = !signUp"
+      />
     </div>
   </div>
 </template>
@@ -24,6 +33,11 @@ export default Vue.extend({
       signUp: false
     }
   },
+  computed: {
+    isMobile(): boolean {
+      return this.$mq === 'mobile'
+    }
+  },
   mounted() {
     if (this.$route.hash && this.$route.hash === '#sign-up') {
       this.signUp = true
@@ -37,6 +51,13 @@ export default Vue.extend({
       } else {
         this.signUp = false
       }
+    },
+    signUp(value) {
+      if (value) {
+        this.$router.push({ hash: '#sign-up' })
+      } else {
+        this.$router.push({ hash: '#sign-in' })
+      }
     }
   }
 })
@@ -47,7 +68,6 @@ export default Vue.extend({
   margin-top: var(--space-4x);
   border: 1px var(--color-bg-secondary) solid;
   border-radius: var(--radius-5);
-  min-height: 600px;
   position: relative;
 
   .signIn {
@@ -68,11 +88,17 @@ export default Vue.extend({
     height: 100%;
     background: #fff;
     transition: all 0.5s ease-in-out;
+    &.mobile {
+      width: 100%;
+    }
   }
 
   &.signUpActive {
     .signIn {
       transform: translateX(100%);
+      &.mobile {
+        transform: none;
+      }
     }
 
     .signUp {
@@ -80,6 +106,9 @@ export default Vue.extend({
       opacity: 1;
       z-index: 5;
       animation: show 0.5s;
+      &.mobile {
+        transform: none;
+      }
     }
   }
 

@@ -23,10 +23,20 @@
           :class="$style.submitBtn"
           type="primary"
           @click.prevent="submitForm"
-          >Sign in</el-button
+          >Create an account</el-button
         >
       </el-form-item>
     </el-form>
+    <el-divider v-if="isMobile" :class="$style.divider"
+      >Already have an account?</el-divider
+    >
+    <el-button
+      v-if="isMobile"
+      :class="$style.submitBtn"
+      type="primary"
+      @click.prevent="$emit('change')"
+      >Sign in</el-button
+    >
   </div>
 </template>
 
@@ -81,6 +91,11 @@ export default Vue.extend({
       }
     }
   },
+  computed: {
+    isMobile(): boolean {
+      return this.$mq === 'mobile'
+    }
+  },
   methods: {
     submitForm() {
       const vm = this as any
@@ -120,6 +135,13 @@ export default Vue.extend({
     &:hover {
       opacity: 0.7;
     }
+  }
+  :global(.el-divider--horizontal) {
+    margin: var(--space-2x5) 0;
+  }
+
+  :global(.el-divider__text) {
+    color: var(--color-form-text);
   }
 }
 </style>
