@@ -31,9 +31,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import Swiper, { SwiperOptions, Autoplay, Navigation, Pagination } from 'swiper'
-import { FeatureProduct } from '~/model/home/featureProduct'
-import { featureProducts } from '~/mock/data/FeatureProduct'
+import { products } from '~/mock/data/Product'
 import ProductItem from '~/components/common/ProductItem.vue'
+import { Product } from '~/model/product/product'
 
 // configure Swiper to use modules
 Swiper.use([Autoplay, Navigation, Pagination])
@@ -41,12 +41,12 @@ Swiper.use([Autoplay, Navigation, Pagination])
 export default Vue.extend({
   components: { ProductItem },
   data(): {
-    products: FeatureProduct[]
+    products: Product[]
     swiper?: Swiper
     isSwiperReady: boolean
   } {
     return {
-      products: featureProducts,
+      products: products,
       swiper: undefined,
       isSwiperReady: false
     }
