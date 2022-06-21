@@ -23,10 +23,24 @@
           :class="$style.submitBtn"
           type="primary"
           @click.prevent="submitForm"
-          >Sign in</el-button
+          >Create an account</el-button
         >
       </el-form-item>
     </el-form>
+    <el-divider class="divider"></el-divider>
+    <div :class="$style.policy">
+      By creating an account you agree to our
+      <nuxt-link to="/term">Terms of Service</nuxt-link> and
+      <nuxt-link to="/privacy">Privacy Policy</nuxt-link>
+    </div>
+    <el-divider v-if="isMobile">Already have an account?</el-divider>
+    <el-button
+      v-if="isMobile"
+      :class="$style.submitBtn"
+      type="primary"
+      @click.prevent="$emit('change')"
+      >Sign in</el-button
+    >
   </div>
 </template>
 
@@ -81,6 +95,11 @@ export default Vue.extend({
       }
     }
   },
+  computed: {
+    isMobile(): boolean {
+      return this.$mq === 'mobile'
+    }
+  },
   methods: {
     submitForm() {
       const vm = this as any
@@ -120,6 +139,28 @@ export default Vue.extend({
     &:hover {
       opacity: 0.7;
     }
+  }
+  .policy {
+    font-size: 1.3rem;
+    text-align: center;
+    color: var(--color-form-text);
+    a {
+      color: var(--color-primary);
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  :global(.el-divider--horizontal) {
+    margin: var(--space-2x5) 0;
+  }
+
+  :global(.el-divider__text) {
+    color: var(--color-form-text);
+    text-align: center;
+  }
+  :global(.divider) {
+    margin: var(--space) 0;
   }
 }
 </style>

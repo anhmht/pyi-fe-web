@@ -1,4 +1,4 @@
-import { TopMenu } from "~/model/layout/header";
+import { SubMenu, TopMenu } from "~/model/layout/header";
 
 export const topMenus: TopMenu[] = [
   {
@@ -74,4 +74,25 @@ export const topMenus: TopMenu[] = [
       },
     ]
   }
+]
+
+export const loggedInSubMenu: SubMenu[] = [
+  {
+    id: 'personal-info',
+    name: 'Personal Info',
+    icon: 'fa fa-user',
+    link: { path: '/user' }
+  },
+  {
+    id: 'my-order',
+    name: 'My Orders',
+    icon: 'fa fa-list',
+    link: { path: '/order' }
+  },
+  {
+    id: 'sign-out',
+    name: 'Sign out',
+    icon: 'fa fa-sign-out',
+    link: { path: '#' }
+  },
 ]

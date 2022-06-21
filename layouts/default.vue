@@ -1,10 +1,20 @@
 <template>
-  <div :class="$style.root">
+  <div :class="[$style.root, 'default']">
     <Header />
     <main>
       <nuxt-child />
     </main>
     <Footer />
+    <client-only>
+      <back-to-top bottom="50px" right="50px">
+        <el-button
+          :class="$style.backToTop"
+          type="primary"
+          icon="el-icon-arrow-up"
+          circle
+        ></el-button>
+      </back-to-top>
+    </client-only>
   </div>
 </template>
 
@@ -12,8 +22,10 @@
 import Vue from 'vue'
 import Footer from '~/components/layout/default/Footer.vue'
 import Header from '~/components/layout/default/Header.vue'
+import BackToTop from 'vue-backtotop'
+
 export default Vue.extend({
-  components: { Header, Footer }
+  components: { Header, Footer, BackToTop }
 })
 </script>
 
@@ -21,6 +33,15 @@ export default Vue.extend({
 .root {
   .hidden {
     display: none;
+  }
+  .backToTop {
+    background: var(--color-secondary-text);
+    font-size: 3rem;
+    border: none;
+    box-shadow: 1px 1px 6px #00000029;
+    &:hover {
+      opacity: 0.7;
+    }
   }
 }
 </style>
@@ -116,9 +137,6 @@ export default Vue.extend({
 ************/
 
 @media only screen and (max-width: 991px) {
-  h1 {
-    font-size: 48px;
-  }
   h2 {
     font-size: 36px;
   }
@@ -150,9 +168,6 @@ export default Vue.extend({
 ************/
 
 @media only screen and (max-width: 767px) {
-  h1 {
-    font-size: 36px;
-  }
   h2 {
     font-size: 24px;
   }

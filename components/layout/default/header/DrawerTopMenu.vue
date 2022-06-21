@@ -9,14 +9,14 @@
       :class="$style.subMenu"
       @click="handleClick(item)"
     >
-      <nuxt-link v-if="name" :to="item.link">
+      <a v-if="name" href="#">
         <i
           v-if="item.icon"
           :class="[item.icon, $style.icon]"
           aria-hidden="true"
         ></i
         >{{ item.name }}
-      </nuxt-link>
+      </a>
       <a v-else href="#">
         {{ item.name }}
       </a>
@@ -26,7 +26,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { loggedInSubMenu } from '~/mock/data/TopMenu'
 import { SubMenu } from '~/model/layout/header'
+import { User } from '~/model/user/user'
+import { RootState } from '~/store/state'
 export default Vue.extend({
   props: {
     data: {
@@ -50,10 +53,19 @@ export default Vue.extend({
     }
   },
   computed: {
+    currentUser(): User | null | undefined {
+      return (this.$store.state as RootState).currentUser
+    },
     displayName(): string {
+      if (this.currentUser && this.name) {
+        return `Welcome, ${this.currentUser.email}`
+      }
       return this.name ? this.name : this.selected.name
     },
     subMenus(): SubMenu[] {
+      if (this.currentUser && this.name) {
+        return loggedInSubMenu
+      }
       return this.name
         ? this.data
         : this.data.filter((x) => x.id !== this.selected.id)
@@ -61,9 +73,17 @@ export default Vue.extend({
   },
   methods: {
     handleClick(item: SubMenu): void {
+      if (item.id === 'sign-out') {
+        this.$authService.signOut()
+        return
+      }
       if (!this.name) {
         this.selected = item
+      } else {
+        this.$router.push(item.link)
       }
+
+      this.$emit('close')
     }
   }
 })

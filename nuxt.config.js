@@ -12,6 +12,16 @@ const routerBase =
 export default {
   target: 'static',
 
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'Not Found',
+        path: '*',
+        component: resolve(__dirname, 'pages/error/not-found.vue')
+      })
+    }
+  },
+
   /*
    ** SSL on local development (checkout README.md for instructions)
    */
@@ -44,6 +54,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     // 'element-ui/lib/theme-chalk/index.css',
+    'swiper/swiper-bundle.min.css',
     '~/assets/styles/index.css',
     'font-awesome/css/font-awesome.min.css',
     '~/assets/styles/main.css'
@@ -54,7 +65,9 @@ export default {
     '~/plugins/api-service',
     '~/plugins/element-ui',
     '~/plugins/axios-config',
-    { src: '~/plugins/scroll-animation', mode: 'client' }
+    '~/plugins/media-query',
+    { src: '~/plugins/scroll-animation', mode: 'client' },
+    { src: '~/plugins/vue-confetti', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -74,7 +87,13 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/^element-ui/],
+    transpile: [
+      /^element-ui/,
+      /^swiper/,
+      /vue-backtotop/,
+      'dom7',
+      'ssr-window'
+    ],
 
     loaders: {
       cssModules: {
