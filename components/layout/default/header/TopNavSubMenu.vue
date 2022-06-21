@@ -6,11 +6,16 @@
     </a>
     <ul :class="$style.selection">
       <li v-for="item in subMenus" :key="item.name">
-        <nuxt-link v-if="name" :class="$style.link" :to="item.link">
-          <i v-if="item.icon" :class="item.icon" aria-hidden="true"></i>
+        <nuxt-link
+          v-if="displaySubmenu(item)"
+          :class="$style.link"
+          :to="item.link"
+        >
+          <i :class="item.icon" aria-hidden="true"></i>
           {{ item.name }}
         </nuxt-link>
         <a v-else :class="$style.link" href="#" @click="handleClick(item)">
+          <i v-if="item.icon" :class="item.icon" aria-hidden="true"></i>
           {{ item.name }}
         </a>
       </li>
@@ -20,7 +25,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { loggedInSubMenu } from '~/mock/data/TopMenu'
+import { User } from '~/model/user/user'
 import { SubMenu } from '~/model/layout/header'
+import { RootState } from '~/store/state'
 export default Vue.extend({
   props: {
     data: {
@@ -40,19 +48,34 @@ export default Vue.extend({
     }
   },
   computed: {
+    currentUser(): User | null | undefined {
+      return (this.$store.state as RootState).currentUser
+    },
     displayName(): string {
+      if (this.currentUser && this.name) {
+        return `Welcome, ${this.currentUser.email}`
+      }
       return this.name ? this.name : this.selected.name
     },
     subMenus(): SubMenu[] {
+      if (this.currentUser && this.name) {
+        return loggedInSubMenu
+      }
       return this.name
         ? this.data
         : this.data.filter((x) => x.id !== this.selected.id)
     }
   },
   methods: {
+    displaySubmenu(item: SubMenu): boolean {
+      return Boolean(this.name && item.id !== 'sign-out')
+    },
     handleClick(item: SubMenu): void {
       if (!this.name) {
         this.selected = item
+      }
+      if (item.id === 'sign-out') {
+        this.$authService.signOut()
       }
     }
   }

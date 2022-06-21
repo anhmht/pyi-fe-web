@@ -12,7 +12,12 @@
     </div>
     <div :class="$style.body">
       <ul>
-        <li :class="$style.menu" v-for="item in mainMenus" :key="item.uuid">
+        <li
+          :class="$style.menu"
+          v-for="item in mainMenus"
+          :key="item.uuid"
+          @click="handleClick(item)"
+        >
           <a href="#">{{ item.name }}</a>
         </li>
       </ul>
@@ -24,6 +29,7 @@
             :id="item.uuid"
             :name="item.name"
             :data="item.subMenus"
+            @close="close"
           />
         </el-menu>
       </el-row>
@@ -58,6 +64,10 @@ export default Vue.extend({
   methods: {
     close(): void {
       this.$emit('update:visible', false)
+    },
+    handleClick(item: MainMenu): void {
+      this.$router.push(item.url)
+      this.close()
     }
   }
 })

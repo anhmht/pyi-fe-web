@@ -17,13 +17,14 @@
       </el-form-item>
       <div :class="$style.forgotPass">
         <el-checkbox label="Remember me" v-model="rememberMe"></el-checkbox>
-        <nuxt-link to="/">Forgot your password?</nuxt-link>
+        <nuxt-link to="/forgot-password">Forgot your password?</nuxt-link>
       </div>
       <el-form-item :class="$style.submit">
         <el-button
           :class="$style.submitBtn"
           type="primary"
           @click.prevent="submitForm"
+          v-loading.fullscreen.lock="isLoading"
           >Sign in</el-button
         >
       </el-form-item>
@@ -40,17 +41,29 @@
         <i aria-hidden="true" class="fa fa-google"></i>
       </div>
     </div>
+    <el-divider v-if="isMobile" :class="$style.divider"
+      >Don't have an account?</el-divider
+    >
+    <el-button
+      v-if="isMobile"
+      :class="$style.submitBtn"
+      type="primary"
+      @click.prevent="$emit('change')"
+      >Create an account</el-button
+    >
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { LoginRequestDTO } from '~/model/auth/auth'
+import { Mutations } from '~/store'
 
 export default Vue.extend({
   data(): {
     form: { email: string; password: string }
     rememberMe: boolean
+    isLoading: boolean
     rules: {
       email: Object[]
       password: Object[]
@@ -61,7 +74,8 @@ export default Vue.extend({
         email: '',
         password: ''
       },
-      rememberMe: false,
+      rememberMe: true,
+      isLoading: false,
       rules: {
         email: [
           {
@@ -85,20 +99,45 @@ export default Vue.extend({
       }
     }
   },
+  computed: {
+    isMobile(): boolean {
+      return this.$mq === 'mobile'
+    }
+  },
   methods: {
     submitForm() {
       const vm = this as any
-      vm.$refs.form.validate((valid: boolean) => {
+      vm.$refs.form.validate(async (valid: boolean) => {
         if (valid) {
+          this.isLoading = true
           try {
             const payload: LoginRequestDTO = {
               email: this.form.email,
               password: this.form.password
             }
-            const data = vm.$authService.signIn(payload)
-            console.log(data)
+            const { data } = await vm.$authService.signIn(payload)
+            this.$notify.success({
+              title: 'Login Successful',
+              message: `Welcome user ${data.email}`
+            })
+            if (this.rememberMe) {
+              localStorage.setItem('access_token', data.access_token)
+              localStorage.setItem('refresh_token', data.refresh_token)
+              localStorage.setItem('user', JSON.stringify(data))
+            }
+            //Set current user
+            vm.$api.setToken(data.access_token, 'Bearer')
+            this.$store.commit(Mutations.TYPE.SET_CURRENT_USER, data)
+
+            this.$router.back()
+            this.isLoading = false
           } catch (error) {
             console.log(error)
+            this.$notify.error({
+              title: 'Error',
+              message: 'Invalid email or password'
+            })
+            this.isLoading = false
           }
         } else {
           console.log('error submit!!')
@@ -140,6 +179,7 @@ export default Vue.extend({
 
   :global(.el-divider__text) {
     color: var(--color-form-text);
+    text-align: center;
   }
 
   .social {
