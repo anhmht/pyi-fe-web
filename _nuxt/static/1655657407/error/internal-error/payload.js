@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/error/internal-error", {data:[{}],fetch:{},mutations:void 0});
