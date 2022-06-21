@@ -1,16 +1,15 @@
 <template>
   <div :class="$style.root">
     <div class="container">
-      <h1 v-scroll-animate>Best Seller</h1>
+      <h1>Best Seller</h1>
       <div :class="$style.carousel">
         <div ref="swiperContainer" class="swiper-container">
           <div class="swiper-wrapper">
             <ProductItem
-              v-for="(product, index) in products"
+              v-for="product in products"
               :key="product.id"
               :data="product"
               :class="[$style.product, 'swiper-slide']"
-              :style="{ '--index': index }"
             />
           </div>
         </div>
@@ -191,17 +190,6 @@ export default Vue.extend({
         background-color: var(--color-primary);
       }
     }
-  }
-
-  :global(.before-enter) {
-    opacity: 0;
-    transform: translateX(100px);
-    transition: all 1s ease-out;
-  }
-  :global(.enter) {
-    opacity: 1;
-    transform: translateX(0px);
-    transition-delay: calc(50ms * var(--index));
   }
 }
 </style>

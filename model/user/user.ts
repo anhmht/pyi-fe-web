@@ -21,3 +21,8 @@ export interface ResetPassRequestDTO {
   new_password: string
   secret: string
 }
+
+export interface ActivateAccountDTO {
+  email: string
+  secret: string
+}
