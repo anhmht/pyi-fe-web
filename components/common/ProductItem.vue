@@ -14,7 +14,7 @@
       <div class="mt-4 flex justify-between">
         <div>
           <h3 class="text-gray-700" :class="$style.title">
-            <nuxt-link :to="`product${data.href}`">
+            <nuxt-link :to="`product${data.path}`">
               <span aria-hidden="true" class="absolute inset-0" />
               {{ data.name }}
             </nuxt-link>

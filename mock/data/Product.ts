@@ -90,7 +90,7 @@ export const products: Product[] = [
   {
     id: "1",
     name: 'Never Underestimate a Women, Who Loves Guinea Pigs and Was Born in Your Birthday',
-    href: '/basic-tee',
+    path: '/basic-tee',
     images,
     price: '$35',
     colors: colors,
@@ -100,7 +100,7 @@ export const products: Product[] = [
   {
     id: '2',
     name: 'Basic Tee',
-    href: '/basic-tee',
+    path: '/basic-tee',
     images,
     price: '$35',
     colors: colors,
@@ -109,7 +109,7 @@ export const products: Product[] = [
   {
     id: '3',
     name: 'Basic Tee',
-    href: '/basic-tee',
+    path: '/basic-tee',
     images,
     price: '$35',
     colors: colors,
@@ -119,7 +119,7 @@ export const products: Product[] = [
   {
     id: '4',
     name: 'Basic Tee',
-    href: '/basic-tee',
+    path: '/basic-tee',
     images,
     price: '$35',
     colors: colors,

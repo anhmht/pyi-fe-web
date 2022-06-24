@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.root">
     <div class="container">
-      <h1>Best Seller</h1>
+      <h1>Product You May Like</h1>
       <ProductCarousel :products="products" />
     </div>
   </div>

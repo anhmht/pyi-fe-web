@@ -1,7 +1,7 @@
 export interface Product {
   id: string,
   name: string,
-  href: string,
+  path: string,
   images: Image[],
   price: string,
   colors?: Color[],
@@ -10,6 +10,7 @@ export interface Product {
   description?: string,
   productDetail?: string
   shippingDetail?: string
+  collection?: Collection[],
 }
 
 export interface Color {
@@ -29,6 +30,12 @@ export interface Image {
 }
 
 export interface Category {
+  id: string
+  name: string
+  path: string
+}
+
+export interface Collection {
   id: string
   name: string
   path: string
