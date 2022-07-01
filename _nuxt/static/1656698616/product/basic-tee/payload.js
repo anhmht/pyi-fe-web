@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/product/basic-tee", {data:[{}],fetch:{},mutations:[]});
