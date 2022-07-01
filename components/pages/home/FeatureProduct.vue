@@ -19,17 +19,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { FeatureProduct } from '~/model/home/featureProduct'
-import { featureProducts } from '~/mock/data/FeatureProduct'
+
 import ProductItem from '~/components/common/ProductItem.vue'
+import { products } from '~/mock/data/Product'
+import { Product } from '~/model/product/product'
 
 export default Vue.extend({
   components: { ProductItem },
   data(): {
-    products: FeatureProduct[]
+    products: Product[]
   } {
     return {
-      products: featureProducts
+      products: products
     }
   }
 })
