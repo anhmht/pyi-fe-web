@@ -32,6 +32,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dotenv": "^1.4.1",
     "@types/swiper": "^6.0.0",
+    "@types/lodash": "^4.14.182",
     "autoprefixer": "^10.4.7",
     "graceful-fs": "^4.2.10",
     "postcss": "^8.4.14",

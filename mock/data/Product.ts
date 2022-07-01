@@ -82,7 +82,8 @@ export const categories: Category[] = [
   {
     id: '2',
     name: 'Men',
-    path: 'men'
+    path: 'men',
+    parentId: '1'
   },
 ]
 
