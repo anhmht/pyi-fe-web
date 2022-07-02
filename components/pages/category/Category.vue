@@ -3,16 +3,34 @@
     <Breadcrumb :data="breadCrumb" :current="category.name" />
     <div :class="$style.header">
       <h1>{{ categoryName }}</h1>
-      <div :class="$style.sort">Sort: <Sort :sort.sync="filters.sort" /></div>
+      <div :class="$style.sort">
+        Sort: <Sort :sort.sync="filters.sort" />
+        <i
+          v-if="isMobile"
+          :class="$style.filter"
+          @click="visible = true"
+          class="fa fa-filter"
+          aria-hidden="true"
+        ></i>
+      </div>
     </div>
     <div :class="$style.body">
-      <el-row :gutter="24">
+      <el-row :gutter="32">
         <el-col :md="6">
-          <CategorySideBar :filter.sync="filters.filter" />
+          <CategorySideBar v-if="!isMobile" :filter.sync="filters.filter" />
         </el-col>
-        <el-col :md="18"> bbbb </el-col>
+        <el-col :md="18">
+          <div :class="$style.products">
+            <FilterProduct :products="products" />
+            <el-divider class="divider"></el-divider>
+            <div :class="$style.pagination">
+              <Pagination :total="products.length" :page.sync="filters.page" />
+            </div>
+          </div>
+        </el-col>
       </el-row>
     </div>
+    <SideBarDrawer :visible.sync="visible" :filter.sync="filters.filter" />
   </div>
 </template>
 
@@ -22,12 +40,23 @@ import Breadcrumb from '~/components/common/Breadcrumb.vue'
 import Sort from '~/components/pages/category/Sort.vue'
 import CategorySideBar from '~/components/pages/category/Sidebar/index.vue'
 import { allCategories } from '~/mock/data/Category'
-import { Category } from '~/model/product/product'
+import { Category, Product } from '~/model/product/product'
 import { CategoryFilter, Filter } from '~/model/category/category'
 import { findParentCategory, parseQueryString } from '~/utils'
+import FilterProduct from '~/components/pages/category/FilterProduct.vue'
+import { categoryFilterProducts } from '~/mock/data/Product'
+import Pagination from '~/components/common/Pagination.vue'
+import SideBarDrawer from './Sidebar/SideBarDrawer.vue'
 
 export default Vue.extend({
-  components: { Breadcrumb, Sort, CategorySideBar },
+  components: {
+    Breadcrumb,
+    Sort,
+    CategorySideBar,
+    FilterProduct,
+    Pagination,
+    SideBarDrawer
+  },
   props: {
     slug: {
       type: String,
@@ -37,6 +66,8 @@ export default Vue.extend({
   data(): {
     category?: Category
     filters: CategoryFilter
+    products: Product[]
+    visible: boolean
   } {
     return {
       category: undefined,
@@ -46,10 +77,12 @@ export default Vue.extend({
           size: [],
           collection: []
         },
-        limit: 16,
+        limit: 12,
         page: 1,
         sort: 'newest'
-      }
+      },
+      products: [],
+      visible: false
     }
   },
   computed: {
@@ -62,19 +95,26 @@ export default Vue.extend({
     breadCrumb(): Category[] {
       if (!this.category) return []
       return findParentCategory(allCategories, this.category.id)
+    },
+    isMobile(): boolean {
+      return this.$mq === 'mobile'
     }
   },
   fetch() {
     this.category = allCategories.find((x) => x.path === this.slug)
     this.filters.filter.category = this.category!.id
+    this.products = categoryFilterProducts
   },
   created() {
     // sync url query params with filters the first time only
     this.filters.filter = this.queryFilters
 
-    const { sort } = this.$route.query
+    const { sort, page } = this.$route.query
     if (sort) {
       this.filters.sort = sort as string
+    }
+    if (page) {
+      this.filters.page = parseInt(page as string)
     }
   },
   watch: {
@@ -88,7 +128,12 @@ export default Vue.extend({
             query: {
               ...this.filters.filter,
               category: undefined,
-              sort: this.filters.sort
+              sort: this.filters.sort,
+              priceTo:
+                this.filters.filter.priceTo === 100
+                  ? undefined
+                  : this.filters.filter.priceTo,
+              page: this.filters.page === 1 ? undefined : this.filters.page
             }
           } as any)
           .catch((error: Error) => {
@@ -117,6 +162,10 @@ export default Vue.extend({
     display: flex;
     align-items: baseline;
     font-size: 1.4rem;
+    .filter {
+      margin-left: var(--space);
+      cursor: pointer;
+    }
   }
   .body {
     margin-top: var(--space);
