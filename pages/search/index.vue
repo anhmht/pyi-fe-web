@@ -19,6 +19,7 @@ import SearchInput from '~/components/pages/search/SearchInput.vue'
 import { Product } from '~/model/product/product'
 
 export default Vue.extend({
+  name: 'SearchPage',
   components: { SearchInput },
   data(): {
     search: string

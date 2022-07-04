@@ -6,9 +6,9 @@
       </nuxt-link>
     </li>
     <li :class="$style.navUser">
-      <a href="#" :class="$style.menu">
+      <nuxt-link to="/faq" :class="$style.menu">
         <i class="fa fa-question-circle" aria-hidden="true"></i>
-      </a>
+      </nuxt-link>
     </li>
     <li :class="$style.navUser">
       <a href="#" :class="[$style.menu, $style.checkout]">
