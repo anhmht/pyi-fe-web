@@ -14,22 +14,16 @@
             </p>
           </div>
           <div :class="$style.group">
-            <nuxt-link :class="[$style.link, $style.useful]" to="/tracking">
+            <nuxt-link :class="$style.useful" to="/tracking">
               Track order
             </nuxt-link>
-            <nuxt-link
-              :class="[$style.link, $style.useful]"
-              to="/shipping-policy"
-            >
+            <nuxt-link :class="$style.useful" to="/shipping-policy">
               Shipping policy
             </nuxt-link>
-            <nuxt-link
-              :class="[$style.link, $style.useful]"
-              to="/return-policy"
-            >
+            <nuxt-link :class="$style.useful" to="/return-policy">
               Return/Refund policy
             </nuxt-link>
-            <nuxt-link :class="[$style.link, $style.useful]" to="/contact">
+            <nuxt-link :class="$style.useful" to="/contact">
               Contact support
             </nuxt-link>
           </div>
@@ -147,7 +141,11 @@ export default Vue.extend({
     flex-wrap: wrap;
   }
   .useful {
+    color: var(--color-primary-text);
     margin-right: var(--space);
+    &:hover {
+      color: var(--color-primary);
+    }
   }
   h2 {
     font-size: 2rem;

@@ -63,6 +63,7 @@ export default Vue.extend({
 .root {
   text-align: center;
   background: url('~/assets/images/search-page.png') no-repeat center center;
+  background-size: cover;
   height: 100vh;
   display: flex;
   align-items: center;
