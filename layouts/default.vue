@@ -6,7 +6,7 @@
     </main>
     <Footer />
     <client-only>
-      <back-to-top bottom="50px" right="50px">
+      <back-to-top bottom="80px" right="50px">
         <el-button
           :class="$style.backToTop"
           type="primary"
