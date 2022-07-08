@@ -54,6 +54,10 @@ a:hover {
   left: 50%;
 }
 
+.el-slider__button-wrapper {
+  z-index: 1;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;

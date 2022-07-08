@@ -6,22 +6,24 @@
           <img src="~/assets/images/logo.png" width="40" />
           <p>Address: 232 Forest Road Walthamstow UNITED KINGDOM</p>
           <p>Phone Number: 111-111-111</p>
-          <p>Need support? <a href="#">Submit a ticket</a></p>
+          <p>
+            Need support? <nuxt-link to="/contact">Submit a ticket</nuxt-link>
+          </p>
         </el-col>
         <el-col :md="5" :sm="12" :class="$style.col">
           <h5 :class="$style.info">INFO & SUPPORT</h5>
           <ul>
             <li>
-              <a href="#">About Us</a>
+              <nuxt-link to="/about">About Us</nuxt-link>
             </li>
             <li>
-              <a href="#">Track Order</a>
+              <nuxt-link to="/tracking">Track Order</nuxt-link>
             </li>
             <li>
-              <a href="#">FAQs</a>
+              <nuxt-link to="/faq">FAQs</nuxt-link>
             </li>
             <li>
-              <a href="#">Contact Support</a>
+              <nuxt-link to="/contact">Contact Support</nuxt-link>
             </li>
           </ul>
         </el-col>
@@ -29,19 +31,19 @@
           <h5>POLICIES</h5>
           <ul>
             <li>
-              <a href="#">Return Policy</a>
+              <nuxt-link to="/return-policy">Return Policy</nuxt-link>
             </li>
             <li>
-              <a href="#">Shipping Policy</a>
+              <nuxt-link to="/shipping-policy">Shipping Policy</nuxt-link>
             </li>
             <li>
-              <a href="#">Terms & Conditions</a>
+              <nuxt-link to="/term">Terms & Conditions</nuxt-link>
             </li>
             <li>
-              <a href="#">Privacy Policy</a>
+              <nuxt-link to="/privacy">Privacy Policy</nuxt-link>
             </li>
             <li>
-              <a href="#">DMCA</a>
+              <nuxt-link to="/dmca">DMCA</nuxt-link>
             </li>
           </ul>
         </el-col>

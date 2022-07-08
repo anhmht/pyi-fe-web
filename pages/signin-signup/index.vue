@@ -70,7 +70,6 @@ export default Vue.extend({
   border: 1px var(--color-bg-secondary) solid;
   border-radius: var(--radius-5);
   position: relative;
-
   .signIn {
     left: 0;
     z-index: 2;

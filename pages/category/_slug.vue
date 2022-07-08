@@ -1,6 +1,7 @@
 <template>
   <div :class="$style.root">
     <Category v-scroll-animate :slug="slug" :key="slug" />
+    <ProductYouMayLike v-scroll-animate />
   </div>
 </template>
 
@@ -9,9 +10,10 @@ import Vue from 'vue'
 import Breadcrumb from '~/components/common/Breadcrumb.vue'
 import { Context } from '@nuxt/types'
 import Category from '~/components/pages/category/Category.vue'
+import ProductYouMayLike from '~/components/pages/product/ProductYouMayLike.vue'
 
 export default Vue.extend({
-  components: { Breadcrumb, Category },
+  components: { Breadcrumb, Category, ProductYouMayLike },
   name: 'CategoryPage',
   async asyncData(context: Context) {
     console.log(context.params)
