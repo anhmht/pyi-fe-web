@@ -161,5 +161,16 @@ export default Vue.extend({
     font-size: 1.3rem;
     color: var(--color-form-text);
   }
+
+  @media only screen and (max-width: 991px) {
+    .btn {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 60px;
+      left: 0;
+      z-index: 100;
+    }
+  }
 }
 </style>

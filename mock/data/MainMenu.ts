@@ -8,27 +8,17 @@ export const mainMenus: MainMenu[] = [
   },
   {
     uuid: '2',
-    name: 'Men',
-    url: '/'
+    name: 'Clothing',
+    url: '/category/clothing'
   },
   {
     uuid: '3',
-    name: 'Women',
-    url: '/'
+    name: 'Home & Living',
+    url: '/category/home-living'
   },
   {
     uuid: '4',
-    name: 'Jewelry',
-    url: '/'
-  },
-  {
-    uuid: '5',
-    name: 'Drinkware',
-    url: '/'
-  },
-  {
-    uuid: '6',
-    name: 'Custom Product',
-    url: '/'
+    name: 'Accessories',
+    url: '/category/accessories'
   },
 ]

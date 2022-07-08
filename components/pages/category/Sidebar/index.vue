@@ -2,6 +2,12 @@
   <div :class="$style.root">
     <CategoryTree :class="$style.filter" :category-id="filter.category" />
     <ColorFilter :class="$style.filter" :colors.sync="filter.color" />
+    <PriceFilter
+      :class="$style.filter"
+      :price-from.sync="filter.priceFrom"
+      :price-to.sync="filter.priceTo"
+    />
+    <SizeFilter :class="$style.filter" :sizes.sync="filter.size" />
   </div>
 </template>
 
@@ -9,10 +15,12 @@
 import Vue from 'vue'
 import { Filter } from '~/model/category/category'
 import CategoryTree from '~/components/pages/category/Sidebar/CategoryTree.vue'
-import ColorFilter from './ColorFilter.vue'
+import ColorFilter from '~/components/pages/category/Sidebar/ColorFilter.vue'
+import SizeFilter from '~/components/pages/category/Sidebar/SizeFilter.vue'
+import PriceFilter from '~/components/pages/category/Sidebar/PriceFilter.vue'
 
 export default Vue.extend({
-  components: { CategoryTree, ColorFilter },
+  components: { CategoryTree, ColorFilter, SizeFilter, PriceFilter },
   name: 'CategorySidebar',
   props: {
     filter: {

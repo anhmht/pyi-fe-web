@@ -48,7 +48,7 @@ export const sizes: Size[] = [
     disabled: false
   },
   {
-    id: '6',
+    id: '7',
     name: 'XXL',
     disabled: false
   },
@@ -119,6 +119,80 @@ export const products: Product[] = [
   },
   {
     id: '4',
+    name: 'Basic Tee',
+    path: '/basic-tee',
+    images,
+    price: '$35',
+    colors: colors,
+    sizes,
+    categories
+  },
+]
+
+
+
+export const categoryFilterProducts: Product[] = [
+  {
+    id: "1",
+    name: 'Never Underestimate a Women, Who Loves Guinea Pigs and Was Born in Your Birthday',
+    path: '/basic-tee',
+    images,
+    price: '$35',
+    colors: colors,
+    sizes,
+    categories
+  },
+  {
+    id: '2',
+    name: 'Basic Tee',
+    path: '/basic-tee',
+    images,
+    price: '$35',
+    colors: colors,
+    sizes, categories
+  },
+  {
+    id: '3',
+    name: 'Basic Tee',
+    path: '/basic-tee',
+    images,
+    price: '$35',
+    colors: colors,
+    sizes,
+    categories
+  },
+  {
+    id: '4',
+    name: 'Basic Tee',
+    path: '/basic-tee',
+    images,
+    price: '$35',
+    colors: colors,
+    sizes,
+    categories
+  },
+  {
+    id: '5',
+    name: 'Basic Tee',
+    path: '/basic-tee',
+    images,
+    price: '$35',
+    colors: colors,
+    sizes,
+    categories
+  },
+  {
+    id: '6',
+    name: 'Basic Tee',
+    path: '/basic-tee',
+    images,
+    price: '$35',
+    colors: colors,
+    sizes,
+    categories
+  },
+  {
+    id: '7',
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
