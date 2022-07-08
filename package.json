@@ -11,6 +11,7 @@
     "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate --fail-on-page-error"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "core-js": "^3.19.3",
     "element-ui": "^2.15.6",
     "fast-json-patch": "^3.1.1",

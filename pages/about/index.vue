@@ -86,7 +86,7 @@ export default Vue.extend({
       width: 80px;
       border-radius: 50%;
       object-fit: cover;
-      filter: drop-shadow(2px 4px 6px black);
+      filter: drop-shadow(1px 1px 2px black);
     }
   }
   .member + .member {
@@ -100,6 +100,12 @@ export default Vue.extend({
     .position {
       font-weight: 600;
       color: var(--color-primary);
+    }
+  }
+  @media only screen and (max-width: 991px) {
+    .team {
+      padding: 0;
+      margin-top: var(--space-2x);
     }
   }
 }

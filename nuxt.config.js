@@ -57,6 +57,7 @@ export default {
     'swiper/swiper-bundle.min.css',
     '~/assets/styles/index.css',
     'font-awesome/css/font-awesome.min.css',
+    'animate.css/animate.min.css',
     '~/assets/styles/main.css'
   ],
 
