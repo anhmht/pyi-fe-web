@@ -67,9 +67,9 @@ export default {
     '~/plugins/element-ui',
     '~/plugins/axios-config',
     '~/plugins/media-query',
+    '~/plugins/formatting',
     { src: '~/plugins/scroll-animation', mode: 'client' },
-    { src: '~/plugins/vue-confetti', mode: 'client' },
-    { src: '~/plugins/formatting', mode: 'client' }
+    { src: '~/plugins/vue-confetti', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

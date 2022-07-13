@@ -16,8 +16,6 @@ export default Vue.extend({
   components: { Breadcrumb, Category, ProductYouMayLike },
   name: 'CategoryPage',
   async asyncData(context: Context) {
-    console.log(context.params)
-
     if (!context.params.slug) {
       context.redirect('/error/not-found')
     }
