@@ -64,6 +64,10 @@ export default Vue.extend({
     display: flex;
     justify-content: center;
     align-items: center;
+    &.disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
     &.active {
       border-color: var(--color-primary);
       background: var(--color-primary);
@@ -71,16 +75,6 @@ export default Vue.extend({
     }
     &:last-child {
       margin-right: 0;
-    }
-    &.disabled {
-      opacity: 0.2;
-      cursor: not-allowed;
-      &:hover {
-        opacity: 0.2;
-      }
-    }
-    &:hover {
-      opacity: 0.7;
     }
   }
 }
