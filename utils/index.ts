@@ -1,7 +1,8 @@
-import { Dictionary } from 'lodash';
+
 import cloneDeep from 'lodash/cloneDeep'
 import { Filter } from '~/model/category/category';
 import { Category } from '~/model/product/product';
+import { v4 as uuidV4 } from 'uuid';
 
 export function listToTree(array: any) {
   const list = cloneDeep(array)
@@ -89,4 +90,8 @@ export const parseQueryString = (query: any, slug: string): Filter => {
   }
 
   return filter
+}
+
+export const generateUuid = (): string => {
+  return uuidV4();
 }

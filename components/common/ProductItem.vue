@@ -21,7 +21,9 @@
           </h3>
           <p class="mt-1 text-gray-500">{{ data.colors[0].color }}</p>
         </div>
-        <p class="font-medium text-gray-900">{{ data.price }}</p>
+        <p class="font-medium text-gray-900">
+          {{ $formatCurrency(data.price) }}
+        </p>
       </div>
     </div>
     <div>

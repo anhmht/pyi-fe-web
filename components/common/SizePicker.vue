@@ -41,7 +41,7 @@ export default Vue.extend({
     selected(item: Size, index) {
       if (item.disabled) return
       this.active = index
-      this.$emit('update:input', item.id)
+      this.$emit('input', item.id)
     }
   }
 })

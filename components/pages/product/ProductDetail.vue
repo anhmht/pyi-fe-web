@@ -9,7 +9,9 @@
           </el-col>
           <el-col :md="10">
             <h1>{{ product.name }}</h1>
-            <div :class="$style.price">{{ product.price }}</div>
+            <div :class="$style.price">
+              {{ $formatCurrency(product.price) }}
+            </div>
             <div :class="$style.rate">
               <el-rate v-model="rate"></el-rate>
               <div :class="$style.review">117 reviews</div>
@@ -25,7 +27,7 @@
               </div>
               <SizePicker :sizes="product.sizes" v-model="sizeId" />
             </div>
-            <el-button :class="$style.btn" type="primary"
+            <el-button @click="addToCart" :class="$style.btn" type="primary"
               >Add to cart</el-button
             >
             <div :class="$style.desc">
@@ -78,7 +80,10 @@ import ColorPicker from '~/components/common/ColorPicker.vue'
 import SizePicker from '~/components/common/SizePicker.vue'
 import ProductImages from '~/components/pages/product/ProductImages.vue'
 import { products } from '~/mock/data/Product'
+import { Cart } from '~/model/cart/cart'
 import { Product } from '~/model/product/product'
+import { Mutations } from '~/store'
+import { generateUuid } from '~/utils'
 
 export default Vue.extend({
   components: {
@@ -98,6 +103,31 @@ export default Vue.extend({
       product: products[0],
       colorId: undefined,
       sizeId: undefined
+    }
+  },
+  methods: {
+    addToCart() {
+      if (!this.colorId || !this.sizeId) {
+        this.$notify.error({
+          title: 'Error',
+          message: 'Please select color and size'
+        })
+        return
+      }
+      const cart = {
+        id: generateUuid(),
+        product: this.product,
+        colorId: this.colorId,
+        sizeId: this.sizeId,
+        quantity: 1,
+        isSelected: true
+      } as Cart
+      this.$store.commit(Mutations.TYPE.ADD_TO_CART, cart)
+      this.$notify.success({
+        title: 'Add to cart Success',
+        message: `Please check your cart to checkout`
+      })
+      this.$router.push('/cart')
     }
   }
 })

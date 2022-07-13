@@ -3,8 +3,8 @@
     <h4>Price</h4>
     <div :class="$style.items">
       <div :class="$style.price">
-        <div>${{ priceFrom }}</div>
-        <div>${{ priceTo }}</div>
+        <div>{{ $formatCurrency(priceFrom) }}</div>
+        <div>{{ $formatCurrency(priceTo) }}</div>
       </div>
       <el-slider v-model="value" range :max="100" @change="handleChange">
       </el-slider>
