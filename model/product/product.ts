@@ -3,7 +3,7 @@ export interface Product {
   name: string,
   path: string,
   images: Image[],
-  price: string,
+  price: number,
   colors?: Color[],
   sizes?: Size[],
   categories: Category[],
@@ -16,6 +16,7 @@ export interface Product {
 export interface Color {
   id: string
   color: string
+  name: string
 }
 
 export interface Size {

@@ -9,9 +9,19 @@
 import Vue from 'vue'
 import TopNav from '~/components/layout/default/header/TopNav.vue'
 import MainNav from '~/components/layout/default/header/MainNav.vue'
+import { Mutations } from '~/store'
 
 export default Vue.extend({
-  components: { TopNav, MainNav }
+  components: { TopNav, MainNav },
+  mounted() {
+    const cartItems = localStorage.getItem('cart')
+    if (cartItems) {
+      this.$store.commit(
+        Mutations.TYPE.SET_SHOPPING_CART,
+        JSON.parse(cartItems)
+      )
+    }
+  }
 })
 </script>
 

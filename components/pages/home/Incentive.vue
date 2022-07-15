@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.root">
     <div class="container">
-      <el-row :gutter="24" :class="$style.wrapper">
+      <el-row :gutter="24">
         <el-col :md="12" :class="$style.body">
           <div v-scroll-animate :class="$style.content">
             <h1>We built our business on great customer service</h1>
@@ -86,9 +86,6 @@ export default Vue.extend({
   margin-top: var(--space-4x);
   padding: var(--space-3x);
   background: var(--color-bg-secondary);
-  .wrapper {
-    display: flex;
-  }
   .body {
     display: flex;
     align-items: center;

@@ -11,18 +11,31 @@
       </nuxt-link>
     </li>
     <li :class="$style.navUser">
-      <a href="#" :class="[$style.menu, $style.checkout]">
+      <nuxt-link to="/cart" :class="[$style.menu, $style.checkout]">
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-      </a>
-      <span :class="$style.notify">2</span>
+      </nuxt-link>
+      <span v-if="cartCount" :class="$style.notify">{{ cartCount }}</span>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { Cart } from '~/model/cart/cart'
+import { RootState } from '~/store/state'
 
-export default Vue.extend({})
+export default Vue.extend({
+  computed: {
+    carts(): Cart[] {
+      return (this.$store.state as RootState).shoppingCart
+    },
+    cartCount(): number {
+      return this.carts.reduce((acc: number, item: Cart) => {
+        return acc + item.quantity
+      }, 0)
+    }
+  }
+})
 </script>
 
 <style lang="postcss" module>

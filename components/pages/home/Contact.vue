@@ -1,11 +1,11 @@
 <template>
   <div :class="$style.root">
     <div class="container">
-      <el-row :gutter="24" :class="$style.row">
-        <el-col :span="12" :class="$style.image">
+      <el-row :gutter="24">
+        <el-col :md="12" :class="$style.image">
           <img src="~/assets/images/contact.png" alt="contact" />
         </el-col>
-        <el-col :span="12" :class="$style.content">
+        <el-col :md="12" :class="$style.content">
           <div v-scroll-animate>
             <h1>Get in touch</h1>
             <p>
@@ -35,9 +35,6 @@ export default Vue.extend({})
   margin-top: var(--space-4x);
   padding: var(--space-3x);
   background: var(--color-bg-secondary);
-  .row {
-    display: flex;
-  }
   .content {
     display: flex;
     align-items: center;
@@ -50,6 +47,7 @@ export default Vue.extend({})
     img {
       border-radius: var(--radius-5);
     }
+    margin-bottom: var(--space);
   }
   .submitBtn {
     background: var(--color-primary);

@@ -4,15 +4,18 @@ import { Category, Color, Image, Product, Size } from "~/model/product/product";
 export const colors: Color[] = [
   {
     id: '1',
-    color: 'black'
+    color: 'black',
+    name: 'black'
   },
   {
     id: '2',
-    color: 'grey'
+    color: 'grey',
+    name: 'grey'
   },
   {
     id: '3',
-    color: 'white'
+    color: 'white',
+    name: 'white'
   },
 ]
 
@@ -93,7 +96,7 @@ export const products: Product[] = [
     name: 'Never Underestimate a Women, Who Loves Guinea Pigs and Was Born in Your Birthday',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories
@@ -103,7 +106,7 @@ export const products: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes, categories
   },
@@ -112,7 +115,7 @@ export const products: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories
@@ -122,7 +125,7 @@ export const products: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories
@@ -137,7 +140,7 @@ export const categoryFilterProducts: Product[] = [
     name: 'Never Underestimate a Women, Who Loves Guinea Pigs and Was Born in Your Birthday',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories
@@ -147,7 +150,7 @@ export const categoryFilterProducts: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes, categories
   },
@@ -156,7 +159,7 @@ export const categoryFilterProducts: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories
@@ -166,7 +169,7 @@ export const categoryFilterProducts: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories
@@ -176,7 +179,7 @@ export const categoryFilterProducts: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories
@@ -186,7 +189,7 @@ export const categoryFilterProducts: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories
@@ -196,7 +199,7 @@ export const categoryFilterProducts: Product[] = [
     name: 'Basic Tee',
     path: '/basic-tee',
     images,
-    price: '$35',
+    price: 35,
     colors: colors,
     sizes,
     categories

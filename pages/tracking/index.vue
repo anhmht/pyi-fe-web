@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <video autoplay loop>
+    <video autoplay="autoplay" loop="loop">
       <source src="~/assets/videos/tracking.mp4" type="video/mp4" />
     </video>
     <div v-if="isShow" :class="$style.wrapper">
