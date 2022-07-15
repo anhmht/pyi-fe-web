@@ -33,10 +33,17 @@ export default Vue.extend({
       active: 0
     }
   },
+  mounted() {
+    if (this.value) {
+      this.active = this.colors.findIndex((item) => item.name === this.value)
+    } else {
+      this.$emit('input', this.colors[0].id)
+    }
+  },
   methods: {
     selected(item: Color, index) {
       this.active = index
-      this.$emit('update:input', item.id)
+      this.$emit('input', item.id)
     }
   }
 })

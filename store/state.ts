@@ -1,3 +1,4 @@
+import { Cart } from "~/model/cart/cart"
 import { User } from "~/model/user/user"
 
 // -----------------------------------------------------------------------------
@@ -8,7 +9,7 @@ import { User } from "~/model/user/user"
 
 export interface RootState {
   currentUser: User | null | undefined
-
+  shoppingCart: Cart[]
 }
 
 // -----------------------------------------------------------------------------
@@ -19,5 +20,5 @@ export interface RootState {
 
 export default (): RootState => ({
   currentUser: undefined,
-
+  shoppingCart: []
 })
