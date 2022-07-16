@@ -18,7 +18,7 @@
           :key="item.uuid"
           @click="handleClick(item)"
         >
-          <a href="#">{{ item.name }}</a>
+          <span> {{ item.name }}</span>
         </li>
       </ul>
       <el-row>
@@ -104,7 +104,7 @@ export default Vue.extend({
     .menu {
       vertical-align: middle;
       padding: 0 var(--space);
-      a {
+      span {
         display: flex;
         justify-content: flex-end;
         align-items: center;
@@ -114,6 +114,7 @@ export default Vue.extend({
         line-height: 50px;
         font-size: 1.4rem;
         text-transform: uppercase;
+        cursor: pointer;
         i {
           margin-left: var(--space-1o2);
         }

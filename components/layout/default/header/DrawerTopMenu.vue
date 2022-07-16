@@ -9,17 +9,14 @@
       :class="$style.subMenu"
       @click="handleClick(item)"
     >
-      <a v-if="name" href="#">
-        <i
-          v-if="item.icon"
-          :class="[item.icon, $style.icon]"
-          aria-hidden="true"
-        ></i
+      <template v-if="item.icon">
+        <i :class="[item.icon, $style.icon]" aria-hidden="true"></i
         >{{ item.name }}
-      </a>
-      <a v-else href="#">
+      </template>
+
+      <template v-else>
         {{ item.name }}
-      </a>
+      </template>
     </el-menu-item>
   </el-submenu>
 </template>
