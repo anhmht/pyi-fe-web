@@ -6,7 +6,9 @@
     "serve": "nuxt dev --spa",
     "dev": "nuxt",
     "build": "nuxt generate",
-    "start": "nuxt start"
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate --fail-on-page-error"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
