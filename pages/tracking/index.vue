@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <video autoplay="autoplay" loop="loop">
+    <video v-if="!isMobile" autoplay="autoplay" loop="loop">
       <source src="~/assets/videos/tracking.mp4" type="video/mp4" />
     </video>
     <div v-if="isShow" :class="$style.wrapper">
@@ -32,6 +32,11 @@ export default Vue.extend({
     return {
       isShow: false
     }
+  },
+  computed: {
+    isMobile(): boolean {
+      return this.$mq === 'mobile'
+    }
   }
 })
 </script>
@@ -60,6 +65,7 @@ export default Vue.extend({
     h1 {
       color: #fff;
     }
+    backdrop-filter: grayscale(1);
   }
   .info {
     z-index: 1;
@@ -75,6 +81,18 @@ export default Vue.extend({
     &:hover {
       opacity: 0.7;
     }
+  }
+  @media only screen and (max-width: 991px) {
+    height: auto;
+    .wrapper {
+      margin: var(--space-4x);
+    }
+    .info {
+      margin: var(--space-4x);
+    }
+    background: url('~/assets/images/tracking-static-image.png') no-repeat
+      center;
+    background-size: cover;
   }
 }
 </style>

@@ -58,7 +58,7 @@ export default Vue.extend({
   },
   methods: {
     checkout() {
-      this.$emit('submit')
+      this.$router.push('/checkout')
     }
   }
 })

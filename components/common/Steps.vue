@@ -11,7 +11,7 @@
       <div :class="$style.label">
         <div>Pending</div>
         <img src="~/assets/images/order-processed.png" width="60" height="60" />
-        <div>Received and waiting to process</div>
+        <div :class="$style.detail">Received and waiting to process</div>
       </div>
     </div>
     <div :class="[$style.item, $style.active]">
@@ -30,7 +30,7 @@
       <div :class="$style.label">
         <div>Verified</div>
         <img src="~/assets/images/order-shipped.png" width="60" height="60" />
-        <div>Verified and production started</div>
+        <div :class="$style.detail">Verified and production started</div>
       </div>
     </div>
     <div :class="$style.item">
@@ -42,7 +42,7 @@
       <div :class="$style.label">
         <div>Shipped</div>
         <img src="~/assets/images/shipped.png" width="60" height="60" />
-        <div>Shipped</div>
+        <div :class="$style.detail">Shipped</div>
       </div>
     </div>
   </div>
@@ -173,6 +173,20 @@ export default Vue.extend({})
       height: 40px;
       width: 3px;
       margin: auto;
+    }
+  }
+
+  @media only screen and (max-width: 539px) {
+    padding-left: 0;
+    .label {
+      flex: 1;
+      img {
+        display: none;
+      }
+      .detail {
+        margin-left: var(--space);
+        flex: 1;
+      }
     }
   }
 }
