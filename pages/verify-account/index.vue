@@ -19,6 +19,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { ActivateAccountDTO } from '~/model/user/user'
+import { Mutations } from '~/store'
 
 export default Vue.extend({
   name: 'ForgotPassword',
@@ -39,13 +40,24 @@ export default Vue.extend({
       secret: this.$route.query.secret
     } as ActivateAccountDTO
     try {
-      // await this.$userService.activateAccount(payload)
-      this.$notify.success({
-        title: 'Activate Success',
-        message: `Your account was activated`
-      })
+      const data = await this.$userService.activateAccount(payload)
+
+      const vm = this as any
+      //Set current user
+      localStorage.setItem('access_token', data.access_token)
+      localStorage.setItem('refresh_token', data.refresh_token)
+
+      vm.$api.setToken(data.access_token, 'Bearer')
+      this.$store.commit(Mutations.TYPE.SET_CURRENT_USER, data)
+      localStorage.setItem('user', JSON.stringify(data))
+
       this.title = 'Your account has been successfully activated!'
       this.desc = 'You can log in to your account and start shopping'
+
+      this.$notify.success({
+        title: 'Activate Success',
+        message: `Your account was activated, Welcome user ${data.email}`
+      })
 
       this.$confetti.start()
 
