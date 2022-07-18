@@ -5,8 +5,11 @@ import { ActivateAccountDTO, RegisterRequestDTO, RegisterResponse, ResetPassRequ
 
 const register = async ({ app }: Context, payload: RegisterRequestDTO): Promise<RegisterResponse> => {
   try {
-    const data = await app.$api.post(REGISTER, payload)
-    return data
+    const { data } = await app.$api.post(REGISTER, payload)
+    return {
+      ...data,
+      id: data.user_id,
+    } as RegisterResponse
   } catch (error) {
     return Promise.reject(error)
   }
@@ -32,7 +35,7 @@ const resetPass = async ({ app }: Context, payload: ResetPassRequestDTO): Promis
 
 const activateAccount = async ({ app }: Context, payload: ActivateAccountDTO): Promise<any> => {
   try {
-    const data = await app.$api.post(ACTIVATE_ACC, payload)
+    const { data } = await app.$api.post(ACTIVATE_ACC, payload)
     return data
   } catch (error) {
     return Promise.reject(error)

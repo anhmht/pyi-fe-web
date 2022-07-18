@@ -92,7 +92,7 @@ export default Vue.extend({
           try {
             this.isLoading = true
             const payload = {
-              new_password: this.form.password,
+              password: this.form.password,
               secret: this.$route.query.secret
             } as ResetPassRequestDTO
             await this.$userService.resetPass(payload)

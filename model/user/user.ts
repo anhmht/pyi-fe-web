@@ -13,12 +13,17 @@ export interface RegisterRequestDTO {
 }
 
 export interface RegisterResponse {
-
+  address: string
+  email: string
+  isActive: boolean
+  role: string
+  id: string
+  username: string
 }
 
 
 export interface ResetPassRequestDTO {
-  new_password: string
+  password: string
   secret: string
 }
 

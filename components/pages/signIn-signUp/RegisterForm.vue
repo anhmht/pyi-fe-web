@@ -23,6 +23,7 @@
           :class="$style.submitBtn"
           type="primary"
           @click.prevent="submitForm"
+          v-loading.fullscreen.lock="isLoading"
           >Create an account</el-button
         >
       </el-form-item>
@@ -46,7 +47,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { LoginRequestDTO } from '~/model/auth/auth'
+import { RegisterRequestDTO } from '~/model/user/user'
 
 export default Vue.extend({
   data(): {
@@ -57,8 +58,10 @@ export default Vue.extend({
       password: Object[]
       name: Object[]
     }
+    isLoading: boolean
   } {
     return {
+      isLoading: false,
       form: {
         email: '',
         name: '',
@@ -103,17 +106,30 @@ export default Vue.extend({
   methods: {
     submitForm() {
       const vm = this as any
-      vm.$refs.form.validate((valid: boolean) => {
+
+      vm.$refs.form.validate(async (valid: boolean) => {
         if (valid) {
+          this.isLoading = true
           try {
-            const payload: LoginRequestDTO = {
+            const payload: RegisterRequestDTO = {
               email: this.form.email,
-              password: this.form.password
+              password: this.form.password,
+              username: this.form.name
             }
-            const data = vm.$authService.signIn(payload)
-            console.log(data)
-          } catch (error) {
+            await this.$userService.register(payload)
+            this.$notify.success({
+              title: 'Create account Successful',
+              message: `Please check your email to verify your account`
+            })
+            this.isLoading = false
+            this.$router.push('/')
+          } catch (error: any) {
             console.log(error)
+            this.$notify.error({
+              title: 'Error',
+              message: error.message
+            })
+            this.isLoading = false
           }
         } else {
           console.log('error submit!!')
