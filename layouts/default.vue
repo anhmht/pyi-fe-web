@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.root, 'default']">
+  <div :class="[$style.root, 'default']" ref="page">
     <Header />
     <main>
       <nuxt-child />
@@ -23,9 +23,20 @@ import Vue from 'vue'
 import Footer from '~/components/layout/default/Footer.vue'
 import Header from '~/components/layout/default/Header.vue'
 import BackToTop from 'vue-backtotop'
+import { EVENT_BUS } from '~/constant/event-bus'
 
 export default Vue.extend({
-  components: { Header, Footer, BackToTop }
+  components: { Header, Footer, BackToTop },
+  mounted() {
+    this.$nuxt.$on(EVENT_BUS.SCROLL_TOP, () => {
+      const pageContainer = this.$refs.page as HTMLInputElement
+      if (pageContainer)
+        pageContainer.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    })
+  },
+  beforeDestroy() {
+    this.$nuxt.$off(EVENT_BUS.SCROLL_TOP)
+  }
 })
 </script>
 

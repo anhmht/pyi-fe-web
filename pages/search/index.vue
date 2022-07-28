@@ -37,7 +37,6 @@ export default Vue.extend({
   },
   created() {
     this.search = this.queryFilters ? this.queryFilters : ''
-    console.log(this.search)
   },
   methods: {
     searchKeyword(): void {}
