@@ -114,11 +114,6 @@ export default Vue.extend({
       payment: [],
       paymentFAQ: faq.paymentFAQ
     }
-  },
-  methods: {
-    handleChange(val) {
-      console.log(val)
-    }
   }
 })
 </script>
