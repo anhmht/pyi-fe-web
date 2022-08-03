@@ -20,9 +20,11 @@ export interface CheckoutForm {
   state: String
   zip: String
   phone: String
+  deliveryMethod: DeliveryMethod
+  payment: Payment
 }
 
-export interface Shipping {
+export interface DeliveryMethod {
   id: number
   name: string
   desc?: string

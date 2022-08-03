@@ -22,7 +22,7 @@
     <el-button
       :disabled="carts.length === 0"
       @click="checkout"
-      :class="$style.btn"
+      :class="[$style.btn, carts.length === 0 && $style.disabled]"
       type="primary"
       >Checkout</el-button
     >
@@ -100,6 +100,14 @@ export default Vue.extend({
 
     &:hover {
       opacity: 0.7;
+    }
+
+    &.disabled {
+      background-color: #ffe380;
+      border-color: #ffe380;
+      &:hover {
+        opacity: 1;
+      }
     }
   }
   @media only screen and (max-width: 991px) {

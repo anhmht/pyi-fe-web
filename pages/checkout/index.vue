@@ -4,32 +4,47 @@
       <h1>Checkout Order</h1>
       <el-row :gutter="24">
         <el-col :lg="12">
-          <CheckoutForm />
+          <CheckoutForm :active-step.sync="activeStep" />
         </el-col>
-        <el-col :lg="12"> </el-col>
+        <el-col :lg="12">
+          <div :class="$style.summary">
+            <h2>Order Summary</h2>
+            <CheckoutList />
+            <CheckoutSummary :active-step="activeStep" />
+          </div>
+        </el-col>
       </el-row>
     </div>
-    <CheckoutOderSummary />
+    <CheckoutOderSummary :active-step="activeStep" />
   </div>
 </template>
 
 <script lang="ts">
-import { Context } from '@nuxt/types'
 import Vue from 'vue'
-import CheckoutForm from '~/components/pages/checkout/CheckoutForm.vue'
-import CheckoutOderSummary from '~/components/pages/checkout/CheckoutOderSummary.vue'
-import { RootState } from '~/store/state'
+
+export const STEP = {
+  CONTACT_INFO: 0,
+  SHIPPING_INFO: 1,
+  DELIVERY_METHOD: 2,
+  PAYMENT: 3
+}
 
 export default Vue.extend({
-  components: { CheckoutForm, CheckoutOderSummary },
+  components: {
+    CheckoutForm: () => import('~/components/pages/checkout/CheckoutForm.vue'),
+    CheckoutOderSummary: () =>
+      import('~/components/pages/checkout/CheckoutOderSummary.vue'),
+    CheckoutSummary: () =>
+      import('~/components/pages/checkout/CheckoutSummary.vue'),
+    CheckoutList: () => import('~/components/pages/checkout/CheckoutList.vue')
+  },
   name: 'CheckoutPage',
-  async asyncData(context: Context) {
-    const cart = (context.store.state as RootState).shoppingCart.filter(
-      (x) => x.isSelected
-    )
-
-    if (cart.length === 0) {
-      context.redirect('/error/not-found')
+  middleware: ['require-cart'],
+  data(): {
+    activeStep: number
+  } {
+    return {
+      activeStep: 0
     }
   }
 })
@@ -38,5 +53,17 @@ export default Vue.extend({
 <style lang="postcss" module>
 .root {
   margin-top: var(--space-4x);
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: var(--space);
+  }
+  .summary {
+    background: var(--color-bg-secondary-2);
+    padding: var(--space-2x);
+    font-size: 1.4rem;
+    border-radius: var(--radius-5);
+    position: relative;
+  }
 }
 </style>

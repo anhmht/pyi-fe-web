@@ -28,6 +28,18 @@ a:hover {
   color: var(--color-primary);
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: opacity 0.3s;
@@ -72,7 +84,7 @@ a:hover {
 .slide-right-leave-active,
 .slide-left-enter-active,
 .slide-left-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.5s;
 }
 .slide-right-enter {
   transform: translate(70%, 0);
