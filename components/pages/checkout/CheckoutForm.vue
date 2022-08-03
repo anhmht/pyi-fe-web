@@ -21,7 +21,7 @@ import ShippingInfo from '~/components/pages/checkout/form/ShippingInfo.vue'
 import DeliveryMethod from '~/components/pages/checkout/form/DeliveryMethod.vue'
 import Payment from '~/components/pages/checkout/form/paypal/PayPalPayment.vue'
 import { EVENT_BUS } from '~/constant/event-bus'
-import { STEP } from '~/pages/checkout/index.vue'
+import { STEP } from '~/mock/data/Checkout'
 
 export default Vue.extend({
   components: {

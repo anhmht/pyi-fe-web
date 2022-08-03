@@ -2,6 +2,13 @@
   <div :class="$style.root">
     <div class="container">
       <h1>Checkout Order</h1>
+      <div :class="$style.steps">
+        <CheckoutStep
+          v-if="isMobile"
+          :active-step="activeStep"
+          :steps="steps"
+        />
+      </div>
       <el-row :gutter="24">
         <el-col :lg="12">
           <CheckoutForm :active-step.sync="activeStep" />
@@ -15,19 +22,14 @@
         </el-col>
       </el-row>
     </div>
-    <CheckoutOderSummary :active-step="activeStep" />
+    <CheckoutOderSummary v-if="!isMobile" :active-step="activeStep" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-
-export const STEP = {
-  CONTACT_INFO: 0,
-  SHIPPING_INFO: 1,
-  DELIVERY_METHOD: 2,
-  PAYMENT: 3
-}
+import { steps } from '~/mock/data/Checkout'
+import { Step } from '~/model/common/common'
 
 export default Vue.extend({
   components: {
@@ -36,15 +38,23 @@ export default Vue.extend({
       import('~/components/pages/checkout/CheckoutOderSummary.vue'),
     CheckoutSummary: () =>
       import('~/components/pages/checkout/CheckoutSummary.vue'),
-    CheckoutList: () => import('~/components/pages/checkout/CheckoutList.vue')
+    CheckoutList: () => import('~/components/pages/checkout/CheckoutList.vue'),
+    CheckoutStep: () => import('~/components/pages/checkout/CheckoutStep.vue')
   },
   name: 'CheckoutPage',
   middleware: ['require-cart'],
   data(): {
     activeStep: number
+    steps: Step[]
   } {
     return {
-      activeStep: 0
+      activeStep: 0,
+      steps: steps
+    }
+  },
+  computed: {
+    isMobile(): boolean {
+      return this.$mq === 'mobile'
     }
   }
 })
@@ -64,6 +74,9 @@ export default Vue.extend({
     font-size: 1.4rem;
     border-radius: var(--radius-5);
     position: relative;
+  }
+  .steps {
+    margin-top: var(--space-2x);
   }
 }
 </style>

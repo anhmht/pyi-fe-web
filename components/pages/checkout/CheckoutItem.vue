@@ -15,9 +15,8 @@
         </h3>
         <div :class="$style.colorSize">{{ getColor }} | {{ getSize }}</div>
         <div :class="$style.quantity">
-          quantity: {{ cart.quantity }}<br />
-          price:
-          {{ $formatCurrency(cart.product.price) }}
+          <span>quantity: {{ cart.quantity }}</span>
+          <span>price: {{ $formatCurrency(cart.product.price) }}</span>
         </div>
       </div>
       <div :class="$style.price">
@@ -90,6 +89,9 @@ export default Vue.extend({
   }
   .quantity {
     margin-top: var(--space-1o2);
+    span + span {
+      margin-left: var(--space);
+    }
   }
 
   @media only screen and (max-width: 768px) {

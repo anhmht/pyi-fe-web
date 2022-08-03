@@ -33,7 +33,7 @@
 import Vue from 'vue'
 import { EVENT_BUS } from '~/constant/event-bus'
 import { Cart } from '~/model/cart/cart'
-import { STEP } from '~/pages/checkout/index.vue'
+import { STEP } from '~/mock/data/Checkout'
 import { RootState } from '~/store/state'
 
 export default Vue.extend({

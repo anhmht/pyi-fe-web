@@ -14,7 +14,9 @@ export default Vue.extend({
   components: { CheckoutItem },
   computed: {
     carts(): Cart[] {
-      return (this.$store.state as RootState).shoppingCart
+      return (this.$store.state as RootState).shoppingCart.filter(
+        (item: Cart) => item.isSelected
+      )
     }
   }
 })
