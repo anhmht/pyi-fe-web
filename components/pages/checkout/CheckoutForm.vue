@@ -14,21 +14,14 @@
 </template>
 
 <script lang="ts">
-const STEP = {
-  CONTACT_INFO: 0,
-  SHIPPING_INFO: 1,
-  DELIVERY_METHOD: 2,
-  PAYMENT: 3,
-  ORDER_CONFIRMATION: 4
-}
 import Vue from 'vue'
-
 import { CheckoutForm } from '~/model/checkout/checkout'
 import ContactInfo from '~/components/pages/checkout/form/ContactInfo.vue'
 import ShippingInfo from '~/components/pages/checkout/form/ShippingInfo.vue'
 import DeliveryMethod from '~/components/pages/checkout/form/DeliveryMethod.vue'
-import Payment from '~/components/pages/checkout/form/Payment.vue'
+import Payment from '~/components/pages/checkout/form/paypal/PayPalPayment.vue'
 import { EVENT_BUS } from '~/constant/event-bus'
+import { STEP } from '~/mock/data/Checkout'
 
 export default Vue.extend({
   components: {
@@ -37,10 +30,16 @@ export default Vue.extend({
     'delivery-method': DeliveryMethod,
     payment: Payment
   },
+  name: 'CheckoutFormComponent',
+  props: {
+    activeStep: {
+      type: Number,
+      required: true
+    }
+  },
   data(): {
     form: CheckoutForm
     isLoading: Boolean
-    activeStep: number
     slide: string
   } {
     return {
@@ -54,10 +53,20 @@ export default Vue.extend({
         city: '',
         state: '',
         zip: '',
-        phone: ''
+        phone: '',
+        deliveryMethod: {
+          id: 0,
+          name: ''
+        },
+        payment: {
+          id: '',
+          name: '',
+          cardNumber: '',
+          expiry: '',
+          cvc: ''
+        }
       },
       isLoading: false,
-      activeStep: 0,
       slide: 'slide-right'
     }
   },
@@ -72,19 +81,20 @@ export default Vue.extend({
           return 'delivery-method'
         case STEP.PAYMENT:
           return 'payment'
-        case STEP.ORDER_CONFIRMATION:
-          return 'order-confirmation'
         default:
-          return ''
+          return 'el-skeleton'
       }
     }
   },
   methods: {
     handleNextStep(): void {
-      this.activeStep++
+      this.$emit('update:activeStep', this.activeStep + 1)
+      if (this.activeStep === STEP.PAYMENT) {
+        this.$router.push(`/checkout/complete/mock-id`)
+      }
     },
     handlePrevStep(): void {
-      this.activeStep--
+      this.$emit('update:activeStep', this.activeStep - 1)
     }
   },
   mounted() {
@@ -98,11 +108,20 @@ export default Vue.extend({
   beforeDestroy() {
     this.$nuxt.$off(EVENT_BUS.CHECKOUT_SLIDE_RIGHT)
     this.$nuxt.$off(EVENT_BUS.CHECKOUT_SLIDE_LEFT)
+  },
+  watch: {
+    form: {
+      handler(newVal: CheckoutForm) {
+        this.$emit('update:data', newVal)
+      },
+      deep: true
+    }
   }
 })
 </script>
 <style lang="postcss" module>
 .root {
   margin-top: var(--space-1x5);
+  z-index: 0;
 }
 </style>

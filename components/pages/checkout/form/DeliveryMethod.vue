@@ -20,37 +20,38 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Shipping } from '~/model/checkout/checkout'
 import { shippingMethods } from '~/mock/data/Shipping'
 import { EVENT_BUS } from '~/constant/event-bus'
+import { CheckoutForm, DeliveryMethod } from '~/model/checkout/checkout'
 
 export default Vue.extend({
   props: {
     value: {
-      type: Object as () => Shipping,
-      default: undefined
+      type: Object as () => CheckoutForm,
+      required: true
     }
   },
   data(): {
     active: number
-    shippingMethods: Shipping[]
-    selectedShippingMethod?: Shipping
+    shippingMethods: DeliveryMethod[]
+    form: CheckoutForm
   } {
     return {
       active: 0,
       shippingMethods: shippingMethods,
-      selectedShippingMethod: undefined
+      form: this.value
     }
   },
   methods: {
-    handleClick(item: Shipping, index: number) {
+    handleClick(item: DeliveryMethod, index: number) {
       this.active = index
-      this.$emit('input', item)
+      this.form.deliveryMethod = item
+      this.$emit('input', this.form)
     }
   },
   activated() {
     this.$nuxt.$on(EVENT_BUS.CHECK_OUT_NEXT, () => {
-      if (this.selectedShippingMethod) {
+      if (this.form.deliveryMethod) {
         this.$emit('next')
       } else {
         this.$message.error('Please select a shipping method')
@@ -59,8 +60,8 @@ export default Vue.extend({
     this.$nuxt.$on(EVENT_BUS.CHECK_OUT_PREV, () => {
       this.$emit('prev')
     })
-    this.selectedShippingMethod = shippingMethods[this.active]
-    this.$emit('input', this.selectedShippingMethod)
+    this.form.deliveryMethod = shippingMethods[this.active]
+    this.$emit('input', this.form)
   },
   deactivated() {
     this.$nuxt.$off(EVENT_BUS.CHECK_OUT_NEXT)

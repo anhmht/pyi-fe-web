@@ -3,3 +3,14 @@ export interface List {
   limit: number
   page: number
 }
+
+export enum STEP_STATUS {
+  ACTIVE = 'ACTIVE',
+  COMPLETED = 'COMPLETED',
+}
+
+export interface Step {
+  id: number,
+  name: string,
+  status?: STEP_STATUS,
+}

@@ -1,6 +1,6 @@
-import { Shipping } from "~/model/checkout/checkout";
+import { DeliveryMethod } from "~/model/checkout/checkout";
 
-export const shippingMethods: Shipping[] = [
+export const shippingMethods: DeliveryMethod[] = [
   {
     id: 35,
     name: 'Economy',
