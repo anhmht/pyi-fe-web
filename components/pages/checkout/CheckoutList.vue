@@ -1,6 +1,11 @@
 <template>
   <div :class="$style.root">
-    <CheckoutItem v-for="item in carts" :cart="item" :key="item.id" />
+    <CheckoutItem
+      :class="$style.item"
+      v-for="item in items"
+      :cart="item"
+      :key="item.id"
+    />
   </div>
 </template>
 
@@ -12,8 +17,17 @@ import CheckoutItem from './CheckoutItem.vue'
 
 export default Vue.extend({
   components: { CheckoutItem },
+  props: {
+    orderItems: {
+      type: Array as () => Cart[],
+      default: () => []
+    }
+  },
   computed: {
-    carts(): Cart[] {
+    items(): Cart[] {
+      if (this.orderItems.length > 0) {
+        return this.orderItems
+      }
       return (this.$store.state as RootState).shoppingCart.filter(
         (item: Cart) => item.isSelected
       )
@@ -23,5 +37,8 @@ export default Vue.extend({
 </script>
 <style lang="postcss" module>
 .root {
+  .item + .item {
+    border-top: 1px solid var(--color-bg-secondary);
+  }
 }
 </style>

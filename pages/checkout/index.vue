@@ -11,12 +11,16 @@
       </div>
       <el-row :gutter="24">
         <el-col :lg="12">
-          <CheckoutForm :active-step.sync="activeStep" />
+          <CheckoutForm :active-step.sync="activeStep" :data.sync="form" />
         </el-col>
         <el-col :lg="12">
           <div :class="$style.summary">
             <h2>Order Summary</h2>
-            <CheckoutList />
+            <CheckoutShippingInfo
+              :address="address"
+              :active-step="activeStep"
+            />
+            <CheckoutList :class="$style.list" />
             <CheckoutSummary :active-step="activeStep" />
           </div>
         </el-col>
@@ -29,6 +33,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { steps } from '~/mock/data/Checkout'
+import { CheckoutAddress, CheckoutForm } from '~/model/checkout/checkout'
 import { Step } from '~/model/common/common'
 
 export default Vue.extend({
@@ -39,22 +44,30 @@ export default Vue.extend({
     CheckoutSummary: () =>
       import('~/components/pages/checkout/CheckoutSummary.vue'),
     CheckoutList: () => import('~/components/pages/checkout/CheckoutList.vue'),
-    CheckoutStep: () => import('~/components/pages/checkout/CheckoutStep.vue')
+    CheckoutStep: () => import('~/components/pages/checkout/CheckoutStep.vue'),
+    CheckoutShippingInfo: () =>
+      import('~/components/pages/checkout/CheckoutShippingInfo.vue')
   },
   name: 'CheckoutPage',
   middleware: ['require-cart'],
   data(): {
     activeStep: number
     steps: Step[]
+    form?: CheckoutForm
   } {
     return {
       activeStep: 0,
-      steps: steps
+      steps: steps,
+      form: undefined
     }
   },
   computed: {
     isMobile(): boolean {
       return this.$mq === 'mobile'
+    },
+    address(): CheckoutAddress | undefined {
+      if (!this.form) return undefined
+      return new CheckoutAddress(this.form)
     }
   }
 })
@@ -71,12 +84,14 @@ export default Vue.extend({
   .summary {
     background: var(--color-bg-secondary-2);
     padding: var(--space-2x);
-    font-size: 1.4rem;
     border-radius: var(--radius-5);
     position: relative;
   }
   .steps {
     margin-top: var(--space-2x);
+  }
+  .list {
+    margin-top: var(--space-1x5);
   }
 }
 </style>

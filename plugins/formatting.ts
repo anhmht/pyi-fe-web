@@ -1,4 +1,6 @@
 import { Plugin } from '@nuxt/types'
+import countries from '~/static/country_code.json'
+import usStates from '~/static/us_state.json'
 
 export const formatCurrency = (value: number): string => {
   const nf = new Intl.NumberFormat('en-US', {
@@ -8,16 +10,31 @@ export const formatCurrency = (value: number): string => {
   return nf.format(value)
 }
 
-const filterPlugin: Plugin = (_, inject) => {
-  inject('formatCurrency', formatCurrency)
+export const displayCountry = (countryCode: string): string => {
+  const country = countries.find(country => country.code === countryCode)
+  return country ? country.name : countryCode
 }
 
-export default filterPlugin
+export const displayState = (stateCode: string, countryCode: string): string => {
+  if (countryCode !== 'US') return stateCode
+  const state = usStates.find(state => state.abbreviation === stateCode)
+  return state ? state.name : stateCode
+}
 
-interface FilterPluginSchema {
+const formatPlugin: Plugin = (_, inject) => {
+  inject('formatCurrency', formatCurrency)
+  inject('displayCountry', displayCountry)
+  inject('displayState', displayState)
+}
+
+export default formatPlugin
+
+interface FormatPluginSchema {
   $formatCurrency: typeof formatCurrency
+  $displayCountry: typeof displayCountry
+  $displayState: typeof displayState
 }
 
 declare module 'vue/types/vue' {
-  interface Vue extends FilterPluginSchema { }
+  interface Vue extends FormatPluginSchema { }
 }

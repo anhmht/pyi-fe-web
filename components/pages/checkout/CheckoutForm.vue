@@ -89,6 +89,9 @@ export default Vue.extend({
   methods: {
     handleNextStep(): void {
       this.$emit('update:activeStep', this.activeStep + 1)
+      if (this.activeStep === STEP.PAYMENT) {
+        this.$router.push(`/checkout/complete/mock-id`)
+      }
     },
     handlePrevStep(): void {
       this.$emit('update:activeStep', this.activeStep - 1)
@@ -105,6 +108,14 @@ export default Vue.extend({
   beforeDestroy() {
     this.$nuxt.$off(EVENT_BUS.CHECKOUT_SLIDE_RIGHT)
     this.$nuxt.$off(EVENT_BUS.CHECKOUT_SLIDE_LEFT)
+  },
+  watch: {
+    form: {
+      handler(newVal: CheckoutForm) {
+        this.$emit('update:data', newVal)
+      },
+      deep: true
+    }
   }
 })
 </script>

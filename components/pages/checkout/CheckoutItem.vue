@@ -60,7 +60,6 @@ export default Vue.extend({
 .root {
   display: flex;
   padding: var(--space-2x) 0;
-  border-top: 1px solid var(--color-bg-secondary);
   .image {
     img {
       object-position: center;

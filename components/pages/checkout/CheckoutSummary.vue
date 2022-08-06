@@ -1,6 +1,5 @@
 <template>
   <div :class="$style.root">
-    <div :class="$style.list"></div>
     <div :class="$style.summary">
       <div :class="$style.item">
         <label>SubTotal</label>
@@ -20,6 +19,7 @@
       </div>
     </div>
     <el-button
+      v-if="orderItems.length === 0"
       :disabled="carts.length === 0"
       @click="checkout"
       :class="[$style.btn, carts.length === 0 && $style.disabled]"
@@ -40,11 +40,18 @@ export default Vue.extend({
   props: {
     activeStep: {
       type: Number,
-      required: true
+      default: 0
+    },
+    orderItems: {
+      type: Array as () => Cart[],
+      default: () => []
     }
   },
   computed: {
     carts(): Cart[] {
+      if (this.orderItems.length > 0) {
+        return this.orderItems
+      }
       return (this.$store.state as RootState).shoppingCart.filter(
         (item: Cart) => item.isSelected
       )
@@ -82,6 +89,7 @@ export default Vue.extend({
 </script>
 <style lang="postcss" module>
 .root {
+  font-size: 1.4rem;
   .summary {
     margin-top: var(--space);
   }
