@@ -49,6 +49,10 @@ export default Vue.extend({
       drawer: false
     }
   },
+  async fetch() {
+    const categories = await this.$categoryService.getCategories()
+    console.log(categories)
+  },
   methods: {}
 })
 </script>
