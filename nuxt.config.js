@@ -53,7 +53,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    // 'element-ui/lib/theme-chalk/index.css',
+    'element-ui/lib/theme-chalk/index.css',
     'swiper/swiper-bundle.min.css',
     '~/assets/styles/index.css',
     'font-awesome/css/font-awesome.min.css',
