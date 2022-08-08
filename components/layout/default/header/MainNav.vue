@@ -9,7 +9,11 @@
             </nuxt-link>
           </div>
           <div :class="$style.nav">
-            <MainNavMenu class="navbar_menu" :data="mainMenus" />
+            <MainNavMenu
+              v-if="mainMenus"
+              class="navbar_menu"
+              :data="mainMenus"
+            />
             <MainNavUser />
             <div
               class="hamburger_container"
@@ -21,7 +25,11 @@
           </div>
         </el-col>
       </el-row>
-      <DrawerMainMenu :visible.sync="drawer" />
+      <DrawerMainMenu
+        v-if="mainMenus"
+        :data="mainMenus"
+        :visible.sync="drawer"
+      />
     </div>
   </div>
 </template>
@@ -31,8 +39,8 @@ import Vue from 'vue'
 import MainNavMenu from '~/components/layout/default/header/MainNavMenu.vue'
 import MainNavUser from '~/components/layout/default/header/MainNavUser.vue'
 import DrawerMainMenu from '~/components/layout/default/header/DrawerMainMenu.vue'
-import { MainMenu } from '~/model/layout/header'
-import { mainMenus } from '~/mock/data/MainMenu'
+import { Category } from '~/model/product/product'
+import { Mutations } from '~/store'
 
 export default Vue.extend({
   components: {
@@ -41,17 +49,21 @@ export default Vue.extend({
     DrawerMainMenu
   },
   data(): {
-    mainMenus: MainMenu[]
+    mainMenus?: Category[]
     drawer: boolean
   } {
     return {
-      mainMenus: mainMenus,
+      mainMenus: undefined,
       drawer: false
     }
   },
   async fetch() {
-    const categories = await this.$categoryService.getCategories()
-    console.log(categories)
+    const mainMenus = await this.$categoryService.getCategories()
+    this.mainMenus = mainMenus.filter((cat) => {
+      return !cat.parentId
+    })
+
+    this.$store.commit(Mutations.TYPE.SET_CATEGORIES, mainMenus)
   },
   methods: {}
 })

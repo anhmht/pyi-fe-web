@@ -14,5 +14,5 @@ export interface TopMenu {
 export interface MainMenu {
   uuid: string
   name: string
-  url: string
+  path: string
 }

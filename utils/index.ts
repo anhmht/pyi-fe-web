@@ -5,6 +5,7 @@ import { Category } from '~/model/product/product';
 import { v4 as uuidV4 } from 'uuid';
 
 export function listToTree(array: any) {
+  if (array.length === 0) return [];
   const list = cloneDeep(array)
   let map = {}, node, roots: any = [], i;
 

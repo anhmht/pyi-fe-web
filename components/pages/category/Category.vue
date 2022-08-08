@@ -39,7 +39,6 @@ import Vue from 'vue'
 import Breadcrumb from '~/components/common/Breadcrumb.vue'
 import Sort from '~/components/pages/category/Sort.vue'
 import CategorySideBar from '~/components/pages/category/Sidebar/index.vue'
-import { allCategories } from '~/mock/data/Category'
 import { Category, Product } from '~/model/product/product'
 import { CategoryFilter, Filter } from '~/model/category/category'
 import { findParentCategory, parseQueryString } from '~/utils'
@@ -47,6 +46,7 @@ import FilterProduct from '~/components/pages/category/FilterProduct.vue'
 import { categoryFilterProducts } from '~/mock/data/Product'
 import Pagination from '~/components/common/Pagination.vue'
 import SideBarDrawer from './Sidebar/SideBarDrawer.vue'
+import { RootState } from '~/store/state'
 
 export default Vue.extend({
   components: {
@@ -86,6 +86,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    categories(): Category[] {
+      return (this.$store.state as RootState).categories
+    },
     queryFilters(): Filter {
       return parseQueryString(this.$route.query, this.slug)
     },
@@ -94,14 +97,14 @@ export default Vue.extend({
     },
     breadCrumb(): Category[] {
       if (!this.category) return []
-      return findParentCategory(allCategories, this.category.id)
+      return findParentCategory(this.categories, this.category.id)
     },
     isMobile(): boolean {
       return this.$mq === 'mobile'
     }
   },
   fetch() {
-    this.category = allCategories.find((x) => x.path === this.slug)
+    this.category = this.categories.find((x) => x.path === this.slug)
     this.filters.filter.category = this.category!.id
     this.products = categoryFilterProducts
   },
