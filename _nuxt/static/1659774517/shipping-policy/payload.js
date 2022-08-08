@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/shipping-policy", {data:[{}],fetch:{},mutations:[]});

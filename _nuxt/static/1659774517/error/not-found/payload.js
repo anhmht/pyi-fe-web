@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/error/not-found", {data:[{}],fetch:{},mutations:[]});

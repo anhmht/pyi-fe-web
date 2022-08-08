@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/verify-account", {data:[{}],fetch:{},mutations:[]});
