@@ -13,6 +13,7 @@
               <TopNavSubMenu
                 v-for="item in topMenu"
                 :key="item.uuid"
+                :id="item.uuid"
                 :name="item.name"
                 :data="item.subMenus"
                 :class="$style.subMenu"

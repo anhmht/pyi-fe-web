@@ -1,8 +1,14 @@
 import { SubMenu, TopMenu } from "~/model/layout/header";
 
+export enum MENU_TYPE {
+  CURRENCY = "CURRENCY",
+  LANGUAGE = "LANGUAGE",
+  ACCOUNT = "ACCOUNT",
+}
+
 export const topMenus: TopMenu[] = [
   {
-    uuid: '1',
+    uuid: MENU_TYPE.CURRENCY,
     subMenus: [
       {
         id: 'usd',
@@ -32,7 +38,7 @@ export const topMenus: TopMenu[] = [
     ]
   },
   {
-    uuid: '2',
+    uuid: MENU_TYPE.LANGUAGE,
     subMenus: [
       {
         id: 'en',
@@ -57,7 +63,7 @@ export const topMenus: TopMenu[] = [
     ]
   },
   {
-    uuid: '3',
+    uuid: MENU_TYPE.ACCOUNT,
     name: 'My Account',
     subMenus: [
       {
