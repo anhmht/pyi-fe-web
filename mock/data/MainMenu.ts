@@ -1,24 +1,25 @@
 import { MainMenu } from "~/model/layout/header";
+import { Category } from "~/model/product/product";
 
-export const mainMenus: MainMenu[] = [
+export const mainMenus: Category[] = [
   {
-    uuid: '1',
+    id: '1',
     name: 'Home',
-    url: '/'
+    path: '/'
   },
   {
-    uuid: '2',
+    id: '2',
     name: 'Clothing',
-    url: '/category/clothing'
+    path: '/category/clothing'
   },
   {
-    uuid: '3',
+    id: '3',
     name: 'Home & Living',
-    url: '/category/home-living'
+    path: '/category/home-living'
   },
   {
-    uuid: '4',
+    id: '4',
     name: 'Accessories',
-    url: '/category/accessories'
+    path: '/category/accessories'
   },
 ]

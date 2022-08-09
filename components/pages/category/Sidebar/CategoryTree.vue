@@ -14,8 +14,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { allCategories } from '~/mock/data/Category'
 import { Category } from '~/model/product/product'
+import { RootState } from '~/store/state'
 import { listToTree } from '~/utils'
 
 interface CategoryTree extends Category {
@@ -44,7 +44,7 @@ export default Vue.extend({
   },
   computed: {
     categories(): Category[] {
-      return allCategories
+      return (this.$store.state as RootState).categories
     },
     treeListCategory(): CategoryTree[] {
       return listToTree(this.categories)

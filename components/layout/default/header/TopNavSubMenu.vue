@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { loggedInSubMenu } from '~/mock/data/TopMenu'
+import { loggedInSubMenu, MENU_TYPE } from '~/mock/data/TopMenu'
 import { User } from '~/model/user/user'
 import { SubMenu } from '~/model/layout/header'
 import { RootState } from '~/store/state'
@@ -36,6 +36,10 @@ export default Vue.extend({
       type: Array as () => SubMenu[]
     },
     name: {
+      type: String,
+      default: null
+    },
+    id: {
       type: String,
       default: null
     }
@@ -55,6 +59,16 @@ export default Vue.extend({
       if (this.currentUser && this.name) {
         return `Welcome, ${this.currentUser.email}`
       }
+      if (this.id === MENU_TYPE.LANGUAGE) {
+        const locale = (this as any).$i18n.locale
+        this.selected =
+          this.data.find((item) => item.id === locale) || this.data[0]
+      }
+      if (this.id === MENU_TYPE.CURRENCY) {
+        const currency = localStorage.getItem('currency') || 'usd'
+        this.selected =
+          this.data.find((item) => item.id === currency) || this.data[0]
+      }
       return this.name ? this.name : this.selected.name
     },
     subMenus(): SubMenu[] {
@@ -73,6 +87,18 @@ export default Vue.extend({
     handleClick(item: SubMenu): void {
       if (!this.name) {
         this.selected = item
+      }
+      if (this.id === MENU_TYPE.LANGUAGE) {
+        // locales
+        ;(this as any).$i18n.setLocale(item.id)
+        window.location.reload()
+        return
+      }
+      if (this.id === MENU_TYPE.CURRENCY) {
+        // currencies
+        localStorage.setItem('currency', item.id)
+        window.location.reload()
+        return
       }
       if (item.id === 'sign-out') {
         this.$authService.signOut()

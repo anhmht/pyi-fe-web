@@ -15,7 +15,7 @@
         <li
           :class="$style.menu"
           v-for="item in mainMenus"
-          :key="item.uuid"
+          :key="item.id"
           @click="handleClick(item)"
         >
           <span> {{ item.name }}</span>
@@ -25,8 +25,8 @@
         <el-menu :class="$style.topMenu">
           <DrawerTopMenu
             v-for="item in topMenu"
-            :key="item.uuid"
-            :id="item.uuid"
+            :key="item.id"
+            :id="item.id"
             :name="item.name"
             :data="item.subMenus"
             @close="close"
@@ -39,10 +39,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { MainMenu, TopMenu } from '~/model/layout/header'
-import { mainMenus } from '~/mock/data/MainMenu'
+import { TopMenu } from '~/model/layout/header'
 import { topMenus } from '~/mock/data/TopMenu'
 import DrawerTopMenu from '~/components/layout/default/header/DrawerTopMenu.vue'
+import { Category } from '~/model/product/product'
 
 export default Vue.extend({
   components: { DrawerTopMenu },
@@ -50,14 +50,18 @@ export default Vue.extend({
     visible: {
       type: Boolean,
       required: true
+    },
+    data: {
+      type: Array as () => Category[],
+      required: true
     }
   },
   data(): {
-    mainMenus: MainMenu[]
+    mainMenus: Category[]
     topMenu: TopMenu[]
   } {
     return {
-      mainMenus: mainMenus,
+      mainMenus: this.data,
       topMenu: topMenus
     }
   },
@@ -65,8 +69,8 @@ export default Vue.extend({
     close(): void {
       this.$emit('update:visible', false)
     },
-    handleClick(item: MainMenu): void {
-      this.$router.push(item.url)
+    handleClick(item: Category): void {
+      this.$router.push(`/category${item.path}`)
       this.close()
     }
   }

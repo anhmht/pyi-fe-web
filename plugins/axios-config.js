@@ -2,7 +2,7 @@ import { REFRESH_TOKEN } from '~/constant/auth'
 import { Mutations } from '~/store'
 
 export default function (
-  { $axios, redirect, store, error: nuxtError },
+  { $axios, redirect, store, error: nuxtError, i18n },
   inject
 ) {
   const auth = $axios.create({
@@ -20,6 +20,13 @@ export default function (
     }
     if (user) {
       store.commit(Mutations.TYPE.SET_CURRENT_USER, JSON.parse(user))
+    }
+    if (i18n.locale) {
+      api.setHeader('lang', i18n.locale)
+    }
+    const currency = localStorage.getItem('currency')
+    if (currency) {
+      api.setHeader('currency', currency)
     }
   }
 

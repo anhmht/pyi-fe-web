@@ -1,7 +1,7 @@
 <template>
   <ul :class="$style.root">
-    <li :class="$style.navMenu" v-for="item in data" :key="item.uuid">
-      <nuxt-link :to="item.url" :class="$style.menu">
+    <li :class="$style.navMenu" v-for="item in data" :key="item.id">
+      <nuxt-link :to="`/category${item.path}`" :class="$style.menu">
         {{ item.name }}
       </nuxt-link>
     </li>
@@ -10,11 +10,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { MainMenu } from '~/model/layout/header'
+import { Category } from '~/model/product/product'
 export default Vue.extend({
   props: {
     data: {
-      type: Array as () => MainMenu[],
+      type: Array as () => Category[],
       required: true
     }
   }
