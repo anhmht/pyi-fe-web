@@ -106,6 +106,7 @@ export default Vue.extend({
   },
   methods: {
     submitForm() {
+      if (!process.client) return
       const vm = this as any
       vm.$refs.form.validate(async (valid: boolean) => {
         if (valid) {

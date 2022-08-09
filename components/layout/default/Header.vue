@@ -14,6 +14,7 @@ import { Mutations } from '~/store'
 export default Vue.extend({
   components: { TopNav, MainNav },
   mounted() {
+    if (!process.client) return
     const cartItems = localStorage.getItem('cart')
     if (cartItems) {
       this.$store.commit(

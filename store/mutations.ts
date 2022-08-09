@@ -63,6 +63,7 @@ export default {
   [Mutations.TYPE.ADD_TO_CART]: (
     state: RootState,
     payload: Cart): void => {
+    if (!process.client) return
     const product = state.shoppingCart.find(c => c.product.id === payload.product.id
       && c.colorId === payload.colorId && c.sizeId === payload.sizeId)
     if (product) {
@@ -74,10 +75,12 @@ export default {
   },
   [Mutations.TYPE.REMOVE_FROM_CART]: (state: RootState,
     payload: Cart): void => {
+    if (!process.client) return
     state.shoppingCart = state.shoppingCart.filter(c => c.id !== payload.id)
     localStorage.setItem('cart', JSON.stringify(state.shoppingCart))
   },
   [Mutations.TYPE.UPDATE_CART]: (state: RootState, payload: Cart): void => {
+    if (!process.client) return
     const index = state.shoppingCart.findIndex(c => c.id === payload.id)
     if (index > -1) {
       Vue.set(state.shoppingCart, index, cloneDeep(payload))
@@ -85,6 +88,7 @@ export default {
     }
   },
   [Mutations.TYPE.SET_SHOPPING_CART]: (state: RootState, payload: Cart[]): void => {
+    if (!process.client) return
     state.shoppingCart = cloneDeep(payload)
     localStorage.setItem('cart', JSON.stringify(state.shoppingCart))
   },
