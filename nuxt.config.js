@@ -1,7 +1,14 @@
 import fs from 'fs'
 import path from 'path'
 
-const routerBase = {}
+const routerBase =
+  process.env.DEPLOY_ENV === 'GH_PAGES'
+    ? {
+        router: {
+          base: '/'
+        }
+      }
+    : {}
 export default {
   target: 'static',
 
@@ -74,31 +81,8 @@ export default {
     '@nuxt/typescript-build',
     '@nuxt/postcss8',
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv',
-    '@nuxtjs/i18n'
+    '@nuxtjs/dotenv'
   ],
-
-  i18n: {
-    locales: [
-      {
-        code: 'en',
-        name: 'English',
-        file: 'en.json'
-      },
-      {
-        code: 'fr',
-        name: 'Français',
-        file: 'fr.json'
-      }
-    ],
-    defaultLocale: 'en',
-    strategy: 'no_prefix',
-    lazy: true,
-    langDir: 'locales/',
-    vueI18n: {
-      fallbackLocale: 'en'
-    }
-  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
