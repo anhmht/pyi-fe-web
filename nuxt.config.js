@@ -1,14 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-const routerBase =
-  process.env.DEPLOY_ENV === 'GH_PAGES'
-    ? {
-        router: {
-          base: '/'
-        }
-      }
-    : {}
+const routerBase = {}
 export default {
   target: 'static',
 
