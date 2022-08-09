@@ -1,6 +1,6 @@
 <template>
   <div :class="[$style.root, 'container']">
-    <Breadcrumb :data="breadCrumb" :current="category.name" />
+    <Breadcrumb v-if="category" :data="breadCrumb" :current="category.name" />
     <div :class="$style.header">
       <h1>{{ categoryName }}</h1>
       <div :class="$style.sort">

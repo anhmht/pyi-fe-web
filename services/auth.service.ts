@@ -13,6 +13,7 @@ const signIn = async ({ app }: Context, payload: LoginRequestDTO): Promise<login
 }
 
 const signOut = ({ store, app }: Context) => {
+  if (!process.client) return
   localStorage.removeItem('user')
   localStorage.removeItem('access_token')
   localStorage.removeItem('refresh_token')

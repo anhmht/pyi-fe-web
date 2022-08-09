@@ -56,6 +56,7 @@ export default Vue.extend({
       return (this.$store.state as RootState).currentUser
     },
     displayName(): string {
+      if (!process.client) return ''
       if (this.currentUser && this.name) {
         return `Welcome, ${this.currentUser.email}`
       }
@@ -85,6 +86,7 @@ export default Vue.extend({
       return Boolean(this.name && item.id !== 'sign-out')
     },
     handleClick(item: SubMenu): void {
+      if (!process.client) return
       if (!this.name) {
         this.selected = item
       }

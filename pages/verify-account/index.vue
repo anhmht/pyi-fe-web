@@ -35,6 +35,7 @@ export default Vue.extend({
     }
   },
   async mounted() {
+    if (!process.client) return
     const payload = {
       email: this.$route.query.email,
       secret: this.$route.query.secret
