@@ -1,19 +1,22 @@
 <template>
   <div :class="$style.root">
     <el-tree
-      :default-expanded-keys="[categoryId]"
+      v-if="categories.length > 0"
+      :default-expanded-keys="[id]"
       highlight-current
       node-key="id"
-      :current-node-key="categoryId"
+      :current-node-key="id"
       :data="treeListCategory"
       :props="defaultProps"
       @node-click="selectCategory"
     ></el-tree>
+    <el-skeleton v-else :rows="4" animated />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { Filter } from '~/model/category/category'
 import { Category } from '~/model/product/product'
 import { RootState } from '~/store/state'
 import { listToTree } from '~/utils'
@@ -24,8 +27,8 @@ interface CategoryTree extends Category {
 
 export default Vue.extend({
   props: {
-    categoryId: {
-      type: String,
+    filter: {
+      type: Object as () => Filter,
       default: undefined
     }
   },
@@ -43,6 +46,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    id(): string | undefined {
+      return this.filter.category
+    },
     categories(): Category[] {
       return (this.$store.state as RootState).categories
     },
@@ -53,7 +59,7 @@ export default Vue.extend({
   methods: {
     selectCategory(category: Category) {
       this.$router.push({
-        path: `/category/${category.path}`
+        path: `/category${category.path}`
       })
     }
   }

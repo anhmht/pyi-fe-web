@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <CategoryTree :class="$style.filter" :category-id="filter.category" />
+    <CategoryTree :class="$style.filter" :filter="filter" />
     <ColorFilter :class="$style.filter" :colors.sync="filter.color" />
     <PriceFilter
       :class="$style.filter"
@@ -28,6 +28,7 @@ export default Vue.extend({
       required: true
     }
   },
+
   watch: {
     filter: {
       handler() {

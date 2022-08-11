@@ -67,12 +67,11 @@ export const parseNumber = (data: any): number | undefined => {
   return undefined
 }
 
-export const parseQueryString = (query: any, slug: string): Filter => {
+export const parseQueryString = (query: any): Filter => {
   const filter: Filter = {
     color: [],
     size: [],
-    collection: [],
-    category: slug
+    collection: []
   }
   if (query.priceFrom) {
     filter.priceFrom = parseNumber(query.priceFrom) || undefined

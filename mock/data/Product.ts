@@ -80,12 +80,12 @@ export const categories: Category[] = [
   {
     id: '1',
     name: 'Clothing',
-    path: 'clothing'
+    path: '/clothing'
   },
   {
     id: '2',
     name: 'Men',
-    path: 'men',
+    path: '/men',
     parentId: '1'
   },
 ]

@@ -25,8 +25,8 @@
         <el-menu :class="$style.topMenu">
           <DrawerTopMenu
             v-for="item in topMenu"
-            :key="item.id"
-            :id="item.id"
+            :key="item.uuid"
+            :id="item.uuid"
             :name="item.name"
             :data="item.subMenus"
             @close="close"
