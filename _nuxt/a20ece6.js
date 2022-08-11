@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[59],{986:function(o){o.exports=JSON.parse('{"hello":"world-fr"}')}}]);
