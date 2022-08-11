@@ -43,9 +43,6 @@ export default Vue.extend({
       type: Boolean,
       default: false
     }
-  },
-  mounted() {
-    console.log(this.isLoading)
   }
 })
 </script>

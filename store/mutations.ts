@@ -2,7 +2,7 @@ import { cloneDeep } from 'lodash'
 import Vue from 'vue'
 import { MutationTree } from 'vuex'
 import { Cart } from '~/model/cart/cart'
-import { Category } from '~/model/product/product'
+import { Category, Collection, Color } from '~/model/product/product'
 import { User } from '~/model/user/user'
 import { RootState } from './state'
 
@@ -30,7 +30,13 @@ export namespace Mutations {
     SET_SHOPPING_CART: 'setShoppingCart',
 
     // CATEGORY
-    SET_CATEGORIES: 'setCategories'
+    SET_CATEGORIES: 'setCategories',
+
+    //COLOR
+    SET_COLORS: 'setColors',
+
+    //COLLECTION
+    SET_COLLECTIONS: 'setCollections'
   } as const
 
   // ---------------------------------------------------------------------------
@@ -97,6 +103,18 @@ export default {
   // CATEGORY
   [Mutations.TYPE.SET_CATEGORIES]: (state: RootState, payload: Category[]): void => {
     state.categories = cloneDeep(payload)
+  },
+
+  // ---------------------------------------------------------------------------
+  // COLOR
+  [Mutations.TYPE.SET_COLORS]: (state: RootState, payload: Color[]): void => {
+    state.colors = cloneDeep(payload)
+  },
+
+  // ---------------------------------------------------------------------------
+  // COLLECTION
+  [Mutations.TYPE.SET_COLLECTIONS]: (state: RootState, payload: Collection[]): void => {
+    state.collections = cloneDeep(payload)
   }
 
 } as MutationTree<RootState>

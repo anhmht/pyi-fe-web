@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.root">
     <div v-if="!isLoading">
-      <h4>Color</h4>
+      <h4>Collection</h4>
       <div :class="$style.items">
         <el-checkbox
-          v-for="item in listColors"
+          v-for="item in listCollections"
           :key="item.id"
           :class="$style.item"
           :checked="isSelected(item.id)"
@@ -19,12 +19,13 @@
 <script lang="ts">
 import cloneDeep from 'lodash/cloneDeep'
 import Vue from 'vue'
-import { Color } from '~/model/product/product'
+import { Collection } from '~/model/product/product'
 import { Mutations } from '~/store'
 import { RootState } from '~/store/state'
+
 export default Vue.extend({
   props: {
-    colors: {
+    collections: {
       type: Array as () => String[],
       default: []
     }
@@ -37,30 +38,30 @@ export default Vue.extend({
     }
   },
   computed: {
-    listColors() {
-      return (this.$store.state as RootState).colors
+    listCollections() {
+      return (this.$store.state as RootState).collections
     }
   },
   methods: {
     isSelected(item: string) {
-      return this.colors.includes(item)
+      return this.collections.includes(item)
     },
-    handleChange(item: Color) {
-      const res = cloneDeep(this.colors)
+    handleChange(item: Collection) {
+      const res = cloneDeep(this.collections)
       if (this.isSelected(item.id)) {
         const index = res.findIndex((x) => x === item.id)
         res.splice(index, 1)
       } else {
         res.push(item.id)
       }
-      this.$emit('update:colors', res)
+      this.$emit('update:collections', res)
     }
   },
   async fetch() {
-    if (this.listColors.length > 0) return
+    if (this.listCollections.length > 0) return
     this.isLoading = true
-    const colors = await this.$productService.getColors()
-    this.$store.commit(Mutations.TYPE.SET_COLORS, colors)
+    const collections = await this.$productService.getCollections()
+    this.$store.commit(Mutations.TYPE.SET_COLLECTIONS, collections)
     this.isLoading = false
   }
 })
