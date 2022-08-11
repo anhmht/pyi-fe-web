@@ -19,7 +19,7 @@
               {{ data.name }}
             </nuxt-link>
           </h3>
-          <p class="mt-1 text-gray-500">{{ data.colors[0].color }}</p>
+          <p class="mt-1 text-gray-500">{{ data.colors[0].name }}</p>
         </div>
         <p class="font-medium text-gray-900">
           {{ $formatCurrency(data.price) }}

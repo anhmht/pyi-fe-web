@@ -25,13 +25,13 @@ export default {
   /*
    ** SSL on local development (checkout README.md for instructions)
    */
-  // server: {
-  //   port: process.env.NUXT_PORT,
-  //   https: {
-  //     key: fs.readFileSync(path.resolve(__dirname, '.ssl/localhost.key')),
-  //     cert: fs.readFileSync(path.resolve(__dirname, '.ssl/localhost.crt'))
-  //   }
-  // },
+  server: {
+    port: process.env.NUXT_PORT,
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, '.ssl/localhost.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, '.ssl/localhost.crt'))
+    }
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {

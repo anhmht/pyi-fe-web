@@ -20,16 +20,22 @@
               <div>Color</div>
               <ColorPicker :colors="product.colors" v-model="colorId" />
             </div>
-            <div :class="$style.sizePicker">
+            <div
+              ref="size"
+              :class="[
+                $style.sizePicker,
+                isError && 'animate__animated animate__tada'
+              ]"
+            >
               <div :class="$style.title">
                 <div>Size</div>
                 <div :class="$style.chart">See Sizing chart</div>
               </div>
               <SizePicker :sizes="product.sizes" v-model="sizeId" />
             </div>
-            <el-button @click="addToCart" :class="$style.btn" type="primary"
-              >Add to cart</el-button
-            >
+            <el-button @click="addToCart" :class="$style.btn" type="primary">{{
+              buttonName
+            }}</el-button>
             <div :class="$style.desc">
               <div>Description</div>
               <div>
@@ -97,21 +103,36 @@ export default Vue.extend({
     product: Product
     colorId?: string
     sizeId?: string
+    isError: boolean
   } {
     return {
       rate: 4,
       product: products[0],
       colorId: undefined,
-      sizeId: undefined
+      sizeId: undefined,
+      isError: false
+    }
+  },
+  computed: {
+    buttonName(): string {
+      return this.colorId && this.sizeId ? 'Add to cart' : 'Select size'
     }
   },
   methods: {
     addToCart() {
       if (!this.colorId || !this.sizeId) {
-        this.$notify.error({
-          title: 'Error',
+        this.$message({
+          type: 'error',
           message: 'Please select color and size'
         })
+        ;(this as any).$refs.size.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+        this.isError = true
+        setTimeout(() => {
+          this.isError = false
+        }, 2000)
         return
       }
       const cart = {
@@ -156,12 +177,14 @@ export default Vue.extend({
     }
   }
   .colorPicker {
+    padding: var(--space);
     font-size: 1.6rem;
-    margin-top: var(--space-2x);
+    margin-top: var(--space);
   }
   .sizePicker {
+    padding: var(--space);
     font-size: 1.6rem;
-    margin-top: var(--space-2x);
+    margin-top: var(--space);
     .title {
       display: flex;
       align-items: center;
@@ -178,6 +201,7 @@ export default Vue.extend({
   .btn {
     width: 100%;
     background: var(--color-primary);
+    margin-top: var(--space);
     &:hover {
       opacity: 0.7;
     }
