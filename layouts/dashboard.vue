@@ -1,20 +1,40 @@
 <template>
   <div :class="$style.root">
-    <main>
-      <nuxt-child />
-    </main>
+    <DashboardHeader />
+    <div :class="$style.wrapper">
+      <Sidebar :class="$style.sidebar" />
+      <main>
+        <nuxt-child />
+      </main>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({})
+import DashboardHeader from '~/components/layout/dashboard/header/DashboardHeader.vue'
+import Sidebar from '~/components/layout/dashboard/Sidebar.vue'
+export default Vue.extend({
+  components: { DashboardHeader, Sidebar }
+})
 </script>
 
 <style lang="postcss" module>
 .root {
   .hidden {
     display: none;
+  }
+  .wrapper {
+    display: flex;
+  }
+  .sidebar {
+    width: 240px;
+    height: calc(100vh - 56px);
+    background-color: var(--color-bg-dashboard);
+  }
+  main {
+    width: calc(100% - 240px);
+    overflow: auto;
   }
 }
 </style>
