@@ -4,7 +4,7 @@ import { Category } from "~/model/product/product"
 
 const getCategories = async ({ app }: Context): Promise<Category[]> => {
   try {
-    const { data } = await app.$api.post(CATEGORIES, { limit: 20 })
+    const { data } = await app.$api.post(CATEGORIES, { limit: -1 })
     return data.map((item: any) => {
       return {
         id: item.category_id,

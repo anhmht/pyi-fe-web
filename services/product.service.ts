@@ -1,12 +1,12 @@
 import { Context } from "@nuxt/types"
-import { COLLECTION, COLOR, PRODUCT } from "~/constant/product"
+import { COLLECTION, COLOR, PRODUCT, PRODUCT_DETAIL, SIZE } from "~/constant/product"
 import { CategoryFilter } from "~/model/category/category"
-import { Color, Product, Collection } from "~/model/product/product"
+import { Color, Product, Collection, Size } from "~/model/product/product"
 
 const getProducts = async ({ app }: Context, payload: CategoryFilter): Promise<{ product: Product[], total: number }> => {
   try {
     const request = {
-      category: [{ category_id: payload.filter.category }],
+      categories: [{ category_id: payload.filter.category }],
       colors: payload.filter.color.map(x => ({ color_id: x })),
       price_from: payload.filter.priceFrom,
       price_to: payload.filter.priceTo,
@@ -17,38 +17,58 @@ const getProducts = async ({ app }: Context, payload: CategoryFilter): Promise<{
       sort: payload.sort
     }
     const { data } = await app.$api.post(PRODUCT, request)
-    return data
+    return {
+      product: data.product.map((x: any) => Product.parseProduct(x)),
+      total: data.total
+    }
   } catch (error) {
     return Promise.reject(error)
   }
 }
 
 const getColors = async ({ app }: Context): Promise<Color[]> => {
-  const { data } = await app.$api.post(COLOR, {})
+  const { data } = await app.$api.post(COLOR, { limit: -1 })
   return data.map(x => ({
     id: x.color_id,
     name: x.name,
   }) as Color)
 }
 
+const getSizes = async ({ app }: Context): Promise<Size[]> => {
+  const { data } = await app.$api.post(SIZE, { limit: -1 })
+  return data.map(x => ({
+    id: x.size_id,
+    name: x.name,
+  }) as Size)
+}
+
 const getCollections = async ({ app }: Context): Promise<Collection[]> => {
-  const { data } = await app.$api.post(COLLECTION, {})
+  const { data } = await app.$api.post(COLLECTION, { limit: -1 })
   return data.map(x => ({
     id: x.collection_id,
     name: x.name,
   }) as Collection)
 }
 
+const getProductDetail = async ({ app }: Context, slug: string): Promise<Product> => {
+  const { data } = await app.$api.get(PRODUCT_DETAIL.replace("{slug}", slug))
+  return Product.parseProduct(data)
+}
+
 export interface ProductService {
   getProducts: (payload: CategoryFilter) => Promise<{ product: Product[], total: number }>
   getColors: () => Promise<Color[]>,
-  getCollections: () => Promise<Collection[]>
+  getCollections: () => Promise<Collection[]>,
+  getProductDetail: (slug: string) => Promise<Product>
+  getSizes: () => Promise<Size[]>
 }
 
 export const productService = (context: Context): ProductService => {
   return {
     getProducts: (payload: CategoryFilter) => getProducts(context, payload),
     getColors: () => getColors(context),
-    getCollections: () => getCollections(context)
+    getCollections: () => getCollections(context),
+    getProductDetail: (slug: string) => getProductDetail(context, slug),
+    getSizes: () => getSizes(context),
   }
 }

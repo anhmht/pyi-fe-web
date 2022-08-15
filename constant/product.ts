@@ -1,3 +1,5 @@
 export const PRODUCT = '/products'
 export const COLOR = '/colors'
+export const SIZE = '/sizes'
 export const COLLECTION = '/collections'
+export const PRODUCT_DETAIL = '/products/{slug}'

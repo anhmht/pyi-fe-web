@@ -14,6 +14,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Color } from '~/model/product/product'
+import { Mutations } from '~/store'
+import { RootState } from '~/store/state'
 
 export default Vue.extend({
   props: {
@@ -32,6 +34,16 @@ export default Vue.extend({
     return {
       active: 0
     }
+  },
+  computed: {
+    listColors() {
+      return (this.$store.state as RootState).colors
+    }
+  },
+  async fetch() {
+    if (this.listColors.length > 0) return
+    const colors = await this.$productService.getColors()
+    this.$store.commit(Mutations.TYPE.SET_COLORS, colors)
   },
   mounted() {
     if (this.value) {

@@ -1,80 +1,66 @@
 <template>
   <div :class="$style.root">
-    <div class="container">
-      <Breadcrumb :data="product.categories" :current="product.name" />
-      <div :class="$style.detail">
-        <el-row :gutter="32">
-          <el-col :md="14">
-            <ProductImages :images="product.images" />
-          </el-col>
-          <el-col :md="10">
-            <h1>{{ product.name }}</h1>
-            <div :class="$style.price">
-              {{ $formatCurrency(product.price) }}
+    <Breadcrumb :data="product.categories" :current="product.name" />
+    <div :class="$style.detail">
+      <el-row :gutter="32">
+        <el-col :md="14">
+          <ProductImages :images="product.images" />
+        </el-col>
+        <el-col :md="10">
+          <h1>{{ product.name }}</h1>
+          <div :class="$style.price">
+            {{ $formatCurrency(product.price) }}
+          </div>
+          <div :class="$style.rate">
+            <el-rate v-model="product.rating"></el-rate>
+            <div :class="$style.review">117 reviews</div>
+          </div>
+          <div :class="$style.colorPicker">
+            <div>Color</div>
+            <ColorPicker :colors="product.colors" v-model="colorId" />
+          </div>
+          <div
+            ref="size"
+            :class="[
+              $style.sizePicker,
+              isError && 'animate__animated animate__tada'
+            ]"
+          >
+            <div :class="$style.title">
+              <div>Size</div>
+              <div :class="$style.chart">See Sizing chart</div>
             </div>
-            <div :class="$style.rate">
-              <el-rate v-model="rate"></el-rate>
-              <div :class="$style.review">117 reviews</div>
+            <SizePicker :sizes="sizes" v-model="sizeId" />
+          </div>
+          <el-button @click="addToCart" :class="$style.btn" type="primary">{{
+            buttonName
+          }}</el-button>
+          <div v-if="product.description" :class="$style.desc">
+            <div>Description</div>
+            <div>
+              <p>
+                {{ product.description }}
+              </p>
             </div>
-            <div :class="$style.colorPicker">
-              <div>Color</div>
-              <ColorPicker :colors="product.colors" v-model="colorId" />
+          </div>
+          <div v-if="product.productDetail" :class="$style.desc">
+            <div>Product detail</div>
+            <div>
+              <p>
+                {{ product.productDetail }}
+              </p>
             </div>
-            <div
-              ref="size"
-              :class="[
-                $style.sizePicker,
-                isError && 'animate__animated animate__tada'
-              ]"
-            >
-              <div :class="$style.title">
-                <div>Size</div>
-                <div :class="$style.chart">See Sizing chart</div>
-              </div>
-              <SizePicker :sizes="product.sizes" v-model="sizeId" />
+          </div>
+          <div v-if="product.shippingDetail" :class="$style.desc">
+            <div>Shipping detail</div>
+            <div>
+              <p>
+                {{ product.shippingDetail }}
+              </p>
             </div>
-            <el-button @click="addToCart" :class="$style.btn" type="primary">{{
-              buttonName
-            }}</el-button>
-            <div :class="$style.desc">
-              <div>Description</div>
-              <div>
-                <p>
-                  The Basic Tee 6-Pack allows you to fully express your vibrant
-                  personality with three grayscale options. Feeling adventurous?
-                  Put on a heather gray tee. Want to be a trendsetter? Try our
-                  exclusive colorway: "Black". Need to add an extra pop of color
-                  to your outfit? Our white tee has you covered.
-                </p>
-              </div>
-            </div>
-            <div :class="$style.desc">
-              <div>Product detail</div>
-              <div>
-                <p>
-                  The Basic Tee 6-Pack allows you to fully express your vibrant
-                  personality with three grayscale options. Feeling adventurous?
-                  Put on a heather gray tee. Want to be a trendsetter? Try our
-                  exclusive colorway: "Black". Need to add an extra pop of color
-                  to your outfit? Our white tee has you covered.
-                </p>
-              </div>
-            </div>
-            <div :class="$style.desc">
-              <div>Shipping detail</div>
-              <div>
-                <p>
-                  The Basic Tee 6-Pack allows you to fully express your vibrant
-                  personality with three grayscale options. Feeling adventurous?
-                  Put on a heather gray tee. Want to be a trendsetter? Try our
-                  exclusive colorway: "Black". Need to add an extra pop of color
-                  to your outfit? Our white tee has you covered.
-                </p>
-              </div>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
+          </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -85,9 +71,8 @@ import Breadcrumb from '~/components/common/Breadcrumb.vue'
 import ColorPicker from '~/components/common/ColorPicker.vue'
 import SizePicker from '~/components/common/SizePicker.vue'
 import ProductImages from '~/components/pages/product/ProductImages.vue'
-import { products } from '~/mock/data/Product'
 import { Cart } from '~/model/cart/cart'
-import { Product } from '~/model/product/product'
+import { Product, Size } from '~/model/product/product'
 import { Mutations } from '~/store'
 import { generateUuid } from '~/utils'
 
@@ -98,16 +83,18 @@ export default Vue.extend({
     ProductImages,
     Breadcrumb
   },
+  props: {
+    product: {
+      type: Object as () => Product,
+      required: true
+    }
+  },
   data(): {
-    rate: number
-    product: Product
     colorId?: string
     sizeId?: string
     isError: boolean
   } {
     return {
-      rate: 4,
-      product: products[0],
       colorId: undefined,
       sizeId: undefined,
       isError: false
@@ -116,6 +103,11 @@ export default Vue.extend({
   computed: {
     buttonName(): string {
       return this.colorId && this.sizeId ? 'Add to cart' : 'Select size'
+    },
+    sizes(): Size[] {
+      if (!this.product.colors) return []
+      const color = this.product.colors.find((c) => c.id === this.colorId)
+      return color?.size || []
     }
   },
   methods: {
