@@ -2,6 +2,7 @@ import { cloneDeep } from 'lodash'
 import Vue from 'vue'
 import { MutationTree } from 'vuex'
 import { Cart } from '~/model/cart/cart'
+import { Modal } from '~/model/common/common'
 import { Category, Collection, Color, Size } from '~/model/product/product'
 import { User } from '~/model/user/user'
 import { RootState } from './state'
@@ -20,6 +21,9 @@ export namespace Mutations {
   // ---------------------------------------------------------------------------
 
   export const TYPE = {
+    // COMMON
+    SET_MODAL: 'setModal',
+
     // USER
     SET_CURRENT_USER: 'setCurrentUser',
 
@@ -60,6 +64,14 @@ export namespace Mutations {
 // -----------------------------------------------------------------------------
 
 export default {
+  // ---------------------------------------------------------------------------
+  // COMMON
+  [Mutations.TYPE.SET_MODAL]: (state: RootState, payload: Modal): void => {
+    state.modal = cloneDeep(payload)
+  },
+
+  // ---------------------------------------------------------------------------
+  // USER
   [Mutations.TYPE.SET_CURRENT_USER]: (
     state: RootState,
     payload: User

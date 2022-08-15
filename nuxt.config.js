@@ -68,6 +68,7 @@ export default {
     '~/plugins/axios-config',
     '~/plugins/media-query',
     '~/plugins/formatting',
+    '~/plugins/route',
     { src: '~/plugins/scroll-animation', mode: 'client' },
     { src: '~/plugins/vue-confetti', mode: 'client' }
   ],

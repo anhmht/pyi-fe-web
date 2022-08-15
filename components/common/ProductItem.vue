@@ -19,7 +19,9 @@
               {{ data.name }}
             </nuxt-link>
           </h3>
-          <p class="mt-1 text-gray-500">{{ data.colors[0].name }}</p>
+          <p class="mt-1 text-gray-500">
+            <el-rate v-model="data.rating" disabled></el-rate>
+          </p>
         </div>
         <p class="font-medium text-gray-900">
           {{ $formatCurrency(data.price) }}
@@ -27,7 +29,9 @@
       </div>
     </div>
     <div>
-      <el-button class="bg-gray-200" :class="$style.btn">Add To Cart</el-button>
+      <el-button class="bg-gray-200" :class="$style.btn" @click="handleClick"
+        >Add To Cart</el-button
+      >
     </div>
   </div>
 </template>
@@ -35,12 +39,25 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Product } from '~/model/product/product'
+import { MODAL } from '~/constant/modal'
+import { Modal } from '~/model/common/common'
+import { Mutations } from '~/store'
 
 export default Vue.extend({
   props: {
     data: {
       type: Object as () => Product,
       required: true
+    }
+  },
+  methods: {
+    handleClick() {
+      const modal = {
+        isOpen: true,
+        name: MODAL.PRODUCT_DETAIL,
+        data: this.data
+      } as Modal
+      this.$store.commit(Mutations.TYPE.SET_MODAL, modal)
     }
   }
 })

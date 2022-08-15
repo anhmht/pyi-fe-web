@@ -5,7 +5,7 @@
         :class="$style.loading"
         v-if="$fetchState.pending"
       />
-      <ProductDetail v-else :product="product" />
+      <ProductDetail :class="$style.detail" v-else :data="product" />
     </div>
     <ProductYouMayLike />
   </div>
@@ -55,6 +55,9 @@ export default Vue.extend({
 <style lang="postcss" module>
 .root {
   position: relative;
+  .detail {
+    margin-top: var(--space-4x);
+  }
   .loading {
     margin-top: var(--space-4x);
   }

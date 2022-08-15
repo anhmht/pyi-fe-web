@@ -1,23 +1,23 @@
 <template>
   <div :class="$style.root">
-    <Breadcrumb :data="product.categories" :current="product.name" />
+    <Breadcrumb :data="data.categories" :current="data.name" />
     <div :class="$style.detail">
       <el-row :gutter="32">
         <el-col :md="14">
-          <ProductImages :images="product.images" />
+          <ProductImages :images="data.images" />
         </el-col>
         <el-col :md="10">
-          <h1>{{ product.name }}</h1>
+          <h1>{{ data.name }}</h1>
           <div :class="$style.price">
-            {{ $formatCurrency(product.price) }}
+            {{ $formatCurrency(data.price) }}
           </div>
           <div :class="$style.rate">
-            <el-rate v-model="product.rating"></el-rate>
+            <el-rate v-model="data.rating"></el-rate>
             <div :class="$style.review">117 reviews</div>
           </div>
           <div :class="$style.colorPicker">
             <div>Color</div>
-            <ColorPicker :colors="product.colors" v-model="colorId" />
+            <ColorPicker :colors="data.colors" v-model="colorId" />
           </div>
           <div
             ref="size"
@@ -35,27 +35,27 @@
           <el-button @click="addToCart" :class="$style.btn" type="primary">{{
             buttonName
           }}</el-button>
-          <div v-if="product.description" :class="$style.desc">
+          <div v-if="data.description" :class="$style.desc">
             <div>Description</div>
             <div>
               <p>
-                {{ product.description }}
+                {{ data.description }}
               </p>
             </div>
           </div>
-          <div v-if="product.productDetail" :class="$style.desc">
+          <div v-if="data.productDetail" :class="$style.desc">
             <div>Product detail</div>
             <div>
               <p>
-                {{ product.productDetail }}
+                {{ data.productDetail }}
               </p>
             </div>
           </div>
-          <div v-if="product.shippingDetail" :class="$style.desc">
+          <div v-if="data.shippingDetail" :class="$style.desc">
             <div>Shipping detail</div>
             <div>
               <p>
-                {{ product.shippingDetail }}
+                {{ data.shippingDetail }}
               </p>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default Vue.extend({
     Breadcrumb
   },
   props: {
-    product: {
+    data: {
       type: Object as () => Product,
       required: true
     }
@@ -105,8 +105,8 @@ export default Vue.extend({
       return this.colorId && this.sizeId ? 'Add to cart' : 'Select size'
     },
     sizes(): Size[] {
-      if (!this.product.colors) return []
-      const color = this.product.colors.find((c) => c.id === this.colorId)
+      if (!this.data.colors) return []
+      const color = this.data.colors.find((c) => c.id === this.colorId)
       return color?.size || []
     }
   },
@@ -129,7 +129,7 @@ export default Vue.extend({
       }
       const cart = {
         id: generateUuid(),
-        product: this.product,
+        product: this.data,
         colorId: this.colorId,
         sizeId: this.sizeId,
         quantity: 1,
@@ -147,7 +147,6 @@ export default Vue.extend({
 </script>
 <style lang="postcss" module>
 .root {
-  margin-top: var(--space-4x);
   .detail {
     margin-top: var(--space-3x);
   }

@@ -6,7 +6,7 @@
       v-for="(item, index) in colors"
       :key="index"
     >
-      <div :class="$style.color" :style="{ backgroundColor: item.color }"></div>
+      <div :class="$style.color" :style="{ backgroundColor: item.hex }"></div>
     </div>
   </div>
 </template>

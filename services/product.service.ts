@@ -27,7 +27,7 @@ const getProducts = async ({ app }: Context, payload: CategoryFilter): Promise<{
 }
 
 const getColors = async ({ app }: Context): Promise<Color[]> => {
-  const { data } = await app.$api.post(COLOR, { limit: -1 })
+  const { data } = await app.$api.post(COLOR, { limit: 20 })
   return data.map(x => ({
     id: x.color_id,
     name: x.name,
@@ -35,7 +35,7 @@ const getColors = async ({ app }: Context): Promise<Color[]> => {
 }
 
 const getSizes = async ({ app }: Context): Promise<Size[]> => {
-  const { data } = await app.$api.post(SIZE, { limit: -1 })
+  const { data } = await app.$api.post(SIZE, { limit: 20 })
   return data.map(x => ({
     id: x.size_id,
     name: x.name,
@@ -43,7 +43,7 @@ const getSizes = async ({ app }: Context): Promise<Size[]> => {
 }
 
 const getCollections = async ({ app }: Context): Promise<Collection[]> => {
-  const { data } = await app.$api.post(COLLECTION, { limit: -1 })
+  const { data } = await app.$api.post(COLLECTION, { limit: 20 })
   return data.map(x => ({
     id: x.collection_id,
     name: x.name,
