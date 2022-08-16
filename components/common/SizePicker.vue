@@ -4,10 +4,10 @@
       :class="[
         $style.size,
         index === active && $style.active,
-        item.disabled && $style.disabled
+        isDisabled(item.id) && $style.disabled
       ]"
       @click="selected(item, index)"
-      v-for="(item, index) in sizes"
+      v-for="(item, index) in listSizes"
       :key="index"
     >
       {{ item.name }}
@@ -18,6 +18,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Size } from '~/model/product/product'
+import { Mutations } from '~/store'
+import { RootState } from '~/store/state'
 
 export default Vue.extend({
   props: {
@@ -30,18 +32,34 @@ export default Vue.extend({
       required: true
     }
   },
+  computed: {
+    listSizes(): Size[] {
+      return (this.$store.state as RootState).sizes
+    }
+  },
   data(): {
-    active?: number
+    active?: string
   } {
     return {
       active: undefined
     }
+  },
+  async fetch() {
+    if (this.listSizes.length > 0) return
+    const sizes = await this.$productService.getSizes()
+    this.$store.commit(Mutations.TYPE.SET_SIZES, sizes)
   },
   methods: {
     selected(item: Size, index) {
       if (item.disabled) return
       this.active = index
       this.$emit('input', item.id)
+    },
+    isDisabled(id: string): boolean {
+      const size = this.listSizes.find((item) => item.id === id)
+      if (!size) return false
+      if (this.sizes.map((x) => x.id).includes(id)) return false
+      return true
     }
   }
 })

@@ -3,6 +3,7 @@
     <Header />
     <main>
       <nuxt-child />
+      <Modal />
     </main>
     <Footer />
     <client-only>
@@ -24,9 +25,10 @@ import Footer from '~/components/layout/default/Footer.vue'
 import Header from '~/components/layout/default/Header.vue'
 import BackToTop from 'vue-backtotop'
 import { EVENT_BUS } from '~/constant/event-bus'
+import Modal from '~/components/common/Modal.vue'
 
 export default Vue.extend({
-  components: { Header, Footer, BackToTop },
+  components: { Header, Footer, BackToTop, Modal },
   mounted() {
     this.$nuxt.$on(EVENT_BUS.SCROLL_TOP, () => {
       const pageContainer = this.$refs.page as HTMLInputElement

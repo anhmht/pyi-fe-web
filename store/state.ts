@@ -1,5 +1,6 @@
 import { Cart } from "~/model/cart/cart"
-import { Category, Collection, Color } from "~/model/product/product"
+import { Modal } from "~/model/common/common"
+import { Category, Collection, Color, Size } from "~/model/product/product"
 import { User } from "~/model/user/user"
 
 // -----------------------------------------------------------------------------
@@ -14,6 +15,8 @@ export interface RootState {
   categories: Category[]
   colors: Color[]
   collections: Collection[]
+  sizes: Size[]
+  modal: Modal
 }
 
 // -----------------------------------------------------------------------------
@@ -27,5 +30,10 @@ export default (): RootState => ({
   shoppingCart: [],
   categories: [],
   colors: [],
-  collections: []
+  collections: [],
+  sizes: [],
+  modal: {
+    isOpen: false,
+    name: ''
+  }
 })

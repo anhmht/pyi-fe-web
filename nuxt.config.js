@@ -68,6 +68,7 @@ export default {
     '~/plugins/axios-config',
     '~/plugins/media-query',
     '~/plugins/formatting',
+    '~/plugins/route',
     { src: '~/plugins/scroll-animation', mode: 'client' },
     { src: '~/plugins/vue-confetti', mode: 'client' }
   ],
@@ -109,6 +110,14 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
+
+  /*
+   ** Generate API configuration
+   ** See https://nuxtjs.org/api/configuration-generate/
+   */
+  generate: {
+    exclude: [/dashboard/, /cart/, /checkout/, /verify-account/, /tracking/]
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

@@ -14,3 +14,9 @@ export interface Step {
   name: string,
   status?: STEP_STATUS,
 }
+
+export interface Modal {
+  name: string,
+  isOpen: boolean,
+  data?: any,
+}

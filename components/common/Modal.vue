@@ -1,27 +1,41 @@
 <template>
   <div :class="$style.root">
     <el-dialog
-      :title="title"
-      :visible.sync="visible"
-      :before-close="$emit('update:visible', false)"
+      width="90%"
+      :visible.sync="modal.isOpen"
+      :before-close="handleClose"
     >
-      <span>This is a message</span>
+      <component v-if="modal.name" :is="modal.name" :data="data" />
     </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { Modal } from '~/model/common/common'
+import { Mutations } from '~/store'
+import { RootState } from '~/store/state'
 
 export default Vue.extend({
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
+  components: {
+    'product-detail': () =>
+      import('~/components/pages/product/ProductDetail.vue')
+  },
+  computed: {
+    modal(): Modal {
+      return (this.$store.state as RootState).modal
     },
-    title: {
-      type: String,
-      default: undefined
+    data(): any {
+      return this.modal.data
+    }
+  },
+  methods: {
+    handleClose() {
+      this.$store.commit(Mutations.TYPE.SET_MODAL, {
+        isOpen: false,
+        name: '',
+        data: undefined
+      })
     }
   }
 })

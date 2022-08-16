@@ -2,7 +2,8 @@ import { cloneDeep } from 'lodash'
 import Vue from 'vue'
 import { MutationTree } from 'vuex'
 import { Cart } from '~/model/cart/cart'
-import { Category, Collection, Color } from '~/model/product/product'
+import { Modal } from '~/model/common/common'
+import { Category, Collection, Color, Size } from '~/model/product/product'
 import { User } from '~/model/user/user'
 import { RootState } from './state'
 
@@ -20,6 +21,9 @@ export namespace Mutations {
   // ---------------------------------------------------------------------------
 
   export const TYPE = {
+    // COMMON
+    SET_MODAL: 'setModal',
+
     // USER
     SET_CURRENT_USER: 'setCurrentUser',
 
@@ -36,7 +40,10 @@ export namespace Mutations {
     SET_COLORS: 'setColors',
 
     //COLLECTION
-    SET_COLLECTIONS: 'setCollections'
+    SET_COLLECTIONS: 'setCollections',
+
+    //SIZE
+    SET_SIZES: 'setSizes',
   } as const
 
   // ---------------------------------------------------------------------------
@@ -57,6 +64,14 @@ export namespace Mutations {
 // -----------------------------------------------------------------------------
 
 export default {
+  // ---------------------------------------------------------------------------
+  // COMMON
+  [Mutations.TYPE.SET_MODAL]: (state: RootState, payload: Modal): void => {
+    state.modal = cloneDeep(payload)
+  },
+
+  // ---------------------------------------------------------------------------
+  // USER
   [Mutations.TYPE.SET_CURRENT_USER]: (
     state: RootState,
     payload: User
@@ -115,6 +130,12 @@ export default {
   // COLLECTION
   [Mutations.TYPE.SET_COLLECTIONS]: (state: RootState, payload: Collection[]): void => {
     state.collections = cloneDeep(payload)
+  },
+
+  // ---------------------------------------------------------------------------
+  // SIZE
+  [Mutations.TYPE.SET_SIZES]: (state: RootState, payload: Size[]): void => {
+    state.sizes = cloneDeep(payload)
   }
 
 } as MutationTree<RootState>
