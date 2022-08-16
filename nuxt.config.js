@@ -111,6 +111,14 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
 
+  /*
+   ** Generate API configuration
+   ** See https://nuxtjs.org/api/configuration-generate/
+   */
+  generate: {
+    exclude: [/dashboard/, /cart/, /checkout/, /verify-account/, /tracking/]
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [
