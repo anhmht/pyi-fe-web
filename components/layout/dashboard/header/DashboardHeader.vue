@@ -44,5 +44,9 @@ export default Vue.extend({})
     top: 50%;
     transform: translateY(-50%);
   }
+  .content {
+    background: #fff;
+    flex: 1;
+  }
 }
 </style>

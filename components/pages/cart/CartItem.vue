@@ -18,7 +18,7 @@
         </h3>
         <div :class="$style.colorSize">{{ getColor }} | {{ getSize }}</div>
         <div :class="$style.price">
-          {{ $formatCurrency(cart.product.price) }} (Total: {{ total }})
+          {{ $formatCurrency(price) }} (Total: {{ $formatCurrency(total) }})
         </div>
       </div>
       <div :class="$style.quantity">
@@ -42,6 +42,7 @@ import { cloneDeep } from 'lodash'
 import Vue from 'vue'
 import { Cart } from '~/model/cart/cart'
 import { Mutations } from '~/store'
+import cartMixin from '~/mixins/cart'
 
 export default Vue.extend({
   props: {
@@ -50,6 +51,7 @@ export default Vue.extend({
       required: true
     }
   },
+  mixins: [cartMixin],
   data(): {
     selected: boolean
     quantityItem: number
@@ -59,23 +61,6 @@ export default Vue.extend({
       selected: Boolean(this.cart.isSelected),
       quantityItem: cloneDeep(this.cart.quantity),
       cartItem: cloneDeep(this.cart)
-    }
-  },
-  computed: {
-    total(): string {
-      return this.$formatCurrency(this.cart.quantity * this.cart.product.price)
-    },
-    getColor(): string | undefined {
-      const color = this.cartItem.product.colors?.find(
-        (color) => color.id === this.cartItem.colorId
-      )
-      return color?.name
-    },
-    getSize(): string | undefined {
-      const size = this.cartItem.product.sizes?.find(
-        (size) => size.id === this.cartItem.sizeId
-      )
-      return size?.name
     }
   },
   methods: {

@@ -9,7 +9,7 @@
         <el-col :md="10">
           <h1>{{ data.name }}</h1>
           <div :class="$style.price">
-            {{ $formatCurrency(data.price) }}
+            {{ $formatCurrency(price) }}
           </div>
           <div :class="$style.rate">
             <el-rate v-model="data.rating"></el-rate>
@@ -108,6 +108,12 @@ export default Vue.extend({
       if (!this.data.colors) return []
       const color = this.data.colors.find((c) => c.id === this.colorId)
       return color?.size || []
+    },
+    price(): number {
+      if (!this.colorId || !this.sizeId) return this.data.price
+      const color = this.data.colors?.find((c) => c.id === this.colorId)
+      const size = color?.size?.find((s) => s.id === this.sizeId)
+      return size?.price || this.data.price
     }
   },
   methods: {

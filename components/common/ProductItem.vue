@@ -29,7 +29,7 @@
       </div>
     </div>
     <div>
-      <el-button class="bg-gray-200" :class="$style.btn" @click="handleClick"
+      <el-button :class="$style.btn" @click="handleClick"
         >Add To Cart</el-button
       >
     </div>
@@ -81,6 +81,7 @@ export default Vue.extend({
     width: 100%;
     color: var(--color-primary-text);
     transition: var(--transition-300);
+    background-color: rgb(229 231 235);
     &:hover {
       color: #fff;
       background: var(--color-primary);

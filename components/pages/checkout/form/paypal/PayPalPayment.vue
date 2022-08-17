@@ -188,8 +188,6 @@ export default Vue.extend({
     cardNumber: {
       get(): string {
         const card = this.cardType(this.form.payment.cardNumber)
-        console.log(card)
-
         switch (card.cardtype) {
           case 'american express':
           case 'diners':
