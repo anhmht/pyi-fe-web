@@ -15,7 +15,8 @@ import Vue from 'vue'
 import DashboardHeader from '~/components/layout/dashboard/header/DashboardHeader.vue'
 import Sidebar from '~/components/layout/dashboard/Sidebar.vue'
 export default Vue.extend({
-  components: { DashboardHeader, Sidebar }
+  components: { DashboardHeader, Sidebar },
+  middleware: ['require-authorize']
 })
 </script>
 

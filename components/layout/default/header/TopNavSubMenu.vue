@@ -5,7 +5,7 @@
       <i class="fa fa-angle-down"></i>
     </a>
     <ul :class="$style.selection">
-      <li v-for="item in subMenus" :key="item.name">
+      <li v-for="item in subMenus" v-show="displayItem(item)" :key="item.name">
         <nuxt-link
           v-if="displaySubmenu(item)"
           :class="$style.link"
@@ -105,6 +105,10 @@ export default Vue.extend({
       if (item.id === 'sign-out') {
         this.$authService.signOut()
       }
+    },
+    displayItem(item: SubMenu): boolean {
+      if (item.isAdmin && this.currentUser?.role !== 'admin') return false
+      return true
     }
   }
 })

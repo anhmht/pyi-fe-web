@@ -116,7 +116,14 @@ export default {
    ** See https://nuxtjs.org/api/configuration-generate/
    */
   generate: {
-    exclude: [/dashboard/, /cart/, /checkout/, /verify-account/, /tracking/]
+    exclude: [
+      /^\/dashboard/,
+      /cart/,
+      /^\/dashboard/,
+      /verify-account/,
+      /tracking/
+    ],
+    crawler: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

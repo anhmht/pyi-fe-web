@@ -96,6 +96,13 @@ export const loggedInSubMenu: SubMenu[] = [
     link: { path: '/order' }
   },
   {
+    id: 'dashboard',
+    name: 'Dashboard',
+    icon: 'fa  fa-tachometer',
+    link: { path: '/dashboard' },
+    isAdmin: true
+  },
+  {
     id: 'sign-out',
     name: 'Sign out',
     icon: 'fa fa-sign-out',
