@@ -53,12 +53,12 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/styles/main.css',
     'element-ui/lib/theme-chalk/index.css',
     'swiper/swiper-bundle.min.css',
     '~/assets/styles/index.css',
     'font-awesome/css/font-awesome.min.css',
-    'animate.css/animate.min.css',
-    '~/assets/styles/main.css'
+    'animate.css/animate.min.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -116,7 +116,14 @@ export default {
    ** See https://nuxtjs.org/api/configuration-generate/
    */
   generate: {
-    exclude: [/dashboard/, /cart/, /checkout/, /verify-account/, /tracking/]
+    exclude: [
+      /^\/dashboard/,
+      /cart/,
+      /^\/dashboard/,
+      /verify-account/,
+      /tracking/
+    ],
+    crawler: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

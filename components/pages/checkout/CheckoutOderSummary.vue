@@ -26,10 +26,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { EVENT_BUS } from '~/constant/event-bus'
-import { Cart } from '~/model/cart/cart'
 import { Step } from '~/model/common/common'
 import { STEP, steps } from '~/mock/data/Checkout'
-import { RootState } from '~/store/state'
+import summaryMixin from '~/mixins/summary'
 
 export default Vue.extend({
   components: {
@@ -48,26 +47,8 @@ export default Vue.extend({
       steps: steps
     }
   },
+  mixins: [summaryMixin],
   computed: {
-    carts(): Cart[] {
-      return (this.$store.state as RootState).shoppingCart.filter(
-        (item: Cart) => item.isSelected
-      )
-    },
-    subTotal(): number {
-      return this.carts.reduce((acc, item) => {
-        return acc + item.quantity * item.product.price
-      }, 0)
-    },
-    tax(): number {
-      return this.subTotal * 0.1
-    },
-    orderTotal(): number {
-      return this.subTotal + this.tax + this.shippingFee
-    },
-    shippingFee(): number {
-      return this.carts.length ? 5 : 0
-    },
     displayButton(): string {
       if (this.activeStep === STEP.PAYMENT) {
         return 'Confirm Order'

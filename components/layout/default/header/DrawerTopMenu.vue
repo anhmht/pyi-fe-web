@@ -5,6 +5,7 @@
     </template>
     <el-menu-item
       v-for="item in subMenus"
+      v-show="displayItem(item)"
       :key="item.name"
       :class="$style.subMenu"
       @click="handleClick(item)"
@@ -103,6 +104,10 @@ export default Vue.extend({
       }
 
       this.$emit('close')
+    },
+    displayItem(item: SubMenu): boolean {
+      if (item.isAdmin && this.currentUser?.role !== 'admin') return false
+      return true
     }
   }
 })

@@ -31,31 +31,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Cart } from '~/model/cart/cart'
-import { RootState } from '~/store/state'
+import summaryMixin from '~/mixins/summary'
 
 export default Vue.extend({
-  computed: {
-    carts(): Cart[] {
-      return (this.$store.state as RootState).shoppingCart.filter(
-        (item: Cart) => item.isSelected
-      )
-    },
-    subTotal(): number {
-      return this.carts.reduce((acc, item) => {
-        return acc + item.quantity * item.product.price
-      }, 0)
-    },
-    tax(): number {
-      return this.subTotal * 0.1
-    },
-    orderTotal(): number {
-      return this.subTotal + this.tax + this.shippingFee
-    },
-    shippingFee(): number {
-      return this.carts.length ? 5 : 0
-    }
-  },
+  mixins: [summaryMixin],
   methods: {
     checkout() {
       this.$router.push('/checkout')

@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.root">
     <el-menu
-      default-active="/dashboard"
+      :default-active="path"
       :class="$style.menu"
       :collapse="isCollapse"
       background-color="#404e67"
@@ -81,6 +81,11 @@ export default Vue.extend({
   data() {
     return {
       isCollapse: false
+    }
+  },
+  computed: {
+    path(): string {
+      return this.$route.path
     }
   }
 })

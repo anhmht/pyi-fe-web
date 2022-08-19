@@ -15,7 +15,8 @@ import Vue from 'vue'
 import DashboardHeader from '~/components/layout/dashboard/header/DashboardHeader.vue'
 import Sidebar from '~/components/layout/dashboard/Sidebar.vue'
 export default Vue.extend({
-  components: { DashboardHeader, Sidebar }
+  components: { DashboardHeader, Sidebar },
+  middleware: ['require-authorize']
 })
 </script>
 
@@ -29,12 +30,14 @@ export default Vue.extend({
   }
   .sidebar {
     width: 240px;
-    height: calc(100vh - 56px);
+    min-height: calc(100vh - 56px);
     background-color: var(--color-bg-dashboard);
   }
   main {
     width: calc(100% - 240px);
+    padding: var(--space-2x) 0;
     overflow: auto;
+    background: var(--color-bg-main-dashboard);
   }
 }
 </style>

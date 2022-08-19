@@ -1,4 +1,5 @@
 import { Plugin } from '@nuxt/types'
+import moment from 'moment'
 import countries from '~/static/country_code.json'
 import usStates from '~/static/us_state.json'
 
@@ -21,10 +22,15 @@ export const displayState = (stateCode: string, countryCode: string): string => 
   return state ? state.name : stateCode
 }
 
+export const displayRevealTime = (time: string): string => {
+  return moment(time).fromNow();
+}
+
 const formatPlugin: Plugin = (_, inject) => {
   inject('formatCurrency', formatCurrency)
   inject('displayCountry', displayCountry)
   inject('displayState', displayState)
+  inject('displayRevealTime', displayRevealTime)
 }
 
 export default formatPlugin
@@ -33,6 +39,7 @@ interface FormatPluginSchema {
   $formatCurrency: typeof formatCurrency
   $displayCountry: typeof displayCountry
   $displayState: typeof displayState
+  $displayRevealTime: typeof displayRevealTime
 }
 
 declare module 'vue/types/vue' {

@@ -4,6 +4,7 @@ export interface SubMenu {
   link: string | Object
   icon?: string
   action?: string
+  isAdmin?: boolean
 }
 export interface TopMenu {
   uuid: string
