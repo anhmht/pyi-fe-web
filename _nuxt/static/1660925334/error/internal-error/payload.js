@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/error/internal-error", {data:[{}],fetch:{"0":{mainMenus:[],drawer:false}},mutations:[["setCategories",[{id:"62d8145b1e9cb506fb36f0f0",name:"Color Changing Mug",path:"\u002Fcolor-changing-mug",parentId:"62d813c31e9cb506fb36f0eb"}]]]});
