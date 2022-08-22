@@ -1,6 +1,6 @@
 import { Context } from "@nuxt/types";
-import { ACTIVATE_ACC, FORGOT_PASS, REGISTER, RESET_PASS } from "~/constant/user";
-import { ActivateAccountDTO, RegisterRequestDTO, RegisterResponse, ResetPassRequestDTO } from "~/model/user/user";
+import { ACTIVATE_ACC, FORGOT_PASS, REGISTER, RESET_PASS, USER } from "~/constant/user";
+import { ActivateAccountDTO, RegisterRequestDTO, RegisterResponse, ResetPassRequestDTO, User } from "~/model/user/user";
 
 
 const register = async ({ app }: Context, payload: RegisterRequestDTO): Promise<RegisterResponse> => {
@@ -42,11 +42,24 @@ const activateAccount = async ({ app }: Context, payload: ActivateAccountDTO): P
   }
 }
 
+const getUser = async ({ app }: Context): Promise<{ user: User[], total: number }> => {
+  try {
+    const { data } = await app.$api.post(USER, { limit: -1 })
+    return {
+      user: data.user,
+      total: data.total
+    }
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
 export interface UserService {
   register: (payload: RegisterRequestDTO) => Promise<RegisterResponse>
   forgotPass: (email: string) => Promise<any>
   resetPass: (payload: ResetPassRequestDTO) => Promise<any>
   activateAccount: (payload: ActivateAccountDTO) => Promise<any>
+  getUser: () => Promise<{ user: User[], total: number }>
 }
 
 export const userService = (context: Context): UserService => {
@@ -54,6 +67,7 @@ export const userService = (context: Context): UserService => {
     register: (payload: RegisterRequestDTO) => register(context, payload),
     forgotPass: (email: string) => forgotPass(context, email),
     resetPass: (payload: ResetPassRequestDTO) => resetPass(context, payload),
-    activateAccount: (payload: ActivateAccountDTO) => activateAccount(context, payload)
+    activateAccount: (payload: ActivateAccountDTO) => activateAccount(context, payload),
+    getUser: () => getUser(context),
   }
 }

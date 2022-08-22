@@ -49,6 +49,8 @@ export default function (
       } catch (error) {
         redirect('/signin-signup')
       }
+    } else if (code >= 500) {
+      redirect('/error/internal-error')
     } else {
       return Promise.reject(
         nuxtError({
@@ -62,7 +64,7 @@ export default function (
   auth.onError(async (error) => {
     const code = parseInt(error.response && error.response.status)
     if (code >= 500) {
-      redirect('/internal-error')
+      redirect('/error/internal-error')
     }
   })
 
