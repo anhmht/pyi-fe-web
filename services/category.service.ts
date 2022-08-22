@@ -2,9 +2,9 @@ import { Context } from "@nuxt/types"
 import { CATEGORIES } from "~/constant/category"
 import { Category } from "~/model/product/product"
 
-const getCategories = async ({ app }: Context): Promise<Category[]> => {
+const getCategories = async ({ app }: Context, isUpdate: boolean = false): Promise<Category[]> => {
   try {
-    const { data } = await app.$api.post(CATEGORIES, { limit: -1 })
+    const { data } = await app.$api.post(CATEGORIES, { limit: -1, is_update: isUpdate })
     return data.map((item: any) => {
       return {
         id: item.category_id,
@@ -20,11 +20,11 @@ const getCategories = async ({ app }: Context): Promise<Category[]> => {
 
 
 export interface CategoryService {
-  getCategories: () => Promise<Category[]>
+  getCategories: (isUpdate?: boolean) => Promise<Category[]>
 }
 
 export const categoryService = (context: Context): CategoryService => {
   return {
-    getCategories: () => getCategories(context),
+    getCategories: (isUpdate?: boolean) => getCategories(context, isUpdate),
   }
 }
