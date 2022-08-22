@@ -92,7 +92,7 @@ export class Product implements IProduct {
       price: data.price,
       productDetail: data.productDetail,
       shippingDetail: data.shippingDetail,
-      collection: data.collection.map(x => ({ ...x, id: x.collection_id })),
+      collection: data.collection?.map(x => ({ ...x, id: x.collection_id })) || [],
       images: data.images,
       categories: data.categories.map(x => ({ ...x, id: x.category_id, parentId: x.parent_id })),
       colors: data.colors.map(x => ({ ...x, id: x.color_id, size: x.size.map(y => ({ ...y, id: y.size_id })) })),
@@ -101,5 +101,31 @@ export class Product implements IProduct {
       createdDate: data.created_date,
       modifiedDate: data.modified_date,
     } as Product
+  }
+}
+
+export class CustomcatProduct {
+  id: string
+  type?: string
+  image?: string
+  title: string
+  desc: string
+  categoryId?: string
+  collectionIds?: string[]
+  path?: string
+  constructor(data: any) {
+    this.id = data.id
+    this.title = data.title
+    this.desc = data.desc
+  }
+
+  static parseProduct(data: any): CustomcatProduct {
+    return {
+      id: data.product_id,
+      type: data.product_type,
+      image: data.image_url,
+      title: data.title,
+      desc: data.description,
+    } as CustomcatProduct
   }
 }

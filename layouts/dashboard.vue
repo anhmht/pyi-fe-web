@@ -32,8 +32,12 @@ export default Vue.extend({
     width: 240px;
     min-height: calc(100vh - 56px);
     background-color: var(--color-bg-dashboard);
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100vh - 56px);
   }
   main {
+    margin-left: 240px;
     width: calc(100% - 240px);
     padding: var(--space-2x) 0;
     overflow: auto;

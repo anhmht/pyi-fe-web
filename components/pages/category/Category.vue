@@ -118,10 +118,10 @@ export default Vue.extend({
   methods: {
     async fetchData() {
       this.isLoading = true
-      const { product, total } = await this.$productService.getProducts(
+      const { products, total } = await this.$productService.getProducts(
         this.filters
       )
-      this.products = product
+      this.products = products
       this.totalRecord = total
       this.isLoading = false
     },

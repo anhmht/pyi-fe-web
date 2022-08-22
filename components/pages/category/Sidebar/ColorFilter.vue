@@ -59,7 +59,7 @@ export default Vue.extend({
   async fetch() {
     if (this.listColors.length > 0) return
     this.isLoading = true
-    const colors = await this.$productService.getColors()
+    const { colors } = await this.$productService.getColors()
     this.$store.commit(Mutations.TYPE.SET_COLORS, colors)
     this.isLoading = false
   }

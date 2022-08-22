@@ -21,11 +21,11 @@ export default function (
     if (user) {
       store.commit(Mutations.TYPE.SET_CURRENT_USER, JSON.parse(user))
     }
-    if (i18n.locale) {
+    if (i18n.locale && i18n.locale !== 'en') {
       api.setHeader('lang', i18n.locale)
     }
     const currency = localStorage.getItem('currency')
-    if (currency) {
+    if (currency && currency !== 'usd') {
       api.setHeader('currency', currency)
     }
   }

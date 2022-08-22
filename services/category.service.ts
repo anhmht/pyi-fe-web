@@ -5,7 +5,7 @@ import { Category } from "~/model/product/product"
 const getCategories = async ({ app }: Context, isUpdate: boolean = false): Promise<Category[]> => {
   try {
     const { data } = await app.$api.post(CATEGORIES, { limit: -1, is_update: isUpdate })
-    return data.map((item: any) => {
+    return data.categories.map((item: any) => {
       return {
         id: item.category_id,
         name: item.name,

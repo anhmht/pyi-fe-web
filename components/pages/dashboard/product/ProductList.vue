@@ -47,7 +47,7 @@
       </el-table-column>
       <el-table-column fixed="right" align="right" width="180">
         <template slot="header">
-          <el-button type="primary">create</el-button>
+          <el-button type="primary" @click="visible = true"> Create </el-button>
         </template>
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
@@ -62,6 +62,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-divider class="divider"></el-divider>
+    <div :class="$style.pagination">
+      <Pagination :total="totalRecord" :page.sync="filters.page" />
+    </div>
+    <ProductSelectionModal
+      :visible.sync="visible"
+      @select="(product) => $emit('create', product)"
+    />
   </div>
 </template>
 
@@ -69,13 +77,17 @@
 import Vue from 'vue'
 import { CategoryFilter } from '~/model/category/category'
 import { Category, Collection, Product } from '~/model/product/product'
+import ProductSelectionModal from '~/components/pages/dashboard/product/ProductSelectionModal.vue'
+import Pagination from '~/components/common/Pagination.vue'
 
 export default Vue.extend({
+  components: { ProductSelectionModal, Pagination },
   data(): {
     products: Product[]
     isLoading: boolean
     totalRecord: number
     filters: CategoryFilter
+    visible: boolean
   } {
     return {
       products: [],
@@ -87,18 +99,19 @@ export default Vue.extend({
           size: [],
           collection: []
         },
-        limit: 12,
+        limit: 20,
         page: 1,
         sort: 'newest'
-      }
+      },
+      visible: false
     }
   },
   async fetch() {
     this.isLoading = true
-    const { product, total } = await this.$productService.getProducts(
+    const { products, total } = await this.$productService.getProducts(
       this.filters
     )
-    this.products = product
+    this.products = products
     this.totalRecord = total
     this.isLoading = false
   },
@@ -107,7 +120,10 @@ export default Vue.extend({
       return categories[categories.length - 1].name
     },
     getCollections(collections: Collection[]) {
-      return collections.map((collection) => collection.name).join(', ')
+      return collections.map((collection) => collection.name).join(', ') || '-'
+    },
+    handleCommand(command: string) {
+      this.$emit('command', command)
     }
   }
 })

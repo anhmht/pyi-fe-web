@@ -46,7 +46,7 @@ export default Vue.extend({
   },
   async fetch() {
     if (this.listSizes.length > 0) return
-    const sizes = await this.$productService.getSizes()
+    const { sizes } = await this.$productService.getSizes()
     this.$store.commit(Mutations.TYPE.SET_SIZES, sizes)
   },
   methods: {
