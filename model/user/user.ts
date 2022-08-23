@@ -4,6 +4,8 @@ export interface User {
   email: string
   role: string
   address: string
+  createdDate?: string
+  modifiedDate?: string
 }
 
 export interface RegisterRequestDTO {

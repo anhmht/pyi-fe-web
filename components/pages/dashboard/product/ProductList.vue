@@ -37,12 +37,28 @@
       </el-table-column>
       <el-table-column width="150" label="Created date" show-overflow-tooltip>
         <template slot-scope="scope">
-          {{ $displayRevealTime(scope.row.createdDate) }}
+          <el-popover
+            placement="top-start"
+            trigger="hover"
+            :content="$displayDateTime(scope.row.createdDate)"
+          >
+            <span slot="reference">
+              {{ $displayRevealTime(scope.row.createdDate) }}</span
+            >
+          </el-popover>
         </template>
       </el-table-column>
       <el-table-column width="150" label="Modified date" show-overflow-tooltip>
         <template slot-scope="scope">
-          {{ $displayRevealTime(scope.row.modifiedDate) }}
+          <el-popover
+            placement="top-start"
+            trigger="hover"
+            :content="$displayDateTime(scope.row.modifiedDate)"
+          >
+            <span slot="reference">
+              {{ $displayRevealTime(scope.row.modifiedDate) }}</span
+            >
+          </el-popover>
         </template>
       </el-table-column>
       <el-table-column fixed="right" align="right" width="180">
@@ -124,6 +140,14 @@ export default Vue.extend({
     },
     handleCommand(command: string) {
       this.$emit('command', command)
+    }
+  },
+  watch: {
+    filters: {
+      handler() {
+        this.$fetch()
+      },
+      deep: true
     }
   }
 })

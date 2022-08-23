@@ -26,11 +26,16 @@ export const displayRevealTime = (time: string): string => {
   return moment(time).fromNow();
 }
 
+export const displayDateTime = (time: string): string => {
+  return moment(time).format('llll');
+}
+
 const formatPlugin: Plugin = (_, inject) => {
   inject('formatCurrency', formatCurrency)
   inject('displayCountry', displayCountry)
   inject('displayState', displayState)
   inject('displayRevealTime', displayRevealTime)
+  inject('displayDateTime', displayDateTime)
 }
 
 export default formatPlugin
@@ -40,6 +45,7 @@ interface FormatPluginSchema {
   $displayCountry: typeof displayCountry
   $displayState: typeof displayState
   $displayRevealTime: typeof displayRevealTime
+  $displayDateTime: typeof displayDateTime
 }
 
 declare module 'vue/types/vue' {

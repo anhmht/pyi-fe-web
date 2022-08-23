@@ -27,34 +27,42 @@ const getProducts = async ({ app }: Context, payload: CategoryFilter): Promise<{
   }
 }
 
-const getColors = async ({ app }: Context): Promise<{ colors: Color[], total: number }> => {
-  const { data } = await app.$api.post(COLOR, { limit: -1 })
+const getColors = async ({ app }: Context, paging: Paging): Promise<{ colors: Color[], total: number }> => {
+  const { data } = await app.$api.post(COLOR, paging)
   return {
     colors: data.colors.map(x => ({
       id: x.color_id,
       name: x.name,
+      hex: x.hex,
+      createdDate: x.created_date,
+      modifiedDate: x.modified_date,
     }) as Color),
     total: data.total
   }
 }
 
-const getSizes = async ({ app }: Context): Promise<{ sizes: Size[], total: number }> => {
-  const { data } = await app.$api.post(SIZE, { limit: -1 })
+const getSizes = async ({ app }: Context, paging: Paging): Promise<{ sizes: Size[], total: number }> => {
+  const { data } = await app.$api.post(SIZE, paging)
   return {
     sizes: data.sizes.map(x => ({
       id: x.size_id,
       name: x.name,
+      createdDate: x.created_date,
+      modifiedDate: x.modified_date,
     }) as Size),
     total: data.total
   }
 }
 
-const getCollections = async ({ app }: Context): Promise<{ collections: Collection[], total: number }> => {
-  const { data } = await app.$api.post(COLLECTION, { limit: -1 })
+const getCollections = async ({ app }: Context, paging: Paging): Promise<{ collections: Collection[], total: number }> => {
+  const { data } = await app.$api.post(COLLECTION, paging)
   return {
     collections: data.collections.map(x => ({
       id: x.collection_id,
       name: x.name,
+      path: x.path,
+      createdDate: x.created_date,
+      modifiedDate: x.modified_date,
     }) as Collection),
     total: data.total
   }
@@ -91,10 +99,10 @@ const createCustomcatProduct = async ({ app }: Context, payload: CustomcatProduc
 }
 export interface ProductService {
   getProducts: (payload: CategoryFilter) => Promise<{ products: Product[], total: number }>
-  getColors: () => Promise<{ colors: Color[], total: number }>,
-  getCollections: () => Promise<{ collections: Collection[], total: number }>,
+  getColors: (paging: Paging) => Promise<{ colors: Color[], total: number }>,
+  getCollections: (paging: Paging) => Promise<{ collections: Collection[], total: number }>,
   getProductDetail: (slug: string) => Promise<Product>
-  getSizes: () => Promise<{ sizes: Size[], total: number }>
+  getSizes: (paging: Paging) => Promise<{ sizes: Size[], total: number }>
   getCustomcatProducts: (paging: Paging) => Promise<{ products: CustomcatProduct[], total: number }>
   createCustomcatProduct: (payload: CustomcatProduct) => Promise<void>
 }
@@ -102,10 +110,10 @@ export interface ProductService {
 export const productService = (context: Context): ProductService => {
   return {
     getProducts: (payload: CategoryFilter) => getProducts(context, payload),
-    getColors: () => getColors(context),
-    getCollections: () => getCollections(context),
+    getColors: (paging: Paging) => getColors(context, paging),
+    getCollections: (paging: Paging) => getCollections(context, paging),
     getProductDetail: (slug: string) => getProductDetail(context, slug),
-    getSizes: () => getSizes(context),
+    getSizes: (paging: Paging) => getSizes(context, paging),
     getCustomcatProducts: (paging: Paging) => getCustomcatProducts(context, paging),
     createCustomcatProduct: (payload: CustomcatProduct) => createCustomcatProduct(context, payload),
   }

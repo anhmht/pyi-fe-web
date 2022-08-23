@@ -33,15 +33,17 @@ export default Vue.extend({
     page: {
       type: Number,
       default: 1
+    },
+    limit: {
+      type: Number,
+      default: 20
     }
   },
   data(): {
     currentPage: number
-    limit: number
   } {
     return {
-      currentPage: this.page,
-      limit: 16
+      currentPage: this.page
     }
   },
   computed: {

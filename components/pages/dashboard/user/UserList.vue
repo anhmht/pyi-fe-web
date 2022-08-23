@@ -29,12 +29,28 @@
       </el-table-column>
       <el-table-column width="150" label="Created date" show-overflow-tooltip>
         <template slot-scope="scope">
-          {{ $displayRevealTime(scope.row.createdDate) }}
+          <el-popover
+            placement="top-start"
+            trigger="hover"
+            :content="$displayDateTime(scope.row.createdDate)"
+          >
+            <span slot="reference">
+              {{ $displayRevealTime(scope.row.createdDate) }}</span
+            >
+          </el-popover>
         </template>
       </el-table-column>
       <el-table-column width="150" label="Modified date" show-overflow-tooltip>
         <template slot-scope="scope">
-          {{ $displayRevealTime(scope.row.modifiedDate) }}
+          <el-popover
+            placement="top-start"
+            trigger="hover"
+            :content="$displayDateTime(scope.row.modifiedDate)"
+          >
+            <span slot="reference">
+              {{ $displayRevealTime(scope.row.modifiedDate) }}</span
+            >
+          </el-popover>
         </template>
       </el-table-column>
       <el-table-column fixed="right" align="right" width="180">
@@ -54,43 +70,51 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-divider class="divider"></el-divider>
+    <div :class="$style.pagination">
+      <Pagination :total="totalRecord" :page.sync="paging.page" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { CategoryFilter } from '~/model/category/category'
+import Pagination from '~/components/common/Pagination.vue'
+import { Paging } from '~/model/common/common'
 import { User } from '~/model/user/user'
 
 export default Vue.extend({
+  components: { Pagination },
   data(): {
     users: User[]
     isLoading: boolean
     totalRecord: number
-    filters: CategoryFilter
+    paging: Paging
   } {
     return {
       users: [],
       isLoading: false,
       totalRecord: 0,
-      filters: {
-        filter: {
-          color: [],
-          size: [],
-          collection: []
-        },
-        limit: 12,
-        page: 1,
-        sort: 'newest'
+      paging: {
+        limit: 2,
+        page: 1
       }
     }
   },
   async fetch() {
     this.isLoading = true
-    const { user, total } = await this.$userService.getUser()
-    this.users = user
+    const { users, total } = await this.$userService.getUser(this.paging)
+    this.users = users
     this.totalRecord = total
     this.isLoading = false
+  },
+  watch: {
+    paging: {
+      handler() {
+        this.$fetch()
+      },
+      deep: true
+    }
   }
 })
 </script>

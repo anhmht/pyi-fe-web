@@ -1,5 +1,6 @@
 import { Context } from "@nuxt/types";
 import { ACTIVATE_ACC, FORGOT_PASS, REGISTER, RESET_PASS, USER } from "~/constant/user";
+import { Paging } from "~/model/common/common";
 import { ActivateAccountDTO, RegisterRequestDTO, RegisterResponse, ResetPassRequestDTO, User } from "~/model/user/user";
 
 
@@ -42,11 +43,19 @@ const activateAccount = async ({ app }: Context, payload: ActivateAccountDTO): P
   }
 }
 
-const getUser = async ({ app }: Context): Promise<{ user: User[], total: number }> => {
+const getUser = async ({ app }: Context, paging: Paging): Promise<{ users: User[], total: number }> => {
   try {
-    const { data } = await app.$api.post(USER, { limit: -1 })
+    const { data } = await app.$api.post(USER, paging)
     return {
-      user: data.user,
+      users: data.users.map(x => ({
+        user_id: x.user_id,
+        username: x.username,
+        email: x.email,
+        role: x.role,
+        address: x.address,
+        modifiedDate: x.modified_date,
+        createdDate: x.created_date,
+      } as User)),
       total: data.total
     }
   } catch (error) {
@@ -59,7 +68,7 @@ export interface UserService {
   forgotPass: (email: string) => Promise<any>
   resetPass: (payload: ResetPassRequestDTO) => Promise<any>
   activateAccount: (payload: ActivateAccountDTO) => Promise<any>
-  getUser: () => Promise<{ user: User[], total: number }>
+  getUser: (paging: Paging) => Promise<{ users: User[], total: number }>
 }
 
 export const userService = (context: Context): UserService => {
@@ -68,6 +77,6 @@ export const userService = (context: Context): UserService => {
     forgotPass: (email: string) => forgotPass(context, email),
     resetPass: (payload: ResetPassRequestDTO) => resetPass(context, payload),
     activateAccount: (payload: ActivateAccountDTO) => activateAccount(context, payload),
-    getUser: () => getUser(context),
+    getUser: (paging: Paging) => getUser(context, paging),
   }
 }

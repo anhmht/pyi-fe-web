@@ -55,7 +55,7 @@ export default Vue.extend({
       totalRecord: 0,
       paging: {
         page: 1,
-        limit: 20
+        limit: 4
       }
     }
   },
@@ -71,6 +71,14 @@ export default Vue.extend({
   methods: {
     handleCreate(product: CustomcatProduct) {
       this.$emit('select', product)
+    }
+  },
+  watch: {
+    paging: {
+      handler() {
+        this.$fetch()
+      },
+      deep: true
     }
   }
 })

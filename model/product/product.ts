@@ -22,6 +22,8 @@ export interface Color {
   name: string
   hex?: string
   size?: Size[]
+  createdDate?: string,
+  modifiedDate?: string,
 }
 
 export interface Size {
@@ -30,6 +32,8 @@ export interface Size {
   disabled: boolean
   price?: number
   quantity?: number
+  createdDate?: string,
+  modifiedDate?: string,
 }
 
 export interface Image {
@@ -48,6 +52,8 @@ export interface Collection {
   id: string
   name: string
   path: string
+  createdDate?: string
+  modifiedDate?: string
 }
 
 export class Product implements IProduct {

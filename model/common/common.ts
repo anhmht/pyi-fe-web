@@ -22,6 +22,7 @@ export interface Modal {
 }
 
 export interface Paging {
-  page: number,
+  page?: number,
   limit: number,
+  sort?: string
 }
