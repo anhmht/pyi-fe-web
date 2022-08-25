@@ -1,5 +1,5 @@
 import { Context } from "@nuxt/types"
-import { CATEGORIES } from "~/constant/category"
+import { CATEGORIES, CATEGORIES_CREATE } from "~/constant/category"
 import { Category } from "~/model/product/product"
 
 const getCategories = async ({ app }: Context, isUpdate: boolean = false): Promise<Category[]> => {
@@ -18,13 +18,28 @@ const getCategories = async ({ app }: Context, isUpdate: boolean = false): Promi
   }
 }
 
+const createCategory = async ({ app }: Context, category: Category): Promise<void> => {
+  try {
+    const request = {
+      name: category.name,
+      parent_id: category.parentId,
+      path: category.path,
+    }
+    await app.$api.post(CATEGORIES_CREATE, request)
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
 
 export interface CategoryService {
   getCategories: (isUpdate?: boolean) => Promise<Category[]>
+  createCategory: (category: Category) => Promise<void>
 }
 
 export const categoryService = (context: Context): CategoryService => {
   return {
     getCategories: (isUpdate?: boolean) => getCategories(context, isUpdate),
+    createCategory: (category: Category) => createCategory(context, category),
   }
 }

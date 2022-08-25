@@ -30,7 +30,11 @@
     </el-table>
     <el-divider class="divider"></el-divider>
     <div :class="$style.pagination">
-      <Pagination :total="totalRecord" :page.sync="paging.page" />
+      <Pagination
+        :total="totalRecord"
+        :limit="paging.limit"
+        :page.sync="paging.page"
+      />
     </div>
   </div>
 </template>

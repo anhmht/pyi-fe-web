@@ -60,7 +60,9 @@ export default Vue.extend({
   async fetch() {
     if (this.listCollections.length > 0) return
     this.isLoading = true
-    const { collections } = await this.$productService.getCollections()
+    const { collections } = await this.$productService.getCollections({
+      limit: -1
+    })
     this.$store.commit(Mutations.TYPE.SET_COLLECTIONS, collections)
     this.isLoading = false
   }

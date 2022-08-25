@@ -152,7 +152,9 @@ export default Vue.extend({
   },
   async fetch() {
     this.categories = await this.$categoryService.getCategories()
-    const { collections } = await this.$productService.getCollections()
+    const { collections } = await this.$productService.getCollections({
+      limit: -1
+    })
     this.collections = collections
   },
   methods: {

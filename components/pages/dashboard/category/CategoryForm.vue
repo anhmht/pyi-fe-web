@@ -123,6 +123,7 @@ export default Vue.extend({
         if (valid) {
           if (this.categoryId) {
           } else {
+            this.handleCreate()
           }
         }
       })
@@ -136,6 +137,27 @@ export default Vue.extend({
           parentId: category.parentId,
           path: category.path
         }
+      }
+    },
+    async handleCreate() {
+      this.isLoading = true
+      try {
+        const category = {
+          ...this.form
+        } as Category
+        await this.$categoryService.createCategory(category)
+        this.$notify.success({
+          title: 'Create Successfully',
+          message: `Create category ${this.form.name}`
+        })
+        this.$emit('submit')
+        this.$emit('update:visible', false)
+      } catch (error: any) {
+        this.isLoading = false
+        this.$notify.error({
+          title: 'Error',
+          message: error.message
+        })
       }
     }
   },

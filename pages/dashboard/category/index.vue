@@ -20,6 +20,7 @@
                 :visible.sync="visible"
                 :categories="categories"
                 :category-id="categoryId"
+                @submit="$fetch()"
               />
             </div>
           </el-col>
