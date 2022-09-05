@@ -42,7 +42,7 @@ export default Vue.extend({
   },
   async fetch() {
     if (this.listColors.length > 0) return
-    const colors = await this.$productService.getColors()
+    const colors = await this.$productService.getColors({ limit: -1 })
     this.$store.commit(Mutations.TYPE.SET_COLORS, colors)
   },
   mounted() {

@@ -1,4 +1,4 @@
-import { REFRESH_TOKEN } from '~/constant/auth'
+import { refreshToken } from '~/constant/auth'
 import { Mutations } from '~/store'
 
 export default function (
@@ -13,7 +13,7 @@ export default function (
   })
 
   if (process.client) {
-    const token = localStorage.getItem('access_token')
+    const token = localStorage.getItem('accessToken')
     const user = localStorage.getItem('user')
     if (token) {
       api.setToken(token, 'Bearer')
@@ -21,11 +21,11 @@ export default function (
     if (user) {
       store.commit(Mutations.TYPE.SET_CURRENT_USER, JSON.parse(user))
     }
-    if (i18n.locale) {
+    if (i18n.locale && i18n.locale !== 'en') {
       api.setHeader('lang', i18n.locale)
     }
     const currency = localStorage.getItem('currency')
-    if (currency) {
+    if (currency && currency !== 'usd') {
       api.setHeader('currency', currency)
     }
   }
@@ -33,22 +33,26 @@ export default function (
   api.onError(async (error) => {
     const code = parseInt(error.response && error.response.status)
     if (code === 401) {
-      redirect('/not-permitted')
+      redirect('/error/not-permitted')
     } else if (code === 406) {
       try {
         if (process.client) {
-          const authData = await auth.post(REFRESH_TOKEN, {
-            refresh_token: localStorage.getItem('refresh_token')
+          const authData = await auth.post(refreshToken, {
+            refreshToken: localStorage.getItem('refreshToken')
           })
-          localStorage.setItem('access_token', authData.access_token)
-          localStorage.setItem('refresh_token', authData.refresh_token)
-          api.setToken(authData.access_token, 'Bearer')
+          console.log(authData)
+          localStorage.setItem('accessToken', authData.data.accessToken)
+          localStorage.setItem('refreshToken', authData.data.refreshToken)
+          api.setToken(authData.accessToken, 'Bearer')
+          window.location.reload()
         } else {
           redirect('/signin-signup')
         }
       } catch (error) {
         redirect('/signin-signup')
       }
+    } else if (code >= 500) {
+      redirect('/error/internal-error')
     } else {
       return Promise.reject(
         nuxtError({
@@ -62,7 +66,7 @@ export default function (
   auth.onError(async (error) => {
     const code = parseInt(error.response && error.response.status)
     if (code >= 500) {
-      redirect('/internal-error')
+      redirect('/error/internal-error')
     }
   })
 

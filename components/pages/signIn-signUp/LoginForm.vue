@@ -122,12 +122,12 @@ export default Vue.extend({
               message: `Welcome user ${data.email}`
             })
             if (this.rememberMe) {
-              localStorage.setItem('access_token', data.access_token)
-              localStorage.setItem('refresh_token', data.refresh_token)
+              localStorage.setItem('accessToken', data.accessToken)
+              localStorage.setItem('refreshToken', data.refreshToken)
               localStorage.setItem('user', JSON.stringify(data))
             }
             //Set current user
-            vm.$api.setToken(data.access_token, 'Bearer')
+            vm.$api.setToken(data.accessToken, 'Bearer')
             this.$store.commit(Mutations.TYPE.SET_CURRENT_USER, data)
 
             this.$router.back()

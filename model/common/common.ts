@@ -20,3 +20,9 @@ export interface Modal {
   isOpen: boolean,
   data?: any,
 }
+
+export interface Paging {
+  page?: number,
+  limit: number,
+  sort?: string
+}

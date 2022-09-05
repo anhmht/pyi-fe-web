@@ -1,9 +1,9 @@
 <template>
   <div :class="$style.root">
     <div class="container">
-      <h1>User List</h1>
-      <div :class="$style.user">
-        <UserList />
+      <h1>Color List</h1>
+      <div :class="$style.color">
+        <ColorList />
       </div>
     </div>
   </div>
@@ -11,17 +11,17 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import UserList from '~/components/pages/dashboard/user/UserList.vue'
+import ColorList from '~/components/pages/dashboard/color/ColorList.vue'
 
 export default Vue.extend({
-  components: { UserList },
-  name: 'DashboardUser',
+  components: { ColorList },
+  name: 'DashboardColor',
   layout: 'dashboard'
 })
 </script>
 <style lang="postcss" module>
 .root {
-  .user {
+  .color {
     background: #fff;
     border-radius: var(--radius-5);
     padding: var(--space);
