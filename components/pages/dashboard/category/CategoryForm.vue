@@ -98,6 +98,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    category(): Category | undefined {
+      return this.categories.find((category) => category.id === this.categoryId)
+    },
     displayPath(): string {
       if (!this.form.name) return 'https://napricot.com/category/'
       this.form.path = `/${toLowerCaseNonAccentVietnamese(this.form.name)
@@ -122,12 +125,14 @@ export default Vue.extend({
       ;(this as any).$refs.form.validate((valid: boolean) => {
         if (valid) {
           if (this.categoryId) {
+            this.updateCategory()
           } else {
             this.handleCreate()
           }
         }
       })
     },
+
     selectCategory(): void {
       const category = this.categories.find((x) => x.id === this.categoryId)
       if (category) {
@@ -139,6 +144,7 @@ export default Vue.extend({
         }
       }
     },
+
     async handleCreate() {
       this.isLoading = true
       try {
@@ -149,6 +155,28 @@ export default Vue.extend({
         this.$notify.success({
           title: 'Create Successfully',
           message: `Create category ${this.form.name}`
+        })
+        this.$emit('submit')
+        this.$emit('update:visible', false)
+      } catch (error: any) {
+        this.isLoading = false
+        this.$notify.error({
+          title: 'Error',
+          message: error.message
+        })
+      }
+    },
+
+    async updateCategory() {
+      this.isLoading = true
+      try {
+        const category = {
+          ...this.form
+        } as Category
+        await this.$categoryService.updateCategory(category, this.category!)
+        this.$notify.success({
+          title: 'Update Successfully',
+          message: `Update category ${this.form.name}`
         })
         this.$emit('submit')
         this.$emit('update:visible', false)

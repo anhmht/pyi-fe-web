@@ -46,6 +46,8 @@ export interface Category {
   name: string
   path: string
   parentId?: string
+  createdDate?: string
+  modifiedDate?: string
 }
 
 export interface Collection {
@@ -92,20 +94,20 @@ export class Product implements IProduct {
 
   static parseProduct(data: any): Product {
     return {
-      id: data.product_id,
+      id: data.id,
       name: data.name,
       path: data.path,
       price: data.price,
       productDetail: data.productDetail,
       shippingDetail: data.shippingDetail,
-      collection: data.collection?.map(x => ({ ...x, id: x.collection_id })) || [],
+      collection: data.collection?.map(x => ({ ...x, id: x.collectionId })) || [],
       images: data.images,
-      categories: data.categories.map(x => ({ ...x, id: x.category_id, parentId: x.parent_id })),
-      colors: data.colors.map(x => ({ ...x, id: x.color_id, size: x.size.map(y => ({ ...y, id: y.size_id })) })),
+      categories: data.categories.map(x => ({ ...x, id: x.categoryId, parentId: x.parentId })),
+      colors: data.colors.map(x => ({ ...x, id: x.colorId, size: x.size.map(y => ({ ...y, id: y.sizeId })) })),
       description: data.description,
-      rating: data.average_stars,
-      createdDate: data.created_date,
-      modifiedDate: data.modified_date,
+      rating: data.averageStars,
+      createdDate: data.createdDate,
+      modifiedDate: data.modifiedDate,
     } as Product
   }
 }
@@ -127,9 +129,9 @@ export class CustomcatProduct {
 
   static parseProduct(data: any): CustomcatProduct {
     return {
-      id: data.product_id,
-      type: data.product_type,
-      image: data.image_url,
+      id: data.id,
+      type: data.type,
+      image: data.imageUrl,
       title: data.title,
       desc: data.description,
     } as CustomcatProduct

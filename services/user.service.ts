@@ -9,7 +9,7 @@ const register = async ({ app }: Context, payload: RegisterRequestDTO): Promise<
     const { data } = await app.$api.post(REGISTER, payload)
     return {
       ...data,
-      id: data.user_id,
+      id: data.id,
     } as RegisterResponse
   } catch (error) {
     return Promise.reject(error)
@@ -47,15 +47,7 @@ const getUser = async ({ app }: Context, paging: Paging): Promise<{ users: User[
   try {
     const { data } = await app.$api.post(USER, paging)
     return {
-      users: data.users.map(x => ({
-        user_id: x.user_id,
-        username: x.username,
-        email: x.email,
-        role: x.role,
-        address: x.address,
-        modifiedDate: x.modified_date,
-        createdDate: x.created_date,
-      } as User)),
+      users: data.users as User[],
       total: data.total
     }
   } catch (error) {

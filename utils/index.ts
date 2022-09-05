@@ -3,6 +3,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import { Filter } from '~/model/category/category';
 import { Category } from '~/model/product/product';
 import { v4 as uuidV4 } from 'uuid';
+import { isArray, isObject, snakeCase, transform } from 'lodash';
 
 export function listToTree(array: any) {
   if (array.length === 0) return [];
@@ -96,8 +97,6 @@ export const generateUuid = (): string => {
   return uuidV4();
 }
 
-
-
 // This function converts the string to lowercase, then perform the conversion
 export const toLowerCaseNonAccentVietnamese = (str) => {
   str = str.toLowerCase();
@@ -143,3 +142,9 @@ export const toNonAccentVietnamese = (str) => {
   str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
   return str;
 }
+
+export const transformSnake = obj => transform(obj, (acc: any, value: any, key: string, target) => {
+  const camelKey = isArray(target) ? key : snakeCase(key);
+
+  acc[camelKey] = isObject(value) ? transformSnake(value) : value;
+});

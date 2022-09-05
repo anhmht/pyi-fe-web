@@ -15,8 +15,8 @@ const signIn = async ({ app }: Context, payload: LoginRequestDTO): Promise<login
 const signOut = ({ store, app }: Context) => {
   if (!process.client) return
   localStorage.removeItem('user')
-  localStorage.removeItem('access_token')
-  localStorage.removeItem('refresh_token')
+  localStorage.removeItem('accessToken')
+  localStorage.removeItem('refreshToken')
   store.commit(Mutations.TYPE.SET_CURRENT_USER, undefined)
   app.$api.setToken(false)
 }

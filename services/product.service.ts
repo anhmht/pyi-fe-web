@@ -7,12 +7,12 @@ import { Color, Product, Collection, Size, CustomcatProduct } from "~/model/prod
 const getProducts = async ({ app }: Context, payload: CategoryFilter): Promise<{ products: Product[], total: number }> => {
   try {
     const request = {
-      categories: payload.filter.category ? [{ category_id: payload.filter.category }] : [],
-      colors: payload.filter.color.map(x => ({ color_id: x })),
+      categories: payload.filter.category ? [{ categoryId: payload.filter.category }] : [],
+      colors: payload.filter.color.map(x => ({ colorId: x })),
       price_from: payload.filter.priceFrom,
       price_to: payload.filter.priceTo,
-      sizes: payload.filter.size.map(x => ({ size_id: x })),
-      collections: payload.filter.collection.map(x => ({ collection_id: x })),
+      sizes: payload.filter.size.map(x => ({ sizeId: x })),
+      collections: payload.filter.collection.map(x => ({ collectionId: x })),
       limit: payload.limit,
       page: payload.page,
       sort: payload.sort
@@ -30,13 +30,7 @@ const getProducts = async ({ app }: Context, payload: CategoryFilter): Promise<{
 const getColors = async ({ app }: Context, paging: Paging): Promise<{ colors: Color[], total: number }> => {
   const { data } = await app.$api.post(COLOR, paging)
   return {
-    colors: data.colors.map(x => ({
-      id: x.color_id,
-      name: x.name,
-      hex: x.hex,
-      createdDate: x.created_date,
-      modifiedDate: x.modified_date,
-    }) as Color),
+    colors: data.colors as Color[],
     total: data.total
   }
 }
@@ -44,12 +38,7 @@ const getColors = async ({ app }: Context, paging: Paging): Promise<{ colors: Co
 const getSizes = async ({ app }: Context, paging: Paging): Promise<{ sizes: Size[], total: number }> => {
   const { data } = await app.$api.post(SIZE, paging)
   return {
-    sizes: data.sizes.map(x => ({
-      id: x.size_id,
-      name: x.name,
-      createdDate: x.created_date,
-      modifiedDate: x.modified_date,
-    }) as Size),
+    sizes: data.sizes as Size[],
     total: data.total
   }
 }
@@ -57,13 +46,7 @@ const getSizes = async ({ app }: Context, paging: Paging): Promise<{ sizes: Size
 const getCollections = async ({ app }: Context, paging: Paging): Promise<{ collections: Collection[], total: number }> => {
   const { data } = await app.$api.post(COLLECTION, paging)
   return {
-    collections: data.collections.map(x => ({
-      id: x.collection_id,
-      name: x.name,
-      path: x.path,
-      createdDate: x.created_date,
-      modifiedDate: x.modified_date,
-    }) as Collection),
+    collections: data.collections as Collection[],
     total: data.total
   }
 }
